@@ -1,0 +1,2128 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PD LinkedIn Workshop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=GT+Sectra&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+
+<style>
+  /* ================================================================
+     PD LINKEDIN WORKSHOP — DESIGN SYSTEM
+     Editorial / consultancy serif aesthetic
+     ================================================================ */
+
+  :root {
+    --paper: #F3EFE7;
+    --paper-2: #E9E3D6;
+    --ink: #141311;
+    --ink-2: #2B2924;
+    --muted: #6B675E;
+    --rule: #BCB7A9;
+    --accent: #E8B923;   /* amber */
+    --accent-ink: #141311;
+
+    /* Type */
+    --display: 'Instrument Serif', 'Libre Caslon Text', Georgia, serif;
+    --body: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    /* Type scale (1920x1080) */
+    --fs-title: 112px;
+    --fs-section: 84px;
+    --fs-subtitle: 44px;
+    --fs-body: 30px;
+    --fs-small: 26px;
+    --fs-label: 24px;
+
+    /* Spacing */
+    --pad-x: 112px;
+    --pad-y: 88px;
+  }
+
+  html, body { background: #000; margin: 0; padding: 0; }
+  body { font-family: var(--body); color: var(--ink); }
+
+  deck-stage { background: #0b0b0a; }
+
+  /* ---------- Slide base ---------- */
+  .slide {
+    background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: var(--body);
+    font-size: var(--fs-body);
+    line-height: 1.35;
+  }
+  .slide.dark { background: var(--ink); color: var(--paper); }
+  .slide.amber { background: var(--accent); color: var(--ink); }
+  .slide.paper2 { background: var(--paper-2); }
+
+  /* ---------- Slide frame (header / body / footer) ---------- */
+  .frame {
+    position: absolute;
+    inset: 0;
+    padding: var(--pad-y) var(--pad-x);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .dark .chrome { color: rgba(243,239,231,0.55); border-color: rgba(243,239,231,0.18); }
+  .amber .chrome { color: rgba(20,19,17,0.6); border-color: rgba(20,19,17,0.18); }
+
+  .chrome .left { display: flex; gap: 28px; align-items: baseline; }
+  .chrome .right { display: flex; gap: 28px; align-items: baseline; }
+  .chrome .dot {
+    display: inline-block; width: 8px; height: 8px; background: var(--accent);
+    border-radius: 50%; transform: translateY(-2px); margin-right: 10px;
+  }
+
+  .footer-chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    margin-top: auto;
+  }
+  .dark .footer-chrome { color: rgba(243,239,231,0.55); border-color: rgba(243,239,231,0.18); }
+  .amber .footer-chrome { color: rgba(20,19,17,0.6); border-color: rgba(20,19,17,0.18); }
+
+  /* ---------- Type primitives ---------- */
+  h1, h2, h3 { margin: 0; font-weight: 400; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .title-xl {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(160px, 13vw, 260px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+  .title-xl em { font-style: italic; color: var(--accent); }
+
+  .title-l {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--fs-section);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+  }
+  .title-l em { font-style: italic; }
+
+  .title-m {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 56px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .dark .lede { color: rgba(243,239,231,0.78); }
+
+  .body-lg {
+    font-size: 34px;
+    line-height: 1.38;
+    max-width: 28ch;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .dark .num { color: rgba(243,239,231,0.55); }
+  .amber .num { color: rgba(20,19,17,0.6); }
+
+  .mono { font-family: var(--mono); }
+
+  /* ---------- Title slide (1) ---------- */
+  .slide-title {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .slide-title .frame { padding: var(--pad-y) var(--pad-x); }
+  .slide-title .title-xl { margin-top: auto; }
+  .slide-title .meta {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 28px;
+    border-top: 1px solid var(--ink);
+  }
+  .slide-title .meta .presenter {
+    font-family: var(--display);
+    font-size: 56px;
+    letter-spacing: -0.01em;
+  }
+  .slide-title .meta .presenter small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .slide-title .meta .date {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ---------- Shared helpers ---------- */
+  .flex { display: flex; }
+  .col { flex-direction: column; }
+  .between { justify-content: space-between; }
+  .baseline { align-items: baseline; }
+  .end { align-items: flex-end; }
+  .grow { flex: 1; }
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+  .dark .rule { background: rgba(243,239,231,0.18); }
+
+  /* ---------- Agenda (2) ---------- */
+  .agenda {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    flex: 1;
+    align-content: start;
+    margin-top: 48px;
+  }
+  .agenda-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 28px 40px 28px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .agenda-item:nth-child(odd) { padding-right: 60px; border-right: 1px solid var(--rule); }
+  .agenda-item:nth-child(even) { padding-left: 40px; }
+  .agenda-item .n {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .agenda-item .lbl {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .agenda-item .lbl small {
+    display: block;
+    font-family: var(--body);
+    font-size: 24px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* ---------- Quiz (3) ---------- */
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    flex: 1;
+    margin-top: 56px;
+    align-items: stretch;
+  }
+  .quiz-card {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 36px 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.4s ease, background 0.4s ease;
+  }
+  .quiz-card .q-num {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .quiz-card .q-txt {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin-top: 28px;
+    flex: 1;
+  }
+  .quiz-card .q-ans {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 18px;
+    border-top: 1px dashed var(--rule);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .quiz-card.revealed { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .quiz-card.revealed .q-num { color: rgba(243,239,231,0.6); }
+  .quiz-card.revealed .q-ans { opacity: 1; color: var(--accent); border-color: rgba(232,185,35,0.4); }
+  .quiz-card.revealed .tag { color: var(--accent); }
+
+  .quiz-hint {
+    margin-top: 32px;
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .kbd-hint {
+    display: inline-flex;
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-size: 24px;
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  /* ---------- Survey (4) ---------- */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 48px;
+    height: 480px;
+    padding: 0 20px;
+    margin-top: 56px;
+  }
+  .bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  .bar {
+    background: var(--ink);
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 18px;
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 24px;
+  }
+  .bar.accent { background: var(--accent); color: var(--ink); }
+  .bar.muted { background: var(--muted); color: var(--paper); }
+  .bar-label {
+    font-family: var(--body);
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--ink);
+    text-align: center;
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+  }
+
+  /* ---------- Funnel (5) ---------- */
+  .funnel-wrap {
+    display: grid;
+    grid-template-columns: 540px 1fr;
+    gap: 80px;
+    flex: 1;
+    margin-top: 40px;
+    align-items: stretch;
+  }
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
+    justify-content: center;
+  }
+  .f-step {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 32px;
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 0 auto;
+    min-height: 60px;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+  .f-step .fn { opacity: 0.5; font-size: 24px; }
+  .f-step.accent { background: var(--accent); color: var(--ink); }
+
+  .bold-ideas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 36px;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+    align-self: center;
+  }
+  .bold-ideas h3 {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .bold-idea {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .bold-idea .check {
+    width: 28px; height: 28px; border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 24px;
+  }
+  .bold-idea .lbl {
+    font-family: var(--display);
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- Funnel in practice (6) ---------- */
+  .practice-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    flex: 1;
+    margin-top: 56px;
+  }
+  .practice-col {
+    padding: 32px 36px;
+    border-left: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .practice-col:first-child { border-left: 0; padding-left: 0; }
+  .practice-col .step-label {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .practice-col .step-title {
+    font-family: var(--display);
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .practice-col .step-body {
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin-top: 8px;
+  }
+  .practice-col .step-tag {
+    margin-top: auto;
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    background: var(--accent);
+    padding: 6px 10px;
+    align-self: flex-start;
+  }
+  .practice-ex {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 32px 40px;
+    background: var(--ink);
+    color: var(--paper);
+    margin-top: 32px;
+  }
+  .practice-ex .k {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(243,239,231,0.55);
+  }
+  .practice-ex .v {
+    font-family: var(--display);
+    font-size: 36px;
+    letter-spacing: -0.005em;
+    margin-top: 6px;
+  }
+
+  /* ---------- Methods (7) ---------- */
+  .methods-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .method {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 320px;
+  }
+  .method .m-n {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .method .m-title {
+    font-family: var(--display);
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+  }
+  .method .m-body {
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin-top: auto;
+  }
+
+  /* ---------- Pullquote (big message) ---------- */
+  .pullquote {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 76px;
+    line-height: 1.0;
+    letter-spacing: -0.015em;
+    max-width: 22ch;
+  }
+  .pullquote em { color: var(--accent); font-style: italic; }
+  .pull-right {
+    margin-left: auto;
+    text-align: right;
+    max-width: 26ch;
+  }
+
+  /* ---------- Engagement flow (8) ---------- */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 32px;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 100px 1fr 420px;
+    gap: 48px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .flow-step:last-child { border-bottom: 1px solid var(--rule); }
+  .flow-step .fs-n {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .flow-step .fs-title {
+    font-family: var(--display);
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .flow-step .fs-body {
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  /* ---------- Questions (9) ---------- */
+  .q-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 80px;
+    flex: 1;
+    margin-top: 40px;
+    align-content: center;
+  }
+  .q-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .q-item .q-n {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .q-item .q-q {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .q-item .q-sub {
+    font-family: var(--body);
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* ---------- Dos & Don'ts (10) ---------- */
+  .dd-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 32px;
+    margin-top: 32px;
+    flex: 1;
+    align-content: start;
+  }
+  .dd-row {
+    display: grid;
+    grid-template-columns: 56px 1fr 120px;
+    gap: 20px;
+    padding: 16px 20px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    align-items: baseline;
+    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  }
+  .dd-row .dd-n {
+    font-family: var(--mono);
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .dd-row .dd-t {
+    font-family: var(--display);
+    font-size: 26px;
+    line-height: 1.15;
+  }
+  .dd-row .dd-v {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    color: var(--muted);
+  }
+  .dd-row.revealed.yes { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .dd-row.revealed.yes .dd-n { color: rgba(243,239,231,0.55); }
+  .dd-row.revealed.yes .dd-v { color: var(--accent); opacity: 1; }
+  .dd-row.revealed.no { background: var(--paper); color: var(--ink-2); border-color: var(--ink); }
+  .dd-row.revealed.no .dd-v { color: var(--ink); opacity: 1; }
+  .dd-row.revealed .dd-t .note {
+    display: block;
+    font-family: var(--body);
+    font-size: 24px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .dd-row.revealed.yes .dd-t .note { color: rgba(243,239,231,0.7); }
+  .dd-row .dd-t .note { display: none; }
+
+  /* ---------- Profile (11) ---------- */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+    flex: 1;
+    align-content: start;
+  }
+  .profile-tip {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 24px;
+    padding: 32px 36px;
+    background: var(--paper-2);
+    border-left: 2px solid var(--ink);
+    align-items: baseline;
+  }
+  .profile-tip .pt-n {
+    font-family: var(--display);
+    font-size: 56px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .profile-tip .pt-t {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .profile-tip .pt-b {
+    font-family: var(--body);
+    font-size: 24px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 10px;
+  }
+
+  /* ---------- Profile examples (12) ---------- */
+  .profile-examples {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+    flex: 1;
+  }
+  .p-mock {
+    background: white;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+  }
+  .p-mock .banner {
+    height: 120px;
+    background: linear-gradient(135deg, #2b2924, #6B675E);
+    position: relative;
+  }
+  .p-mock .banner.two { background: linear-gradient(135deg, #E8B923, #8a6c10); }
+  .p-mock .banner.three { background: linear-gradient(135deg, #141311, #3a372f); }
+  .p-mock .avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 4px solid white;
+    margin: -60px 32px 0 32px;
+  }
+  .p-mock .p-body {
+    padding: 16px 32px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .p-mock .p-name {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+  }
+  .p-mock .p-role {
+    font-family: var(--body);
+    font-size: 24px;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+  .p-mock .p-stats {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+  .p-mock .p-stats strong { color: var(--ink); font-weight: 500; }
+  .p-caption {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- AMA (13) ---------- */
+  .ama {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 60px;
+  }
+  .ama .q-big {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 220px;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .ama .q-body {
+    font-family: var(--display);
+    font-size: 72px;
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.01em;
+    max-width: 22ch;
+  }
+
+  /* ---------- Task (14) ---------- */
+  .task-wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    margin-top: 32px;
+    flex: 1;
+    align-items: start;
+  }
+  .task-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  .task-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .task-step:last-child { border-bottom: 1px solid var(--rule); }
+  .task-step .ts-n {
+    font-family: var(--display);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .task-step .ts-t {
+    font-family: var(--display);
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .task-aside {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-self: stretch;
+    justify-content: center;
+  }
+  .task-aside .ta-label {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(232,185,35,1);
+  }
+  .task-aside .ta-body {
+    font-family: var(--display);
+    font-size: 42px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  .task-aside .ta-sub {
+    font-size: 24px;
+    line-height: 1.45;
+    color: rgba(243,239,231,0.7);
+    margin-top: 16px;
+  }
+
+  /* ---------- Resource bank (15) ---------- */
+  .resource-wrap {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 80px;
+    flex: 1;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .resource-item {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .resource-item:last-child { border-bottom: 1px solid var(--rule); }
+  .resource-item .ri-n {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .resource-item .ri-t {
+    font-family: var(--display);
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+  }
+  .resource-item .ri-tag {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .qr-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
+  .qr-label {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(232,185,35,1);
+    align-self: flex-start;
+  }
+  .qr-box {
+    width: 280px;
+    height: 280px;
+    background: var(--paper);
+    padding: 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 1px;
+  }
+  .qr-box span {
+    background: var(--ink);
+  }
+  .qr-url {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    color: var(--paper);
+    text-align: center;
+  }
+  .qr-url small {
+    display: block;
+    font-size: 24px;
+    color: rgba(243,239,231,0.5);
+    margin-top: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Close (16) ---------- */
+  .close-meta {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding-top: 36px;
+    border-top: 1px solid var(--ink);
+  }
+  .close-meta .cm {
+    padding-right: 32px;
+  }
+  .close-meta .cm + .cm { border-left: 1px solid var(--rule); padding-left: 32px; }
+  .close-meta .cm-label {
+    font-family: var(--mono);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .close-meta .cm-value {
+    font-family: var(--display);
+    font-size: 40px;
+    line-height: 1.1;
+    margin-top: 10px;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- Tweaks panel ---------- */
+  #tweaks-panel {
+    position: fixed;
+    bottom: 72px;
+    right: 24px;
+    background: #1a1815;
+    color: #F3EFE7;
+    padding: 20px 22px;
+    border-radius: 10px;
+    border: 1px solid #3a3730;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 13px;
+    width: 280px;
+    z-index: 2147483100;
+    display: none;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  #tweaks-panel.open { display: block; }
+  #tweaks-panel h4 {
+    margin: 0 0 14px 0;
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  #tweaks-panel .tw-row { margin-bottom: 16px; }
+  #tweaks-panel .tw-row:last-child { margin-bottom: 0; }
+  #tweaks-panel .tw-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(243,239,231,0.55);
+    margin-bottom: 8px;
+  }
+  #tweaks-panel .tw-swatches { display: flex; gap: 8px; }
+  #tweaks-panel .tw-sw {
+    width: 32px; height: 32px; border-radius: 6px; cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+  }
+  #tweaks-panel .tw-sw:hover { transform: scale(1.1); }
+  #tweaks-panel .tw-sw.active { border-color: #F3EFE7; }
+  #tweaks-panel .tw-fonts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  #tweaks-panel .tw-font {
+    padding: 10px 12px;
+    background: #242119;
+    border: 1px solid #3a3730;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    color: #F3EFE7;
+    font-size: 13px;
+    transition: background 0.2s;
+  }
+  #tweaks-panel .tw-font:hover { background: #2d2a20; }
+  #tweaks-panel .tw-font.active { background: #E8B923; color: #141311; border-color: #E8B923; }
+  #tweaks-panel .tw-font small {
+    display: block;
+    font-size: 10px;
+    opacity: 0.6;
+    margin-top: 2px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ============================================================
+       SLIDE 1 — TITLE
+       ============================================================ -->
+  <section class="slide slide-title" data-label="Title">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Public Digital · LinkedIn Workshop</div>
+        <div class="right">01 / 16</div>
+      </div>
+
+      <div style="margin-top:auto;">
+        <div class="eyebrow" style="margin-bottom:40px;">A practical workshop</div>
+        <h1 class="title-xl">
+          LinkedIn,<br><em>unlocked.</em>
+        </h1>
+      </div>
+
+      <div class="meta">
+        <div class="presenter">
+          Kennedy Adamu
+          <small>Marketing · Public Digital</small>
+        </div>
+        <div class="date">
+          60 minutes<br>
+          Q2 · 2026
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 2 — AGENDA
+       ============================================================ -->
+  <section class="slide" data-label="What to expect">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Agenda</div>
+        <div class="right">02 / 16</div>
+      </div>
+
+      <div style="margin-top:56px; display:flex; justify-content:space-between; align-items:baseline;">
+        <h2 class="title-l">What to expect.</h2>
+        <div class="lede" style="font-size:34px; max-width:32ch; text-align:right;">
+          Eight moves, one hour. Leave with a plan you'll actually use.
+        </div>
+      </div>
+
+      <div class="agenda">
+        <div class="agenda-item">
+          <div class="n">01</div>
+          <div class="lbl">Dos &amp; don'ts<small>What actually works on LinkedIn right now</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">02</div>
+          <div class="lbl">Content creation<small>Best practices, end to end</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">03</div>
+          <div class="lbl">Before you write<small>The five questions to ask yourself</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">04</div>
+          <div class="lbl">Engage to grow<small>How to show up without writing</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">05</div>
+          <div class="lbl">Profile improvement<small>Small tweaks, meaningful reach</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">06</div>
+          <div class="lbl">Why engagement matters<small>What the numbers tell us</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">07</div>
+          <div class="lbl">Ask me anything<small>Open floor, no filters</small></div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">08</div>
+          <div class="lbl">Your task<small>A thing to actually do</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 3 — TRUE OR FALSE QUIZ
+       ============================================================ -->
+  <section class="slide" data-label="True or false" id="slide-quiz">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Warm-up · Stats</div>
+        <div class="right">03 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <h2 class="title-l">True or false?</h2>
+        <div class="quiz-hint">
+          <span>Press</span>
+          <span class="kbd-hint">SPACE</span>
+          <span>to reveal each answer</span>
+        </div>
+      </div>
+
+      <div class="quiz-grid">
+        <div class="quiz-card" data-reveal="1">
+          <div class="q-num">Q1</div>
+          <div class="q-txt">LinkedIn has over one billion members worldwide.</div>
+          <div class="q-ans">True — ~1.1B</div>
+        </div>
+        <div class="quiz-card" data-reveal="2">
+          <div class="q-num">Q2</div>
+          <div class="q-txt">Posts without images get more reach than posts with images.</div>
+          <div class="q-ans">False</div>
+        </div>
+        <div class="quiz-card" data-reveal="3">
+          <div class="q-num">Q3</div>
+          <div class="q-txt">Only 1% of users post content weekly.</div>
+          <div class="q-ans">True</div>
+        </div>
+        <div class="quiz-card" data-reveal="4">
+          <div class="q-num">Q4</div>
+          <div class="q-txt">Personal profiles out-reach company pages, post for post.</div>
+          <div class="q-ans">True</div>
+        </div>
+        <div class="quiz-card" data-reveal="5">
+          <div class="q-num">Q5</div>
+          <div class="q-txt">Hashtags meaningfully improve your reach on LinkedIn.</div>
+          <div class="q-ans">False</div>
+        </div>
+      </div>
+
+      <div class="footer-chrome" style="margin-top:56px;">
+        <div>Placeholder stats — Kennedy to finalise</div>
+        <div>Participation · 2 min</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 4 — SURVEY RESULTS
+       ============================================================ -->
+  <section class="slide" data-label="What you told us">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Baseline · Survey</div>
+        <div class="right">04 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px;">From our last workshop survey</div>
+          <h2 class="title-l">What you told us.</h2>
+        </div>
+        <div class="lede" style="font-size:28px; max-width:32ch; text-align:right; color:var(--muted);">
+          n = 42 respondents · Public Digital team
+        </div>
+      </div>
+
+      <div class="bar-chart">
+        <div class="bar-col">
+          <div class="bar accent" style="height:72%;">72%</div>
+          <div class="bar-label">Want to post more<br>but don't know what about</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:58%;">58%</div>
+          <div class="bar-label">Feel their profile<br>needs updating</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:81%;">81%</div>
+          <div class="bar-label">Read LinkedIn daily<br>but rarely engage</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar muted" style="height:34%;">34%</div>
+          <div class="bar-label">Have posted in<br>the last 30 days</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:64%;">64%</div>
+          <div class="bar-label">Want help with<br>tone and angle</div>
+        </div>
+      </div>
+
+      <div class="footer-chrome">
+        <div>Placeholder data — to be replaced with live survey results</div>
+        <div>Source: PD internal survey</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 5 — THE CONTENT FUNNEL
+       ============================================================ -->
+  <section class="slide paper2" data-label="The content funnel">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Framework · 01</div>
+        <div class="right">05 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px;">A repeatable process</div>
+        <h2 class="title-l">The content funnel.</h2>
+      </div>
+
+      <div class="funnel-wrap">
+        <div class="funnel">
+          <div class="f-step" style="width:100%;">
+            <span class="fn">01</span>Pick a niche + theme
+          </div>
+          <div class="f-step" style="width:92%;">
+            <span class="fn">02</span>Check the 4 Bold Ideas
+          </div>
+          <div class="f-step accent" style="width:84%;">
+            <span class="fn">03</span>Validate the topic
+          </div>
+          <div class="f-step" style="width:76%;">
+            <span class="fn">04</span>Structure the content
+          </div>
+          <div class="f-step" style="width:68%;">
+            <span class="fn">05</span>Create
+          </div>
+          <div class="f-step" style="width:60%;">
+            <span class="fn">06</span>Polish with AI
+          </div>
+          <div class="f-step" style="width:52%;">
+            <span class="fn">07</span>Review
+          </div>
+        </div>
+
+        <div class="bold-ideas">
+          <h3>Step 02 · The 4 Bold Ideas checklist</h3>
+          <div class="bold-idea">
+            <div class="check">01</div>
+            <div class="lbl">AI</div>
+          </div>
+          <div class="bold-idea">
+            <div class="check">02</div>
+            <div class="lbl">Digital Sovereignty</div>
+          </div>
+          <div class="bold-idea">
+            <div class="check">03</div>
+            <div class="lbl">State Capacity</div>
+          </div>
+          <div class="bold-idea">
+            <div class="check">04</div>
+            <div class="lbl">Enshittification</div>
+          </div>
+          <div style="font-family: var(--body); font-size:24px; line-height:1.45; color:var(--muted); margin-top:8px;">
+            Aligns → PD can publish. Doesn't align → post it from your personal profile. Personal posts out-reach org posts anyway.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-chrome" style="margin-top:40px;">
+        <div>Structure your content · Hook · Audience · Key points · CTA</div>
+        <div>Review · Kennedy or Rosemary before publishing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 6 — FUNNEL IN PRACTICE
+       ============================================================ -->
+  <section class="slide" data-label="The funnel, in practice">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Framework · 01 · Worked example</div>
+        <div class="right">06 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px;">One idea, all the way through</div>
+        <h2 class="title-l">The funnel, <em>in practice</em>.</h2>
+      </div>
+
+      <div class="practice-grid">
+        <div class="practice-col">
+          <div class="step-label">01 · Niche</div>
+          <div class="step-title">AI in procurement</div>
+          <div class="step-body">Multiple perspectives: cost, risk, speed, accountability. Not a one-sided take.</div>
+          <div class="step-tag">Rich topic</div>
+        </div>
+        <div class="practice-col">
+          <div class="step-label">02 · Bold Idea</div>
+          <div class="step-title">Aligns with AI + State Capacity</div>
+          <div class="step-body">Hits two of the four. PD can publish — check off the list.</div>
+          <div class="step-tag">PD ready</div>
+        </div>
+        <div class="practice-col">
+          <div class="step-label">03 · Validate</div>
+          <div class="step-title">Trending right now</div>
+          <div class="step-body">Covered this week in the FT. Spiking on Google Trends. Three community threads in the last 48 hours.</div>
+          <div class="step-tag">Traction ✓</div>
+        </div>
+        <div class="practice-col">
+          <div class="step-label">04 · Output</div>
+          <div class="step-title">800-word article + teaser post</div>
+          <div class="step-body">Drafted, polished with Claude, reviewed by Rosemary. Scheduled for Wednesday 9am.</div>
+          <div class="step-tag">Ship it</div>
+        </div>
+      </div>
+
+      <div class="practice-ex">
+        <div>
+          <div class="k">Hook</div>
+          <div class="v">"Procurement is the test AI will fail first."</div>
+        </div>
+        <div>
+          <div class="k">Audience</div>
+          <div class="v">Public-sector CDOs</div>
+        </div>
+        <div>
+          <div class="k">CTA</div>
+          <div class="v">Read the full piece →</div>
+        </div>
+      </div>
+
+      <div class="footer-chrome" style="margin-top:32px;">
+        <div>Placeholder example — Kennedy to swap for a real one before session</div>
+        <div>Turnaround · ~4 hours</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 7 — CONTENT METHODS
+       ============================================================ -->
+  <section class="slide" data-label="Content methods">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Framework · 02</div>
+        <div class="right">07 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px;">You don't need hours. You need value.</div>
+          <h2 class="title-l">Content methods.</h2>
+        </div>
+        <div class="pullquote pull-right" style="font-size:44px;">
+          Content doesn't have to be long. It has to be <em>valuable.</em>
+        </div>
+      </div>
+
+      <div class="methods-grid">
+        <div class="method">
+          <div class="m-n">01 · Text</div>
+          <div class="m-title">Short post</div>
+          <div class="m-body">Even 100 words counts. Keeps your profile active, keeps you in feeds.</div>
+        </div>
+        <div class="method">
+          <div class="m-n">02 · Audio</div>
+          <div class="m-title">Voice recording</div>
+          <div class="m-body">Write a brief script, record on your phone, transcribe, refine with AI. Half an hour of speaking = thousands of words to work from.</div>
+        </div>
+        <div class="method">
+          <div class="m-n">03 · Video</div>
+          <div class="m-title">Short video</div>
+          <div class="m-body">30 seconds to 1 minute. Face-to-camera or a voice-over works fine.</div>
+        </div>
+        <div class="method">
+          <div class="m-n">04 · Visual</div>
+          <div class="m-title">Infographic</div>
+          <div class="m-body">Use data you already have. A simple chart or diagram beats another text post.</div>
+        </div>
+        <div class="method">
+          <div class="m-n">05 · Data</div>
+          <div class="m-title">Data post</div>
+          <div class="m-body">A single insight or stat with context. One number, one sentence, one takeaway.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 8 — GROWING THROUGH ENGAGEMENT
+       ============================================================ -->
+  <section class="slide dark" data-label="Growing through engagement">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Framework · 03</div>
+        <div class="right">08 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px; color:var(--accent);">You don't have to write to grow</div>
+          <h2 class="title-l">Growing through engagement.</h2>
+        </div>
+        <div class="pullquote pull-right" style="font-size:40px; color: var(--paper);">
+          The bare minimum<br>on LinkedIn is to <em>engage.</em><br>That's your in.
+        </div>
+      </div>
+
+      <div class="flow">
+        <div class="flow-step">
+          <div class="fs-n">01</div>
+          <div class="fs-title">Find the key voices in your niche</div>
+          <div class="fs-body">Who's already doing the thinking publicly? Follow them.</div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-n">02</div>
+          <div class="fs-title">Identify relevant communities</div>
+          <div class="fs-body">The orgs and groups putting out content you care about.</div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-n">03</div>
+          <div class="fs-title">Study your algorithm feed</div>
+          <div class="fs-body">It's already curated to you. Read what it's showing.</div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-n">04</div>
+          <div class="fs-title">Analyse what people engage with</div>
+          <div class="fs-body">Which hooks land? Which topics? Which formats?</div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-n">05</div>
+          <div class="fs-title">Engage thoughtfully</div>
+          <div class="fs-body">Comment, like, repost, add your perspective. Be a voice, not just a reader.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 9 — BEFORE YOU WRITE
+       ============================================================ -->
+  <section class="slide" data-label="Before you write">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Discipline · Five questions</div>
+        <div class="right">09 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px;">Ask yourself these. Every time.</div>
+        <h2 class="title-l">Before you write.</h2>
+      </div>
+
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-n">01</div>
+          <div>
+            <div class="q-q">Who do I want to read this?</div>
+            <div class="q-sub">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-n">02</div>
+          <div>
+            <div class="q-q">What am I adding that's new?</div>
+            <div class="q-sub">A perspective, a stat, a development, a challenge to a common assumption. If nothing new — don't write it.</div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-n">03</div>
+          <div>
+            <div class="q-q">Why should anyone care?</div>
+            <div class="q-sub">Add context. Hook it to what's happening in the world right now.</div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-n">04</div>
+          <div>
+            <div class="q-q">Would I actually read this?</div>
+            <div class="q-sub">If the answer is no — start again.</div>
+          </div>
+        </div>
+        <div class="q-item" style="grid-column: 1 / span 2;">
+          <div class="q-n">05</div>
+          <div>
+            <div class="q-q">How can I make this genuinely valuable?</div>
+            <div class="q-sub">Insights, data, opportunities, edge. Content that gets saved and shared gives the reader something they can use.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 10 — DOS & DON'TS
+       ============================================================ -->
+  <section class="slide paper2" data-label="Dos and don'ts" id="slide-dd">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Interactive · Guess first, then reveal</div>
+        <div class="right">10 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <h2 class="title-l">Dos &amp; don'ts.</h2>
+        <div class="quiz-hint">
+          <span>Press</span>
+          <span class="kbd-hint">SPACE</span>
+          <span>to reveal each</span>
+        </div>
+      </div>
+
+      <div class="dd-grid">
+        <div class="dd-row" data-dd="1" data-verdict="yes">
+          <div class="dd-n">01</div>
+          <div class="dd-t">Post on Tuesday, Wednesday or Thursday.</div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+        <div class="dd-row" data-dd="2" data-verdict="no">
+          <div class="dd-n">02</div>
+          <div class="dd-t">Post outbound links in your content.
+            <span class="note">LinkedIn penalises this. Use LinkedIn Articles instead — keep people on-platform.</span>
+          </div>
+          <div class="dd-v">Don't ✗</div>
+        </div>
+        <div class="dd-row" data-dd="3" data-verdict="yes">
+          <div class="dd-n">03</div>
+          <div class="dd-t">Post 8–10am, around 1pm, or 4–6pm.</div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+        <div class="dd-row" data-dd="4" data-verdict="no">
+          <div class="dd-n">04</div>
+          <div class="dd-t">Use hashtags.
+            <span class="note">Not worth it on LinkedIn. They don't meaningfully move reach.</span>
+          </div>
+          <div class="dd-v">Don't ✗</div>
+        </div>
+        <div class="dd-row" data-dd="5" data-verdict="yes">
+          <div class="dd-n">05</div>
+          <div class="dd-t">Write in plain English.</div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+        <div class="dd-row" data-dd="6" data-verdict="yes">
+          <div class="dd-n">06</div>
+          <div class="dd-t">Use your own perspective, even as a beginner.</div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+        <div class="dd-row" data-dd="7" data-verdict="no">
+          <div class="dd-n">07</div>
+          <div class="dd-t">Write articles over 1,000 words.
+            <span class="note">Be tight and concise. Shorter almost always outperforms.</span>
+          </div>
+          <div class="dd-v">Don't ✗</div>
+        </div>
+        <div class="dd-row" data-dd="8" data-verdict="yes">
+          <div class="dd-n">08</div>
+          <div class="dd-t">Track your analytics and engagement stats.</div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+        <div class="dd-row" data-dd="9" data-verdict="no">
+          <div class="dd-n">09</div>
+          <div class="dd-t">Copy what others are doing for inspiration.
+            <span class="note">Get inspired. Never copy. Always create from scratch.</span>
+          </div>
+          <div class="dd-v">Don't ✗</div>
+        </div>
+        <div class="dd-row" data-dd="10" data-verdict="yes">
+          <div class="dd-n">10</div>
+          <div class="dd-t">Use AI to polish.
+            <span class="note">Claude for writing and ideas. Perplexity for research — it cites sources.</span>
+          </div>
+          <div class="dd-v">Do ✓</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 11 — PROFILE IMPROVEMENT
+       ============================================================ -->
+  <section class="slide" data-label="Profile improvement">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Small tweaks, meaningful reach</div>
+        <div class="right">11 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px;">Patterns we see across PD profiles</div>
+        <h2 class="title-l">Profile improvement.</h2>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-tip">
+          <div class="pt-n">01</div>
+          <div>
+            <div class="pt-t">Engage more frequently in your niche.</div>
+            <div class="pt-b">Be present at every touchpoint. Consistency compounds.</div>
+          </div>
+        </div>
+        <div class="profile-tip">
+          <div class="pt-n">02</div>
+          <div>
+            <div class="pt-t">Update your metadata.</div>
+            <div class="pt-b">Bio, header image, profile photo. Fill in every field — none of them are decorative.</div>
+          </div>
+        </div>
+        <div class="profile-tip">
+          <div class="pt-n">03</div>
+          <div>
+            <div class="pt-t">Engage with PD content in the first hour.</div>
+            <div class="pt-b">Comment and repost within 60 minutes. PD has a large audience — that's free reach for you.</div>
+          </div>
+        </div>
+        <div class="profile-tip">
+          <div class="pt-n">04</div>
+          <div>
+            <div class="pt-t">Post or engage 1–2× per week.</div>
+            <div class="pt-b">Consistency beats volume. A steady cadence trains the algorithm — and your audience.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 12 — PROFILES WORTH STUDYING
+       ============================================================ -->
+  <section class="slide paper2" data-label="Profiles worth studying">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Benchmarks · Three profiles</div>
+        <div class="right">12 / 16</div>
+      </div>
+
+      <div style="margin-top:40px; display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px;">What a strong profile actually looks like</div>
+          <h2 class="title-l">Profiles worth studying.</h2>
+        </div>
+        <div class="lede" style="font-size:28px; max-width:28ch; text-align:right; color:var(--muted);">
+          Placeholders — Kennedy to drop in three real LinkedIn profiles.
+        </div>
+      </div>
+
+      <div class="profile-examples">
+        <div>
+          <div class="p-mock">
+            <div class="banner"></div>
+            <div class="avatar"></div>
+            <div class="p-body">
+              <div class="p-name">[Profile One]</div>
+              <div class="p-role">Strong bio · crisp headline · active in comments · consistent weekly cadence</div>
+              <div class="p-stats"><span>Followers <strong>12.4k</strong></span><span>Posts/wk <strong>2</strong></span></div>
+            </div>
+          </div>
+          <div class="p-caption"><span>Example 01</span><span>Why it works →</span></div>
+        </div>
+        <div>
+          <div class="p-mock">
+            <div class="banner two"></div>
+            <div class="avatar"></div>
+            <div class="p-body">
+              <div class="p-name">[Profile Two]</div>
+              <div class="p-role">Data-led posts · consistent POV · clear niche · treats comments as mini-posts</div>
+              <div class="p-stats"><span>Followers <strong>8.1k</strong></span><span>Posts/wk <strong>3</strong></span></div>
+            </div>
+          </div>
+          <div class="p-caption"><span>Example 02</span><span>Why it works →</span></div>
+        </div>
+        <div>
+          <div class="p-mock">
+            <div class="banner three"></div>
+            <div class="avatar"></div>
+            <div class="p-body">
+              <div class="p-name">[Profile Three]</div>
+              <div class="p-role">Uses LinkedIn Articles well · mix of formats · active in niche communities</div>
+              <div class="p-stats"><span>Followers <strong>24.7k</strong></span><span>Posts/wk <strong>1</strong></span></div>
+            </div>
+          </div>
+          <div class="p-caption"><span>Example 03</span><span>Why it works →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 13 — AMA
+       ============================================================ -->
+  <section class="slide amber" data-label="Ask me anything">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Open floor · 10 minutes</div>
+        <div class="right">13 / 16</div>
+      </div>
+
+      <div class="ama">
+        <div class="q-big">?</div>
+        <div class="q-body">
+          Ask me anything.<br>
+          <span style="color:var(--ink-2); font-style: normal; font-size: 44px;">Whatever you want to know — now's the time.</span>
+        </div>
+      </div>
+
+      <div class="footer-chrome">
+        <div>No bad questions</div>
+        <div>AMA · Kennedy Adamu</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 14 — YOUR TASK
+       ============================================================ -->
+  <section class="slide" data-label="Your task">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Takeaway · Do this</div>
+        <div class="right">14 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px;">One thing, done properly, by next month</div>
+        <h2 class="title-l">Your task.</h2>
+      </div>
+
+      <div class="task-wrap">
+        <div class="task-steps">
+          <div class="task-step">
+            <div class="ts-n">1</div>
+            <div class="ts-t">Pick a content idea in your niche using today's frameworks.</div>
+          </div>
+          <div class="task-step">
+            <div class="ts-n">2</div>
+            <div class="ts-t">Run it through the Bold Ideas checklist — AI, Digital Sovereignty, State Capacity, Enshittification.</div>
+          </div>
+          <div class="task-step">
+            <div class="ts-n">3</div>
+            <div class="ts-t">Validate the idea — check news, trends, and community threads.</div>
+          </div>
+          <div class="task-step">
+            <div class="ts-n">4</div>
+            <div class="ts-t">Create the content within the next month.</div>
+          </div>
+          <div class="task-step">
+            <div class="ts-n">5</div>
+            <div class="ts-t">Submit your content idea to Kennedy Adamu.</div>
+          </div>
+        </div>
+
+        <div class="task-aside">
+          <div class="ta-label">Follow-up</div>
+          <div class="ta-body">I'll book 30-minute 1:1s with every attendee to help develop your idea.</div>
+          <div class="ta-sub">The strongest pieces may go on Public Digital's channels, or on your own. Either way, you ship.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 15 — RESOURCE BANK
+       ============================================================ -->
+  <section class="slide dark" data-label="Resource bank">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Everything in one place</div>
+        <div class="right">15 / 16</div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <div class="eyebrow" style="margin-bottom:16px; color: var(--accent);">Bookmark this</div>
+        <h2 class="title-l">Resource bank.</h2>
+      </div>
+
+      <div class="resource-wrap">
+        <div class="resource-list">
+          <div class="resource-item">
+            <div class="ri-n">01</div>
+            <div class="ri-t">AI prompts</div>
+            <div class="ri-tag">Claude · Perplexity</div>
+          </div>
+          <div class="resource-item">
+            <div class="ri-n">02</div>
+            <div class="ri-t">Content guidelines</div>
+            <div class="ri-tag">PDF</div>
+          </div>
+          <div class="resource-item">
+            <div class="ri-n">03</div>
+            <div class="ri-t">Good LinkedIn examples</div>
+            <div class="ri-tag">Live index</div>
+          </div>
+          <div class="resource-item">
+            <div class="ri-n">04</div>
+            <div class="ri-t">Today's slides</div>
+            <div class="ri-tag">PDF · Keynote</div>
+          </div>
+          <div class="resource-item">
+            <div class="ri-n">05</div>
+            <div class="ri-t">The 4 Bold Ideas checklist</div>
+            <div class="ri-tag">1-pager</div>
+          </div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-label">Scan or visit</div>
+          <div class="qr-box" id="qr-box"></div>
+          <div class="qr-url">pd.xyz/linkedin<small>Placeholder link</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 16 — CLOSE
+       ============================================================ -->
+  <section class="slide slide-title" data-label="That's a wrap">
+    <div class="frame">
+      <div class="chrome">
+        <div class="left"><span class="dot"></span>Thank you</div>
+        <div class="right">16 / 16</div>
+      </div>
+
+      <div style="margin-top:auto;">
+        <div class="eyebrow" style="margin-bottom:40px;">Go post something this week.</div>
+        <h1 class="title-xl">
+          That's a<br><em>wrap.</em>
+        </h1>
+      </div>
+
+      <div class="close-meta">
+        <div class="cm">
+          <div class="cm-label">Submit your idea</div>
+          <div class="cm-value">Kennedy Adamu</div>
+        </div>
+        <div class="cm">
+          <div class="cm-label">Find me on</div>
+          <div class="cm-value">linkedin.com/in/<br>kennedy-adamu</div>
+        </div>
+        <div class="cm">
+          <div class="cm-label">Resource bank</div>
+          <div class="cm-value">pd.xyz/linkedin</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<!-- ============================================================
+     TWEAKS PANEL
+     ============================================================ -->
+<div id="tweaks-panel">
+  <h4>Tweaks</h4>
+  <div class="tw-row">
+    <div class="tw-label">Accent colour</div>
+    <div class="tw-swatches" id="tw-accent">
+      <div class="tw-sw" data-color="#E8B923" style="background:#E8B923" title="Amber"></div>
+      <div class="tw-sw" data-color="#FF4D1F" style="background:#FF4D1F" title="Orange"></div>
+      <div class="tw-sw" data-color="#1E4DFF" style="background:#1E4DFF" title="Blue"></div>
+      <div class="tw-sw" data-color="#D4FF3A" style="background:#D4FF3A" title="Lime"></div>
+      <div class="tw-sw" data-color="#FF6FA8" style="background:#FF6FA8" title="Pink"></div>
+      <div class="tw-sw" data-color="#141311" style="background:#141311" title="Ink"></div>
+    </div>
+  </div>
+  <div class="tw-row">
+    <div class="tw-label">Display font</div>
+    <div class="tw-fonts" id="tw-font">
+      <button class="tw-font" data-font="instrument" style="font-family: 'Instrument Serif', serif;">Instrument<small>Editorial</small></button>
+      <button class="tw-font" data-font="caslon" style="font-family: 'Libre Caslon Text', serif;">Libre Caslon<small>Classic</small></button>
+      <button class="tw-font" data-font="plex-sans" style="font-family: 'IBM Plex Sans', sans-serif;">Plex Sans<small>Modern</small></button>
+      <button class="tw-font" data-font="plex-mono" style="font-family: 'IBM Plex Mono', monospace;">Plex Mono<small>Technical</small></button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// TWEAKABLE DEFAULTS
+// ============================================================
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#E8B923",
+  "displayFont": "caslon"
+}/*EDITMODE-END*/;
+
+const FONT_MAP = {
+  'instrument': "'Instrument Serif', 'Libre Caslon Text', Georgia, serif",
+  'caslon': "'Libre Caslon Text', Georgia, serif",
+  'plex-sans': "'IBM Plex Sans', system-ui, sans-serif",
+  'plex-mono': "'IBM Plex Mono', ui-monospace, monospace"
+};
+
+function applyTweaks(state) {
+  document.documentElement.style.setProperty('--accent', state.accent);
+  document.documentElement.style.setProperty('--display', FONT_MAP[state.displayFont] || FONT_MAP['instrument']);
+
+  // Update swatches
+  document.querySelectorAll('#tw-accent .tw-sw').forEach(el => {
+    el.classList.toggle('active', el.dataset.color === state.accent);
+  });
+  document.querySelectorAll('#tw-font .tw-font').forEach(el => {
+    el.classList.toggle('active', el.dataset.font === state.displayFont);
+  });
+}
+
+const tweakState = { ...TWEAK_DEFAULTS };
+applyTweaks(tweakState);
+
+// Tweak panel handlers
+document.getElementById('tw-accent').addEventListener('click', (e) => {
+  const sw = e.target.closest('.tw-sw');
+  if (!sw) return;
+  tweakState.accent = sw.dataset.color;
+  applyTweaks(tweakState);
+  window.parent.postMessage({type: '__edit_mode_set_keys', edits: {accent: tweakState.accent}}, '*');
+});
+document.getElementById('tw-font').addEventListener('click', (e) => {
+  const btn = e.target.closest('.tw-font');
+  if (!btn) return;
+  tweakState.displayFont = btn.dataset.font;
+  applyTweaks(tweakState);
+  window.parent.postMessage({type: '__edit_mode_set_keys', edits: {displayFont: tweakState.displayFont}}, '*');
+});
+
+// Edit mode protocol
+window.addEventListener('message', (e) => {
+  const data = e.data;
+  if (!data || typeof data !== 'object') return;
+  if (data.type === '__activate_edit_mode') {
+    document.getElementById('tweaks-panel').classList.add('open');
+  } else if (data.type === '__deactivate_edit_mode') {
+    document.getElementById('tweaks-panel').classList.remove('open');
+  }
+});
+window.parent.postMessage({type: '__edit_mode_available'}, '*');
+
+// ============================================================
+// QR CODE PLACEHOLDER — random-ish pattern
+// ============================================================
+(function buildQR(){
+  const box = document.getElementById('qr-box');
+  if (!box) return;
+  // Deterministic pseudo-random pattern
+  const seed = 0.52;
+  let r = seed;
+  const rnd = () => { r = (r * 9301 + 49297) % 233280; return r / 233280; };
+  for (let i = 0; i < 144; i++) {
+    const cell = document.createElement('span');
+    // Three corner markers
+    const row = Math.floor(i / 12), col = i % 12;
+    const inCorner =
+      (row < 3 && col < 3) ||
+      (row < 3 && col > 8) ||
+      (row > 8 && col < 3);
+    const isCornerBorder =
+      (row === 0 || row === 2) && col < 3 ||
+      (col === 0 || col === 2) && row < 3 ||
+      (row === 0 || row === 2) && col > 8 ||
+      (col === 8 || col === 11) && row < 3 ||
+      (row === 9 || row === 11) && col < 3 ||
+      (col === 0 || col === 2) && row > 8;
+    const isCornerCenter =
+      (row === 1 && col === 1) ||
+      (row === 1 && col === 10) ||
+      (row === 10 && col === 1);
+    let on = false;
+    if (inCorner) {
+      on = isCornerBorder || isCornerCenter;
+    } else {
+      on = rnd() > 0.55;
+    }
+    if (on) box.appendChild(cell);
+    else {
+      cell.style.background = 'transparent';
+      box.appendChild(cell);
+    }
+  }
+})();
+
+// ============================================================
+// INTERACTIVE REVEALS — slides 3 & 10
+// Press SPACE/RIGHT to reveal next item; only then advance slide.
+// ============================================================
+(function setupReveals(){
+  const stage = document.querySelector('deck-stage');
+  if (!stage) return;
+
+  // Per-slide reveal state
+  const revealState = new Map(); // slideEl -> { cur, items: [] }
+
+  function initSlide(slideEl) {
+    if (revealState.has(slideEl)) return;
+    let items = null;
+    if (slideEl.id === 'slide-quiz') {
+      items = slideEl.querySelectorAll('.quiz-card');
+    } else if (slideEl.id === 'slide-dd') {
+      items = slideEl.querySelectorAll('.dd-row');
+    }
+    if (!items || !items.length) return;
+    revealState.set(slideEl, { cur: 0, items: Array.from(items) });
+  }
+
+  // Intercept keyboard BEFORE deck-stage. We capture in the capture phase
+  // and stop propagation when we want to consume the key.
+  window.addEventListener('keydown', (e) => {
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key !== ' ' && e.key !== 'ArrowRight' && e.key !== 'Spacebar') return;
+
+    // Which slide is active?
+    const activeSlide = document.querySelector('[data-deck-active]');
+    if (!activeSlide) return;
+    if (activeSlide.id !== 'slide-quiz' && activeSlide.id !== 'slide-dd') return;
+
+    initSlide(activeSlide);
+    const state = revealState.get(activeSlide);
+    if (!state) return;
+
+    if (state.cur < state.items.length) {
+      const item = state.items[state.cur];
+      item.classList.add('revealed');
+      // For dd rows, apply verdict class
+      if (activeSlide.id === 'slide-dd') {
+        const verdict = item.dataset.verdict;
+        if (verdict) item.classList.add(verdict);
+      }
+      state.cur++;
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    // If all revealed, let deck-stage handle advance normally.
+  }, true);
+
+  // Reset reveals when leaving the slide
+  stage.addEventListener('slidechange', (e) => {
+    const prev = e.detail.previousSlide;
+    if (!prev) return;
+    if (prev.id === 'slide-quiz' || prev.id === 'slide-dd') {
+      const state = revealState.get(prev);
+      if (state) {
+        state.items.forEach(it => {
+          it.classList.remove('revealed', 'yes', 'no');
+        });
+        state.cur = 0;
+      }
+    }
+  });
+})();
+
+</script>
+
+</body>
+</html>
