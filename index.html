@@ -4,29 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkedIn Workshop — Public Digital</title>
-<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
 /* ─────────────────────────────────────
    TOKENS
 ───────────────────────────────────── */
 :root {
-  --black:  #1A1A1A;
-  --blue:   #3A5A8E;
-  --blue-d: #2A4472;
-  --cream:  #F4F3EF;
-  --white:  #FFFFFF;
-  --mid:    #8A93A0;
-  --rule:   #D8D6D0;
-  --green:  #1D7048;
-  --red:    #B33030;
-  --sidebar-w: 184px;
+  --black:    #1A1A1A;
+  --blue:     #3A5A8E;
+  --blue-d:   #2A4472;
+  --cream:    #F4F3EF;
+  --white:    #FFFFFF;
+  --mid:      #8A93A0;
+  --rule:     #DEDAD3;
+  --green:    #1D7048;
+  --red:      #B33030;
+  --sb:       180px;   /* sidebar width */
+  --nav-h:    48px;
+  --pad-v:    48px;
+  --pad-h:    60px;
 }
 
 /* ─────────────────────────────────────
-   RESET & BASE
+   BASE
 ───────────────────────────────────── */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Lexend Deca', sans-serif;
@@ -35,6 +38,7 @@ body {
   height: 100vh;
   overflow: hidden;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ─────────────────────────────────────
@@ -48,10 +52,9 @@ body {
   display: flex;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.3s ease;
   overflow: hidden;
 }
-
 .slide.active { opacity: 1; pointer-events: all; }
 
 /* ─────────────────────────────────────
@@ -63,7 +66,7 @@ body {
   height: 2px;
   background: var(--blue);
   transition: width 0.4s ease;
-  z-index: 300;
+  z-index: 400;
 }
 
 /* ─────────────────────────────────────
@@ -72,52 +75,42 @@ body {
 .nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 48px;
+  height: var(--nav-h);
   background: var(--black);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 36px;
-  z-index: 300;
+  padding: 0 40px;
+  z-index: 400;
 }
 
 .nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.3);
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.28);
 }
-
 .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 
-.nav-centre { display: flex; align-items: center; gap: 20px; }
+.nav-centre { display: flex; align-items: center; gap: 18px; }
 
 .nav-btn {
   background: none;
   border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.55);
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 5px 16px;
-  border-radius: 2px;
+  font-size: 11px; font-weight: 500;
+  cursor: pointer; padding: 5px 18px;
   letter-spacing: 0.04em;
   transition: all 0.18s;
 }
-
-.nav-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); border-color: rgba(255,255,255,0.28); }
+.nav-btn:hover { background: rgba(255,255,255,0.07); color: var(--white); border-color: rgba(255,255,255,0.26); }
 
 .nav-count {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.3);
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.28);
   letter-spacing: 0.08em;
-  min-width: 44px;
-  text-align: center;
+  min-width: 44px; text-align: center;
 }
 
 .nav-right { display: flex; gap: 8px; }
@@ -125,19 +118,14 @@ body {
 .util-btn {
   background: none;
   border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.3);
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 11px;
-  border-radius: 2px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 10px; font-weight: 500;
+  cursor: pointer; padding: 4px 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
   transition: all 0.18s;
 }
-
-.util-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
+.util-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.26); }
 
 /* ─────────────────────────────────────
    SPEAKER NOTES
@@ -145,881 +133,516 @@ body {
 .snote {
   position: fixed;
   bottom: 58px; right: 20px;
-  width: 268px;
+  width: 264px;
   background: var(--black);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.09);
   padding: 14px 16px;
-  font-size: 11.5px;
-  color: rgba(255,255,255,0.5);
+  font-size: 11.5px; font-weight: 400;
+  color: rgba(255,255,255,0.48);
   line-height: 1.7;
-  display: none;
-  z-index: 290;
+  display: none; z-index: 390;
 }
-
 .snote strong {
   display: block;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 7px;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 6px;
 }
-
 body.notes-on .snote { display: block; }
 
 /* ─────────────────────────────────────
-   SHARED SIDEBAR
+   SHARED: SIDEBAR
 ───────────────────────────────────── */
-.sidebar {
-  width: var(--sidebar-w);
-  min-width: var(--sidebar-w);
+.sb {
+  width: var(--sb);
+  min-width: var(--sb);
   background: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 36px 22px 62px 24px;
+  padding: 36px 20px calc(var(--nav-h) + 20px) 24px;
   flex-shrink: 0;
 }
 
 .sb-brand {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: 0.07em;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.06em;
   color: var(--white);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex; align-items: center; gap: 8px;
 }
-
-.sb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 
 .sb-meta { display: flex; flex-direction: column; gap: 4px; }
-
 .sb-num {
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--blue);
-  line-height: 1;
-  opacity: 0.7;
+  font-size: 22px; font-weight: 700;
+  color: var(--blue); line-height: 1; opacity: 0.65;
 }
-
-.sb-section {
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
-  line-height: 1.5;
+.sb-sec {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.22); line-height: 1.5;
 }
 
 /* ─────────────────────────────────────
-   SHARED MAIN PANE
+   SHARED: MAIN PANE
+   All content areas use the same padding
+   and push bottom clear of the nav bar.
 ───────────────────────────────────── */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 44px 64px 62px 56px;
+  padding: var(--pad-v) var(--pad-h) calc(var(--nav-h) + var(--pad-v)) var(--pad-h);
   background: var(--cream);
   overflow: hidden;
+  min-width: 0; /* prevent flex blowout */
 }
 
-/* Eyebrow label */
+/* Eyebrow */
 .eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 8px;
-}
-
-/* Main heading */
-.h1 {
-  font-size: clamp(36px, 4vw, 54px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--black);
-  margin-bottom: 0;
-}
-
-/* Rule */
-.rule-line {
-  width: 100%;
-  height: 1px;
-  background: var(--rule);
-  margin: 20px 0;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 6px;
   flex-shrink: 0;
+}
+
+/* Slide title */
+.h1 {
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 600; line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--black);
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+
+/* Blue callout bar */
+.callout {
+  background: var(--blue);
+  color: var(--white);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 500;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+  line-height: 1.4;
 }
 
 /* Presenter note */
 .p-note {
-  margin-top: 20px;
+  margin-top: 18px;
   border-left: 2px solid var(--blue);
   padding: 8px 14px;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.6;
+  font-size: 12px; font-weight: 400;
+  color: var(--mid); line-height: 1.6;
   flex-shrink: 0;
 }
-
 .p-note strong { color: var(--black); font-weight: 600; }
 
-/* ═══════════════════════════════════════════════
+/* Placeholder frame */
+.ph-frame {
+  flex: 1;
+  border: 1px dashed var(--rule);
+  background: var(--white);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.ph-frame .ph-title { font-size: 15px; font-weight: 600; color: var(--black); }
+.ph-frame .ph-sub { font-size: 12.5px; font-weight: 400; color: var(--mid); text-align: center; max-width: 300px; line-height: 1.6; }
+
+/* ─────────────────────────────────────
+   SHARED: ROW LIST
+   Used by: Funnel, Methods, Engagement,
+   Questions, Task — all use the same
+   CSS grid column system so they align
+   identically at any viewport width.
+───────────────────────────────────── */
+.row-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.row-item {
+  display: grid;
+  /* col1: step label  col2: heading  col3: description */
+  grid-template-columns: 36px 30% 1fr;
+  align-items: center;
+  gap: 0 28px;
+  padding: 0;
+  border-bottom: 1px solid var(--rule);
+  flex: 1;
+  min-height: 0;
+}
+.row-item:first-child { border-top: 1px solid var(--rule); }
+
+/* For slides that only need 2 columns (step + text) */
+.row-item.two-col {
+  grid-template-columns: 36px 1fr;
+}
+
+.ri-n {
+  font-size: 11px; font-weight: 600;
+  color: var(--blue); letter-spacing: 0.06em;
+  opacity: 0.6; line-height: 1;
+  align-self: center;
+}
+
+.ri-head {
+  font-size: clamp(15px, 1.7vw, 22px);
+  font-weight: 600; line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  align-self: center;
+}
+
+.ri-desc {
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 400; line-height: 1.65;
+  color: var(--mid);
+  align-self: center;
+}
+
+/* Chips inside funnel descriptions */
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.chip {
+  font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border: 1px solid var(--rule);
+  color: var(--mid); background: var(--cream);
+}
+
+/* ═══════════════════════════════════════════
    SLIDE 1 — TITLE
-════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #slide-1 { flex-direction: row; }
 
 .s1-left {
-  width: 220px;
-  min-width: 220px;
+  width: 220px; min-width: 220px;
   background: var(--black);
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   justify-content: space-between;
-  padding: 36px 22px 62px 28px;
+  padding: 36px 20px calc(var(--nav-h) + 20px) 28px;
 }
-
 .s1-brand {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.06em; color: var(--white);
+  display: flex; align-items: center; gap: 8px;
 }
-
-.s1-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.s1-aside { font-size: 10px; color: rgba(255,255,255,0.25); font-weight: 400; }
+.s1-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.s1-aside { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.22); }
 
 .s1-right {
   flex: 1;
   background: var(--blue);
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   justify-content: flex-end;
-  padding: 52px 72px 72px 72px;
+  padding: 52px 72px calc(var(--nav-h) + 52px) 72px;
 }
-
 .s1-kicker {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 16px;
+  font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.38); margin-bottom: 16px;
 }
-
 .s1-title {
-  font-size: clamp(64px, 9.5vw, 116px);
-  font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
-  color: var(--white);
+  font-size: clamp(64px, 9vw, 112px);
+  font-weight: 600; line-height: 0.9;
+  letter-spacing: -0.04em; color: var(--white);
   margin-bottom: 52px;
 }
-
-.s1-rule { width: 40px; height: 2px; background: rgba(255,255,255,0.22); margin-bottom: 24px; }
-
+.s1-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.22); margin-bottom: 24px; }
 .s1-meta { display: flex; align-items: flex-end; gap: 40px; }
-
-.s1-presenter-tag {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 5px;
+.s1-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 5px;
 }
-
-.s1-name { font-size: 18px; font-weight: 700; color: var(--white); }
+.s1-name { font-size: 18px; font-weight: 600; color: var(--white); }
 .s1-date { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.38); padding-bottom: 2px; }
 
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 2 — AGENDA
-════════════════════════════════════════════════ */
-.agenda-list {
+══════════════════════════════════════════ */
+.agenda-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 48px;
-  flex: 1;
   align-content: start;
-  row-gap: 0;
 }
 
-.agenda-row {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  padding: 14px 0;
+.ag-row {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 0;
   border-bottom: 1px solid var(--rule);
-  transition: color 0.2s;
 }
+.ag-row:nth-child(odd):first-child,
+.ag-row:nth-child(even):first-child { border-top: 1px solid var(--rule); }
 
-.agenda-row:hover .agenda-item-label { color: var(--blue); }
+/* Make top border appear on first row of each column */
+.agenda-grid .ag-row:nth-child(1),
+.agenda-grid .ag-row:nth-child(2) { border-top: 1px solid var(--rule); }
 
-.agenda-n {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 0.08em;
-  min-width: 24px;
-  opacity: 0.7;
-}
+.ag-n { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.6; }
+.ag-label { font-size: clamp(14px, 1.5vw, 18px); font-weight: 500; color: var(--black); line-height: 1.3; }
 
-.agenda-item-label {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--black);
-  line-height: 1.3;
-  transition: color 0.2s;
-}
-
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 3 — QUIZ
-════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .quiz-badge {
-  display: inline-block;
-  background: var(--blue);
-  color: var(--white);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 5px 13px;
-  margin-bottom: 20px;
   align-self: flex-start;
+  background: var(--blue); color: var(--white);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 13px; margin-bottom: 18px; flex-shrink: 0;
 }
 
-.quiz-list { flex: 1; display: flex; flex-direction: column; }
-
+/* Quiz uses two-col rows: big num + question */
 .quiz-row {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  padding: 14px 0;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
   border-bottom: 1px solid var(--rule);
   flex: 1;
 }
+.quiz-row:first-child { border-top: 1px solid var(--rule); }
 
 .quiz-n {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 900;
-  color: var(--blue);
-  line-height: 1;
-  min-width: 52px;
-  opacity: 0.18;
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700; color: var(--blue);
+  line-height: 1; opacity: 0.18;
+  text-align: right;
 }
-
 .quiz-q {
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.5;
-  font-style: italic;
+  font-size: clamp(13px, 1.4vw, 17px);
+  font-weight: 400; color: var(--mid);
+  line-height: 1.55; font-style: italic;
 }
 
-/* ═══════════════════════════════════════════════
-   SLIDE 4 — SURVEY
-════════════════════════════════════════════════ */
-.ph-frame {
-  flex: 1;
-  border: 1.5px dashed var(--rule);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: var(--white);
-}
-
-.ph-frame .ph-tit {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--black);
-}
-
-.ph-frame .ph-sub {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--mid);
-  text-align: center;
-  max-width: 300px;
-  line-height: 1.6;
-}
-
-.ph-bar-sm { width: 32px; height: 2px; background: var(--rule); }
-
-/* ═══════════════════════════════════════════════
-   SLIDE 5 — FUNNEL
-════════════════════════════════════════════════ */
-.funnel-list { flex: 1; display: flex; flex-direction: column; }
-
-.funnel-row {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
-  transition: background 0.15s;
-}
-
-.funnel-row:first-child { border-top: 1px solid var(--rule); }
-
-.fn {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--blue);
-  min-width: 20px;
-  opacity: 0.7;
-  letter-spacing: 0.05em;
-}
-
-.f-right { flex: 1; }
-
-.f-tit {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--black);
-  line-height: 1.2;
-  margin-bottom: 3px;
-}
-
-.f-desc {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.55;
-}
-
-.bold-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-
-.chip {
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  padding: 2px 9px;
-  border: 1px solid var(--rule);
-  color: var(--mid);
-  background: var(--cream);
-}
-
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 6 — FUNNEL IN PRACTICE
-════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .practice-cols {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  flex: 1;
+  min-height: 0;
 }
-
-.practice-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.prac-col { display: flex; flex-direction: column; gap: 10px; }
+.prac-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue);
 }
-
-.p-col-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-
-.p-col-rule { height: 2px; background: var(--blue); opacity: 0.25; }
-
-.p-col-ph {
+.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; }
+.prac-ph {
   flex: 1;
   border: 1px dashed var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px;
-  font-size: 11.5px;
-  font-weight: 400;
-  color: var(--mid);
-  text-align: center;
-  font-style: italic;
-  line-height: 1.5;
   background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  padding: 14px; font-size: 12.5px; font-weight: 400;
+  color: var(--mid); text-align: center; font-style: italic; line-height: 1.5;
 }
 
-/* ═══════════════════════════════════════════════
-   SLIDE 7 — CONTENT METHODS
-════════════════════════════════════════════════ */
-.callout-bar {
-  background: var(--blue);
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 800;
-  padding: 14px 20px;
-  letter-spacing: -0.01em;
-  margin-bottom: 20px;
-  flex-shrink: 0;
-}
-
-.methods-list { flex: 1; display: flex; flex-direction: column; }
-
-.method-row {
-  display: flex;
-  align-items: baseline;
-  gap: 28px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
-}
-
-.method-row:first-child { border-top: 1px solid var(--rule); }
-
-.m-name {
-  font-size: clamp(18px, 2.2vw, 28px);
-  font-weight: 900;
-  color: var(--black);
-  min-width: 220px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.m-desc {
-  font-size: 12.5px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.6;
-  flex: 1;
-  align-self: center;
-}
-
-/* ═══════════════════════════════════════════════
-   SLIDE 8 — ENGAGEMENT
-════════════════════════════════════════════════ */
-.engage-list { flex: 1; display: flex; flex-direction: column; }
-
-.engage-row {
-  display: flex;
-  align-items: baseline;
-  gap: 28px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
-}
-
-.engage-row:first-child { border-top: 1px solid var(--rule); }
-
-.e-step {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 0.1em;
-  min-width: 56px;
-  opacity: 0.7;
-}
-
-.e-tit {
-  font-size: clamp(15px, 1.8vw, 22px);
-  font-weight: 800;
-  color: var(--black);
-  min-width: 230px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-.e-desc {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.6;
-  flex: 1;
-  align-self: center;
-}
-
-/* ═══════════════════════════════════════════════
-   SLIDE 9 — BEFORE YOU WRITE
-════════════════════════════════════════════════ */
-.q-list { flex: 1; display: flex; flex-direction: column; }
-
-.q-row {
-  display: flex;
-  align-items: baseline;
-  gap: 28px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
-}
-
-.q-row:first-child { border-top: 1px solid var(--rule); }
-
-.q-n {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--blue);
-  min-width: 24px;
-  opacity: 0.7;
-}
-
-.q-question {
-  font-size: clamp(15px, 1.8vw, 22px);
-  font-weight: 800;
-  color: var(--black);
-  min-width: 280px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-.q-hint {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.6;
-  flex: 1;
-  align-self: center;
-}
-
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 10 — DOS & DON'TS
-   Cards fully neutral until clicked.
-════════════════════════════════════════════════ */
+   Two-column list of rows. No boxes.
+   Verdict hidden, revealed on click.
+══════════════════════════════════════════ */
 .dnd-header {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  flex-shrink: 0;
+  margin-bottom: 14px; flex-shrink: 0;
 }
-
-.dnd-instr {
-  font-size: 11.5px;
-  font-weight: 400;
-  color: var(--mid);
-  font-style: italic;
-}
-
+.dnd-instr { font-size: 12.5px; font-weight: 400; color: var(--mid); font-style: italic; }
 .reveal-btn {
   background: none;
   border: 1px solid var(--rule);
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--mid);
-  padding: 5px 14px;
-  cursor: pointer;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mid); padding: 5px 14px; cursor: pointer;
   transition: all 0.18s;
 }
-
 .reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
 
+/* Two-column grid of rows */
 .dnd-grid {
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  flex: 1;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  align-content: start;
+  min-height: 0;
 }
 
-/* Base card — fully neutral */
-.dnd-card {
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-top: 3px solid var(--rule); /* neutral for all cards */
-  padding: 16px 14px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.dnd-card:hover {
-  border-color: #AAB4C0;
-  border-top-color: #AAB4C0;
-}
-
-.dnd-stmt {
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.55;
-  color: var(--black);
-  flex: 1;
-}
-
-/* Verdict — hidden and takes no visual space until revealed */
-.dnd-verd {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  padding: 4px 10px;
-  align-self: flex-start;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s;
-}
-
-/* Revealed: DO */
-.dnd-card.do.revealed { border-top-color: var(--green); background: #F0F8F4; }
-.dnd-card.do.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.1); }
-
-/* Revealed: DON'T */
-.dnd-card.dont.revealed { border-top-color: var(--red); background: #FDF0F0; }
-.dnd-card.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.1); }
-
-/* ═══════════════════════════════════════════════
-   SLIDE 11 — PROFILE
-════════════════════════════════════════════════ */
-.check-list { flex: 1; display: flex; flex-direction: column; }
-
-.check-row {
-  display: flex;
+.dnd-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 22px;
-  padding: 16px 0;
+  gap: 16px;
+  padding: 13px 0;
   border-bottom: 1px solid var(--rule);
   cursor: pointer;
-  flex: 1;
   transition: background 0.15s;
 }
 
+/* Top border: rows 1 and 2 are the first in each column */
+.dnd-grid .dnd-row:nth-child(1),
+.dnd-grid .dnd-row:nth-child(2) { border-top: 1px solid var(--rule); }
+
+.dnd-stmt {
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 400; line-height: 1.5; color: var(--black);
+}
+
+/* Verdict — fully hidden before reveal */
+.dnd-verd {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  opacity: 0; visibility: hidden;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  align-self: center;
+}
+
+/* Revealed: DO */
+.dnd-row.do.revealed .dnd-verd  { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.08); }
+.dnd-row.do.revealed .dnd-stmt  { color: var(--green); }
+
+/* Revealed: DON'T */
+.dnd-row.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.08); }
+.dnd-row.dont.revealed .dnd-stmt  { color: var(--red); }
+
+/* ═══════════════════════════════════════════
+   SLIDE 11 — PROFILE CHECKLIST
+   Rows, no boxes around items
+══════════════════════════════════════════ */
+.check-list { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.check-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer; flex: 1;
+}
 .check-row:first-child { border-top: 1px solid var(--rule); }
-.check-row:hover .check-txt { color: var(--blue); }
 
 .check-box {
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 700;
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 12px; font-weight: 600;
   color: transparent;
   transition: all 0.18s;
 }
-
-.check-row.checked .check-box {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: var(--white);
-}
+.check-row.checked .check-box { background: var(--blue); border-color: var(--blue); color: var(--white); }
 
 .check-txt {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--black);
-  transition: color 0.18s;
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 400; line-height: 1.45; color: var(--black);
 }
+.check-txt em { font-style: normal; color: var(--blue); font-weight: 500; }
+.check-row.checked .check-txt { color: var(--mid); }
 
-.check-txt em {
-  font-style: normal;
-  color: var(--blue);
-}
-
-/* ═══════════════════════════════════════════════
-   SLIDE 12 — PROFILE EXAMPLES
-════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   SLIDE 12 — EXAMPLES
+══════════════════════════════════════════ */
 .examples-row {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  flex: 1;
+  gap: 16px; min-height: 0;
 }
-
 .ex-frame {
-  border: 1.5px dashed var(--rule);
+  border: 1px dashed var(--rule);
   background: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
 }
-
 .ex-ring {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  border: 2px dashed var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px dashed var(--rule);
+  display: flex; align-items: center; justify-content: center;
 }
-
-.ex-person { width: 26px; height: 26px; background: var(--rule); border-radius: 50%; }
-
-.ex-lbl { font-size: 12px; font-weight: 700; color: var(--mid); }
+.ex-person { width: 24px; height: 24px; background: var(--rule); border-radius: 50%; }
+.ex-lbl { font-size: 12.5px; font-weight: 600; color: var(--mid); }
 .ex-sub { font-size: 11px; font-weight: 400; color: var(--rule); }
 
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 13 — AMA
-════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #slide-13 { flex-direction: row; }
-
-.ama-sidebar {
-  width: var(--sidebar-w);
-  background: var(--black);
-  display: flex;
-  flex-direction: column;
+.ama-sb {
+  width: var(--sb); background: var(--black);
+  display: flex; flex-direction: column;
   justify-content: space-between;
-  padding: 36px 22px 62px 24px;
+  padding: 36px 20px calc(var(--nav-h) + 20px) 24px;
 }
-
 .ama-main {
-  flex: 1;
-  background: var(--blue);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 56px 80px;
+  flex: 1; background: var(--blue);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 56px 80px calc(var(--nav-h) + 56px);
 }
-
 .ama-eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 16px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.32); margin-bottom: 16px;
 }
-
 .ama-title {
-  font-size: clamp(68px, 10.5vw, 124px);
-  font-weight: 900;
-  line-height: 0.86;
-  letter-spacing: -0.05em;
-  color: var(--white);
-  margin-bottom: 30px;
+  font-size: clamp(68px, 10vw, 122px);
+  font-weight: 600; line-height: 0.88;
+  letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px;
 }
+.ama-sub { font-size: clamp(15px, 1.6vw, 20px); font-weight: 300; color: rgba(255,255,255,0.5); }
 
-.ama-sub {
-  font-size: 17px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.01em;
-}
-
-/* ═══════════════════════════════════════════════
-   SLIDE 14 — TASK
-════════════════════════════════════════════════ */
-.task-list { flex: 1; display: flex; flex-direction: column; }
-
-.task-row {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
-}
-
-.task-row:first-child { border-top: 1px solid var(--rule); }
-
-.t-n {
-  font-size: clamp(32px, 3.5vw, 48px);
-  font-weight: 900;
-  color: var(--blue);
-  opacity: 0.2;
-  min-width: 52px;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.t-body { flex: 1; }
-
-.t-tit {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--black);
-  margin-bottom: 3px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-.t-desc {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--mid);
-  line-height: 1.55;
-}
-
-.t-desc strong { color: var(--blue-d); font-weight: 600; }
-
-.task-note {
-  margin-top: 16px;
-  background: var(--blue);
-  padding: 14px 20px;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.6;
-  flex-shrink: 0;
-}
-
-.task-note strong { color: var(--white); font-weight: 700; }
-
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 15 — RESOURCES
-════════════════════════════════════════════════ */
-.resources-split {
+══════════════════════════════════════════ */
+.res-split {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  flex: 1;
+  gap: 56px;
   align-items: start;
+  min-height: 0;
 }
-
 .res-list { display: flex; flex-direction: column; }
-
 .res-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 10px 1fr;
   align-items: center;
   gap: 16px;
-  padding: 14px 0;
+  padding: 15px 0;
   border-bottom: 1px solid var(--rule);
 }
-
 .res-row:first-child { border-top: 1px solid var(--rule); }
+.res-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+.res-lbl { font-size: clamp(14px, 1.5vw, 18px); font-weight: 400; color: var(--black); }
 
-.res-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-
-.res-lbl { font-size: 15px; font-weight: 600; color: var(--black); }
-
-.qr-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  padding-top: 14px;
-}
-
-.qr-lbl {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-
+.qr-col { display: flex; flex-direction: column; gap: 14px; padding-top: 14px; }
+.qr-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
 .qr-box {
   width: 120px; height: 120px;
-  border: 2px dashed var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px dashed var(--rule);
   background: var(--white);
+  display: flex; align-items: center; justify-content: center;
 }
-
 .qr-inner {
   width: 72px; height: 72px;
   display: grid;
@@ -1027,58 +650,34 @@ body.notes-on .snote { display: block; }
   grid-template-rows: repeat(5,1fr);
   gap: 2px;
 }
-
 .qc { background: var(--rule); }
 .qc.e { background: transparent; }
+.qr-sub { font-size: 12px; font-weight: 400; color: var(--mid); }
 
-.qr-sub { font-size: 11.5px; font-weight: 400; color: var(--mid); }
-
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SLIDE 16 — CLOSE
-════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #slide-16 { flex-direction: row; }
-
 .s16-left {
-  width: 220px;
-  background: var(--black);
-  display: flex;
-  flex-direction: column;
+  width: 220px; background: var(--black);
+  display: flex; flex-direction: column;
   justify-content: space-between;
-  padding: 36px 22px 62px 28px;
+  padding: 36px 20px calc(var(--nav-h) + 20px) 28px;
 }
-
 .s16-right {
-  flex: 1;
-  background: var(--blue-d);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 52px 72px 72px 72px;
+  flex: 1; background: var(--blue-d);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 52px 72px calc(var(--nav-h) + 52px);
 }
-
 .s16-title {
-  font-size: clamp(48px, 7.5vw, 92px);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  color: var(--white);
-  margin-bottom: 48px;
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 600; line-height: 0.92;
+  letter-spacing: -0.04em; color: var(--white); margin-bottom: 48px;
 }
-
-.s16-rule { width: 40px; height: 2px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
-
-.s16-contacts { display: flex; gap: 40px; }
-
-.s16-c-tag {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 5px;
-}
-
-.s16-c-val { font-size: 15px; font-weight: 700; color: var(--white); }
+.s16-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
+.s16-contacts { display: flex; gap: 44px; }
+.s16-c-tag { font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 5px; }
+.s16-c-val { font-size: 15px; font-weight: 600; color: var(--white); }
 
 </style>
 </head>
@@ -1099,52 +698,46 @@ body.notes-on .snote { display: block; }
       <div class="s1-title">LinkedIn<br>Workshop</div>
       <div class="s1-rule"></div>
       <div class="s1-meta">
-        <div>
-          <div class="s1-presenter-tag">Presenter</div>
-          <div class="s1-name">Kennedy Adamu</div>
-        </div>
+        <div><div class="s1-tag">Presenter</div><div class="s1-name">Kennedy Adamu</div></div>
         <div class="s1-date">April 2026</div>
       </div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Update the workshop title before the session. Set the tone early — practical and workshop-led, not a lecture.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Update the workshop title before the session. Set the tone early — practical and workshop-led, not a lecture.</div>
   </div>
 
   <!-- ── 02 AGENDA ── -->
   <div class="slide" id="slide-2">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">02</div><div class="sb-section">Today's<br>Session</div></div>
+      <div class="sb-meta"><div class="sb-num">02</div><div class="sb-sec">Today's<br>Session</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Workshop Overview</div>
-      <div class="h1" style="margin-bottom:24px">What to Expect</div>
-      <div class="agenda-list">
-        <div class="agenda-row"><span class="agenda-n">01</span><span class="agenda-item-label">LinkedIn Dos &amp; Don'ts</span></div>
-        <div class="agenda-row"><span class="agenda-n">05</span><span class="agenda-item-label">Profile Improvement Tips</span></div>
-        <div class="agenda-row"><span class="agenda-n">02</span><span class="agenda-item-label">Content Creation Best Practices</span></div>
-        <div class="agenda-row"><span class="agenda-n">06</span><span class="agenda-item-label">Why LinkedIn Engagement Matters</span></div>
-        <div class="agenda-row"><span class="agenda-n">03</span><span class="agenda-item-label">What to Consider Before You Write</span></div>
-        <div class="agenda-row"><span class="agenda-n">07</span><span class="agenda-item-label">Ask Me Anything</span></div>
-        <div class="agenda-row"><span class="agenda-n">04</span><span class="agenda-item-label">Engage &amp; Grow Without Just Writing</span></div>
-        <div class="agenda-row"><span class="agenda-n">08</span><span class="agenda-item-label">Task + Resources</span></div>
+      <div class="h1">What to Expect</div>
+      <div class="agenda-grid">
+        <div class="ag-row"><span class="ag-n">01</span><span class="ag-label">LinkedIn Dos &amp; Don'ts</span></div>
+        <div class="ag-row"><span class="ag-n">05</span><span class="ag-label">Profile Improvement Tips</span></div>
+        <div class="ag-row"><span class="ag-n">02</span><span class="ag-label">Content Creation Best Practices</span></div>
+        <div class="ag-row"><span class="ag-n">06</span><span class="ag-label">Why LinkedIn Engagement Matters</span></div>
+        <div class="ag-row"><span class="ag-n">03</span><span class="ag-label">What to Consider Before You Write</span></div>
+        <div class="ag-row"><span class="ag-n">07</span><span class="ag-label">Ask Me Anything</span></div>
+        <div class="ag-row"><span class="ag-n">04</span><span class="ag-label">Engage &amp; Grow Without Just Writing</span></div>
+        <div class="ag-row"><span class="ag-n">08</span><span class="ag-label">Task + Resources</span></div>
       </div>
     </div>
   </div>
 
   <!-- ── 03 QUIZ ── -->
   <div class="slide" id="slide-3">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">03</div><div class="sb-section">Warm Up</div></div>
+      <div class="sb-meta"><div class="sb-num">03</div><div class="sb-sec">Warm Up</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Interactive</div>
-      <div class="h1" style="margin-bottom:20px">True or False?</div>
+      <div class="h1">True or False?</div>
       <div class="quiz-badge">LinkedIn Stats Edition</div>
-      <div class="quiz-list">
+      <div class="row-list">
         <div class="quiz-row"><div class="quiz-n">1</div><div class="quiz-q">Add your first LinkedIn stat-based question here for the audience to guess.</div></div>
         <div class="quiz-row"><div class="quiz-n">2</div><div class="quiz-q">Add your second LinkedIn stat-based question here for the audience to guess.</div></div>
         <div class="quiz-row"><div class="quiz-n">3</div><div class="quiz-q">Add your third LinkedIn stat-based question here for the audience to guess.</div></div>
@@ -1152,82 +745,64 @@ body.notes-on .snote { display: block; }
         <div class="quiz-row"><div class="quiz-n">5</div><div class="quiz-q">Add your fifth LinkedIn stat-based question here for the audience to guess.</div></div>
       </div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Replace each placeholder with a stats-based true/false question before the session. Read each one aloud, wait for the room, then reveal.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Replace each placeholder with a stats-based true/false question before the session. Read each one aloud, wait for the room, then reveal.</div>
   </div>
 
   <!-- ── 04 SURVEY ── -->
   <div class="slide" id="slide-4">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">04</div><div class="sb-section">Survey<br>Results</div></div>
+      <div class="sb-meta"><div class="sb-num">04</div><div class="sb-sec">Survey<br>Results</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">What You Told Us</div>
-      <div class="h1" style="margin-bottom:24px">Survey Results</div>
+      <div class="h1">Survey Results</div>
       <div class="ph-frame">
-        <div class="ph-bar-sm"></div>
-        <div class="ph-tit">Survey Results Graph</div>
+        <div class="ph-title">Survey Results Graph</div>
         <div class="ph-sub">Insert data visualisation from the previous workshop survey here</div>
       </div>
-      <div class="p-note">
-        <strong>Presenter note:</strong> Add the survey results graph before the session. Lead with the key headline finding above the chart.
-      </div>
+      <div class="p-note"><strong>Presenter note:</strong> Add the survey results graph before the session. Lead with the headline finding above the chart.</div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Frame the results conversationally. Let the data lead into why you are covering today's agenda.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Frame the results conversationally. Let the data lead into why you are covering today's agenda.</div>
   </div>
 
   <!-- ── 05 FUNNEL ── -->
   <div class="slide" id="slide-5">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">05</div><div class="sb-section">Content<br>Creation</div></div>
+      <div class="sb-meta"><div class="sb-num">05</div><div class="sb-sec">Content<br>Creation</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Content Creation</div>
-      <div class="h1" style="margin-bottom:18px">The Content Funnel</div>
-      <div class="funnel-list">
-        <div class="funnel-row">
-          <div class="fn">01</div>
-          <div class="f-right">
-            <div class="f-tit">Pick a Niche + Theme</div>
-            <div class="f-desc">Something with multiple perspectives or data points — not a one-sided topic.</div>
+      <div class="h1">The Content Funnel</div>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="ri-n">01</div>
+          <div class="ri-head">Pick a Niche + Theme</div>
+          <div class="ri-desc">Something with multiple perspectives or data points — not a one-sided topic. Strong themes invite debate.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">02</div>
+          <div class="ri-head">Check the 4 Bold Ideas</div>
+          <div class="ri-desc">
+            If it aligns — PD publishes. If not — post on your own profile. Personal posts typically reach further anyway.
+            <div class="chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshittification</span></div>
           </div>
         </div>
-        <div class="funnel-row">
-          <div class="fn">02</div>
-          <div class="f-right">
-            <div class="f-tit">Check Against the 4 Bold Ideas</div>
-            <div class="f-desc">If it aligns with AI, Digital Sovereignty, State Capacity, or Enshittification — PD publishes. If not, post on your personal profile.
-              <div class="bold-chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshittification</span></div>
-            </div>
-          </div>
+        <div class="row-item">
+          <div class="ri-n">03</div>
+          <div class="ri-head">Validate</div>
+          <div class="ri-desc">In the news? On Google Trends? LinkedIn voices discussing it? Community threads asking about it? If yes — it has traction.</div>
         </div>
-        <div class="funnel-row">
-          <div class="fn">03</div>
-          <div class="f-right">
-            <div class="f-tit">Validate</div>
-            <div class="f-desc">In the news? On Google Trends? LinkedIn influencers discussing it? Community threads asking about it? If yes — it has traction.</div>
-          </div>
+        <div class="row-item">
+          <div class="ri-n">04</div>
+          <div class="ri-head">Structure</div>
+          <div class="ri-desc">Hook — Target audience — Key points — Call to action</div>
         </div>
-        <div class="funnel-row">
-          <div class="fn">04</div>
-          <div class="f-right">
-            <div class="f-tit">Structure</div>
-            <div class="f-desc">Hook — Target audience — Key points — Call to action</div>
-          </div>
-        </div>
-        <div class="funnel-row">
-          <div class="fn">05</div>
-          <div class="f-right">
-            <div class="f-tit">Create — Polish with AI — Review</div>
-            <div class="f-desc">Marketing team can assist. Use Claude to refine. Send to Kennedy or Rosemary before publishing.</div>
-          </div>
+        <div class="row-item">
+          <div class="ri-n">05</div>
+          <div class="ri-head">Create — Polish — Review</div>
+          <div class="ri-desc">Marketing team can assist. Use Claude to refine. Send to Kennedy or Rosemary before publishing.</div>
         </div>
       </div>
     </div>
@@ -1235,145 +810,181 @@ body.notes-on .snote { display: block; }
 
   <!-- ── 06 FUNNEL IN PRACTICE ── -->
   <div class="slide" id="slide-6">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">06</div><div class="sb-section">Worked<br>Example</div></div>
+      <div class="sb-meta"><div class="sb-num">06</div><div class="sb-sec">Worked<br>Example</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Funnel in Practice</div>
-      <div class="h1" style="margin-bottom:24px">A Real Example</div>
+      <div class="h1">A Real Example</div>
       <div class="practice-cols">
-        <div class="practice-col">
-          <div class="p-col-label">Niche</div>
-          <div class="p-col-rule"></div>
-          <div class="p-col-ph">Add real example here</div>
-        </div>
-        <div class="practice-col">
-          <div class="p-col-label">Bold Idea Alignment</div>
-          <div class="p-col-rule"></div>
-          <div class="p-col-ph">Which theme does it match?</div>
-        </div>
-        <div class="practice-col">
-          <div class="p-col-label">Validation</div>
-          <div class="p-col-rule"></div>
-          <div class="p-col-ph">Evidence of traction</div>
-        </div>
-        <div class="practice-col">
-          <div class="p-col-label">Output</div>
-          <div class="p-col-rule"></div>
-          <div class="p-col-ph">The actual content created</div>
-        </div>
+        <div class="prac-col"><div class="prac-label">Niche</div><div class="prac-rule"></div><div class="prac-ph">Add real example here</div></div>
+        <div class="prac-col"><div class="prac-label">Bold Idea Alignment</div><div class="prac-rule"></div><div class="prac-ph">Which theme does it match?</div></div>
+        <div class="prac-col"><div class="prac-label">Validation</div><div class="prac-rule"></div><div class="prac-ph">Evidence of traction</div></div>
+        <div class="prac-col"><div class="prac-label">Output</div><div class="prac-rule"></div><div class="prac-ph">The actual content created</div></div>
       </div>
-      <div class="p-note">
-        <strong>Presenter note:</strong> Add a real worked example before the session. Walk through it step by step with the room.
-      </div>
+      <div class="p-note"><strong>Presenter note:</strong> Add a real worked example before the session. Walk through it step by step with the room.</div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Use a real example from PD content or your own work. Show the funnel applied in practice, not just in theory.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Use a real example from PD content or your own work. Show the funnel applied in practice, not just in theory.</div>
   </div>
 
   <!-- ── 07 METHODS ── -->
   <div class="slide" id="slide-7">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">07</div><div class="sb-section">Content<br>Methods</div></div>
+      <div class="sb-meta"><div class="sb-num">07</div><div class="sb-sec">Content<br>Methods</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">You Don't Need Hours — You Need to Add Value</div>
-      <div class="h1" style="margin-bottom:16px">Content Methods</div>
-      <div class="callout-bar">Content doesn't have to be long. It has to be valuable.</div>
-      <div class="methods-list">
-        <div class="method-row"><div class="m-name">Short Post</div><div class="m-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div></div>
-        <div class="method-row"><div class="m-name">Voice Recording</div><div class="m-desc">Brief script, record on your phone, transcribe, refine with AI. 30 minutes speaking generates thousands of words to work from.</div></div>
-        <div class="method-row"><div class="m-name">Short Video</div><div class="m-desc">30 seconds to 1 minute. Native video performs strongly. No studio required.</div></div>
-        <div class="method-row"><div class="m-name">Infographic</div><div class="m-desc">Use data you already have. Visualise an insight your audience does not have access to.</div></div>
-        <div class="method-row"><div class="m-name">Data Post</div><div class="m-desc">A single insight or stat with context. One number, well explained, is a complete post.</div></div>
+      <div class="h1">Content Methods</div>
+      <div class="callout">Content doesn't have to be long. It has to be valuable.</div>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="ri-n">01</div>
+          <div class="ri-head">Short Post</div>
+          <div class="ri-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">02</div>
+          <div class="ri-head">Voice Recording</div>
+          <div class="ri-desc">Brief script, record on your phone, transcribe, refine with AI. 30 minutes speaking generates thousands of words.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">03</div>
+          <div class="ri-head">Short Video</div>
+          <div class="ri-desc">30 seconds to 1 minute. Native video performs strongly on the platform. No studio required.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">04</div>
+          <div class="ri-head">Infographic</div>
+          <div class="ri-desc">Use data you already have. Visualise an insight your audience does not have access to.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">05</div>
+          <div class="ri-head">Data Post</div>
+          <div class="ri-desc">A single insight or stat with context. One number, well explained, is a complete post.</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ── 08 ENGAGEMENT ── -->
   <div class="slide" id="slide-8">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">08</div><div class="sb-section">Growth<br>Strategy</div></div>
+      <div class="sb-meta"><div class="sb-num">08</div><div class="sb-sec">Growth<br>Strategy</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">You Don't Have to Write to Grow</div>
-      <div class="h1" style="margin-bottom:18px">Growing Through Engagement</div>
-      <div class="engage-list">
-        <div class="engage-row"><div class="e-step">Step 01</div><div class="e-tit">Find Key Voices in Your Niche</div><div class="e-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div></div>
-        <div class="engage-row"><div class="e-step">Step 02</div><div class="e-tit">Identify the Best Communities</div><div class="e-desc">Which organisations and communities are consistently putting out relevant content?</div></div>
-        <div class="engage-row"><div class="e-step">Step 03</div><div class="e-tit">Study Your Algorithm Feed</div><div class="e-desc">Your feed is already curated to you. Study what surfaces and why.</div></div>
-        <div class="engage-row"><div class="e-step">Step 04</div><div class="e-tit">Analyse Engagement Patterns</div><div class="e-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div></div>
-        <div class="engage-row"><div class="e-step">Step 05</div><div class="e-tit">Engage Thoughtfully</div><div class="e-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div></div>
+      <div class="h1">Growing Through Engagement</div>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="ri-n">01</div>
+          <div class="ri-head">Find Key Voices in Your Niche</div>
+          <div class="ri-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">02</div>
+          <div class="ri-head">Identify the Best Communities</div>
+          <div class="ri-desc">Which organisations and communities consistently put out relevant content?</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">03</div>
+          <div class="ri-head">Study Your Algorithm Feed</div>
+          <div class="ri-desc">Your feed is already curated to you. Study what surfaces and why — it signals what performs.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">04</div>
+          <div class="ri-head">Analyse Engagement Patterns</div>
+          <div class="ri-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">05</div>
+          <div class="ri-head">Engage Thoughtfully</div>
+          <div class="ri-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div>
+        </div>
       </div>
-      <div class="callout-bar" style="margin-top:16px;margin-bottom:0">The bare minimum on LinkedIn is to engage. That is your in.</div>
+      <div class="callout" style="margin-top:16px;margin-bottom:0">The bare minimum on LinkedIn is to engage. That is your in.</div>
     </div>
   </div>
 
   <!-- ── 09 BEFORE YOU WRITE ── -->
   <div class="slide" id="slide-9">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">09</div><div class="sb-section">Pre-Writing<br>Checklist</div></div>
+      <div class="sb-meta"><div class="sb-num">09</div><div class="sb-sec">Pre-Writing<br>Checklist</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Before You Write</div>
-      <div class="h1" style="margin-bottom:18px">Ask Yourself These</div>
-      <div class="q-list">
-        <div class="q-row"><div class="q-n">01</div><div class="q-question">Who do I want to read this?</div><div class="q-hint">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div></div>
-        <div class="q-row"><div class="q-n">02</div><div class="q-question">What am I adding that is new?</div><div class="q-hint">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div></div>
-        <div class="q-row"><div class="q-n">03</div><div class="q-question">Why should anyone care?</div><div class="q-hint">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div></div>
-        <div class="q-row"><div class="q-n">04</div><div class="q-question">Would I actually read this?</div><div class="q-hint">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div></div>
-        <div class="q-row"><div class="q-n">05</div><div class="q-question">How can I make this genuinely valuable?</div><div class="q-hint">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div></div>
+      <div class="h1">Ask Yourself These</div>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="ri-n">01</div>
+          <div class="ri-head">Who do I want to read this?</div>
+          <div class="ri-desc">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">02</div>
+          <div class="ri-head">What am I adding that is new?</div>
+          <div class="ri-desc">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">03</div>
+          <div class="ri-head">Why should anyone care?</div>
+          <div class="ri-desc">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">04</div>
+          <div class="ri-head">Would I actually read this?</div>
+          <div class="ri-desc">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">05</div>
+          <div class="ri-head">How can I make this genuinely valuable?</div>
+          <div class="ri-desc">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ── 10 DOS & DON'TS ── -->
   <div class="slide" id="slide-10">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">10</div><div class="sb-section">Interactive</div></div>
+      <div class="sb-meta"><div class="sb-num">10</div><div class="sb-sec">Interactive</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Interactive — Group Activity</div>
-      <div class="h1" style="margin-bottom:16px">Dos &amp; Don'ts</div>
+      <div class="h1">Dos &amp; Don'ts</div>
       <div class="dnd-header">
         <div class="dnd-instr">Read each statement aloud. Ask the room. Then click to reveal.</div>
         <button class="reveal-btn" id="reveal-all-btn" onclick="revealAll()">Reveal all</button>
       </div>
       <div class="dnd-grid">
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post on Tuesday, Wednesday, or Thursday</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Post links directly in your content body</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post at 8–10am, around 1pm, or 4–6pm</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Use hashtags in your posts</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Write in plain English</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Share your own perspective, even as a beginner</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Write LinkedIn articles over 1,000 words</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Track your analytics and engagement stats</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Copy others' content directly for inspiration</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post on Tuesday, Wednesday, or Thursday</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Share your own perspective, even as a beginner</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Post links directly in your content body</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Write LinkedIn articles over 1,000 words</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post at 8–10am, around 1pm, or 4–6pm</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Track your analytics and engagement stats</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Use hashtags in your posts</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Copy others' content directly for inspiration</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Write in plain English</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
       </div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Group guessing game — read each statement, ask for hands, then click to reveal. Key points: outbound links are penalised by LinkedIn's algorithm; hashtags offer minimal benefit now; articles should be tight and under 1,000 words; get inspired by others but always create from scratch. Recommended: Claude for writing and refining, Perplexity AI for research (cites sources).
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each statement, ask for hands, click to reveal. Key: outbound links penalised by LinkedIn algorithm; hashtags offer minimal benefit; keep articles under 1,000 words; get inspired but always create from scratch. Tools: Claude for writing, Perplexity AI for research.</div>
   </div>
 
   <!-- ── 11 PROFILE ── -->
   <div class="slide" id="slide-11">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">11</div><div class="sb-section">Profile<br>Tips</div></div>
+      <div class="sb-meta"><div class="sb-num">11</div><div class="sb-sec">Profile<br>Tips</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Profile Improvement</div>
-      <div class="h1" style="margin-bottom:22px">Quick Wins</div>
+      <div class="h1">Quick Wins</div>
       <div class="check-list">
         <div class="check-row" onclick="this.classList.toggle('checked')">
           <div class="check-box">&#10003;</div>
@@ -1397,45 +1008,28 @@ body.notes-on .snote { display: block; }
 
   <!-- ── 12 EXAMPLES ── -->
   <div class="slide" id="slide-12">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">12</div><div class="sb-section">Profile<br>Examples</div></div>
+      <div class="sb-meta"><div class="sb-num">12</div><div class="sb-sec">Profile<br>Examples</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Profile Examples</div>
-      <div class="h1" style="margin-bottom:24px">Good LinkedIn Profiles</div>
+      <div class="h1">Good LinkedIn Profiles</div>
       <div class="examples-row">
-        <div class="ex-frame">
-          <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-lbl">Profile Example 1</div>
-          <div class="ex-sub">Add screenshot here</div>
-        </div>
-        <div class="ex-frame">
-          <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-lbl">Profile Example 2</div>
-          <div class="ex-sub">Add screenshot here</div>
-        </div>
-        <div class="ex-frame">
-          <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-lbl">Profile Example 3</div>
-          <div class="ex-sub">Add screenshot here</div>
-        </div>
+        <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 1</div><div class="ex-sub">Add screenshot here</div></div>
+        <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 2</div><div class="ex-sub">Add screenshot here</div></div>
+        <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 3</div><div class="ex-sub">Add screenshot here</div></div>
       </div>
-      <div class="p-note">
-        <strong>Presenter note:</strong> Add 2–3 real LinkedIn profile screenshots before the session. Highlight what makes each one work — headline, featured section, post frequency, tone.
-      </div>
+      <div class="p-note"><strong>Presenter note:</strong> Add 2–3 real LinkedIn profile screenshots before the session. Highlight what makes each one work — headline, featured section, post frequency, tone.</div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Walk through each profile and call out specifics: headline clarity, featured section use, recent posts, and how they engage in comments.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Walk through each profile and call out specifics: headline clarity, featured section use, recent posts, and how they engage in comments.</div>
   </div>
 
   <!-- ── 13 AMA ── -->
   <div class="slide" id="slide-13">
-    <div class="ama-sidebar">
+    <div class="ama-sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">13</div><div class="sb-section">Open<br>Floor</div></div>
+      <div class="sb-meta"><div class="sb-num">13</div><div class="sb-sec">Open<br>Floor</div></div>
     </div>
     <div class="ama-main">
       <div class="ama-eyebrow">Open Floor</div>
@@ -1446,34 +1040,54 @@ body.notes-on .snote { display: block; }
 
   <!-- ── 14 TASK ── -->
   <div class="slide" id="slide-14">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">14</div><div class="sb-section">Your<br>Task</div></div>
+      <div class="sb-meta"><div class="sb-num">14</div><div class="sb-sec">Your<br>Task</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Workshop Takeaway</div>
-      <div class="h1" style="margin-bottom:18px">Your Task</div>
-      <div class="task-list">
-        <div class="task-row"><div class="t-n">1</div><div class="t-body"><div class="t-tit">Pick a Content Idea in Your Niche</div><div class="t-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div></div></div>
-        <div class="task-row"><div class="t-n">2</div><div class="t-body"><div class="t-tit">Run it Through the Bold Ideas Checklist</div><div class="t-desc">Does it align with <strong>AI, Digital Sovereignty, State Capacity, or Enshittification?</strong> If yes — PD publishes. If not — post it yourself.</div></div></div>
-        <div class="task-row"><div class="t-n">3</div><div class="t-body"><div class="t-tit">Validate the Idea</div><div class="t-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this?</div></div></div>
-        <div class="task-row"><div class="t-n">4</div><div class="t-body"><div class="t-tit">Create the Content Within the Next Month</div><div class="t-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div></div></div>
-        <div class="task-row"><div class="t-n">5</div><div class="t-body"><div class="t-tit">Submit Your Idea to Kennedy Adamu</div><div class="t-desc">Share your content idea to receive feedback and help developing it further before publishing.</div></div></div>
+      <div class="h1">Your Task</div>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="ri-n">01</div>
+          <div class="ri-head">Pick a Content Idea in Your Niche</div>
+          <div class="ri-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">02</div>
+          <div class="ri-head">Run it Through the Bold Ideas Checklist</div>
+          <div class="ri-desc">AI, Digital Sovereignty, State Capacity, or Enshittification — if it aligns, PD publishes. If not, post it yourself.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">03</div>
+          <div class="ri-head">Validate the Idea</div>
+          <div class="ri-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this?</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">04</div>
+          <div class="ri-head">Create the Content Within the Next Month</div>
+          <div class="ri-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div>
+        </div>
+        <div class="row-item">
+          <div class="ri-n">05</div>
+          <div class="ri-head">Submit Your Idea to Kennedy Adamu</div>
+          <div class="ri-desc">Share your content idea to receive feedback and help developing it further before publishing.</div>
+        </div>
       </div>
-      <div class="task-note">Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop to help develop their ideas. The best content may be published on Public Digital's channels — or your own.</div>
+      <div class="callout" style="margin-top:16px;margin-bottom:0">Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop.</div>
     </div>
   </div>
 
   <!-- ── 15 RESOURCES ── -->
   <div class="slide" id="slide-15">
-    <div class="sidebar">
+    <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">15</div><div class="sb-section">Resource<br>Bank</div></div>
+      <div class="sb-meta"><div class="sb-num">15</div><div class="sb-sec">Resource<br>Bank</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Take These With You</div>
-      <div class="h1" style="margin-bottom:24px">Resource Bank</div>
-      <div class="resources-split">
+      <div class="h1">Resource Bank</div>
+      <div class="res-split">
         <div class="res-list">
           <div class="res-row"><div class="res-mark"></div><div class="res-lbl">AI Prompts for LinkedIn</div></div>
           <div class="res-row"><div class="res-mark"></div><div class="res-lbl">Content Guidelines</div></div>
@@ -1495,14 +1109,9 @@ body.notes-on .snote { display: block; }
           <div class="qr-sub">Add link or QR code before the session</div>
         </div>
       </div>
-      <div class="p-note">
-        <strong>Presenter note:</strong> Add the resource bank link or QR code before the session. All items on the left should be compiled and accessible at that link.
-      </div>
+      <div class="p-note"><strong>Presenter note:</strong> Add the resource bank link or QR code before the session. All items on the left should be compiled and accessible at that link.</div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Give the room time to scan the QR code before closing. Remind them the workshop slides are included in the resource bank.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Give the room time to scan the QR code before closing. Remind them the workshop slides are in the resource bank.</div>
   </div>
 
   <!-- ── 16 CLOSE ── -->
@@ -1520,10 +1129,7 @@ body.notes-on .snote { display: block; }
         <div><div class="s16-c-tag">Email</div><div class="s16-c-val">Add your email</div></div>
       </div>
     </div>
-    <div class="snote">
-      <strong>Speaker Note</strong>
-      Keep this warm and personal. Thank the room. Remind them 1:1 follow-up sessions are bookable via the resource link. Leave on a high.
-    </div>
+    <div class="snote"><strong>Speaker Note</strong>Warm and personal. Thank the room. Remind them 1:1 follow-up sessions are bookable via the resource link. Leave on a high.</div>
   </div>
 
 </div><!-- /deck -->
@@ -1558,23 +1164,23 @@ body.notes-on .snote { display: block; }
   function prevSlide() { goTo(cur - 1); }
 
   document.addEventListener('keydown', e => {
-    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
-    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
+    if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
   });
 
   function toggleNotes() { document.body.classList.toggle('notes-on'); }
 
   function toggleFullscreen() {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
     else document.exitFullscreen();
   }
 
-  function toggleReveal(card) { card.classList.toggle('revealed'); }
+  function toggleReveal(row) { row.classList.toggle('revealed'); }
 
   function revealAll() {
-    const cards = document.querySelectorAll('.dnd-card');
-    const anyHidden = [...cards].some(c => !c.classList.contains('revealed'));
-    cards.forEach(c => anyHidden ? c.classList.add('revealed') : c.classList.remove('revealed'));
+    const rows = document.querySelectorAll('.dnd-row');
+    const anyHidden = [...rows].some(r => !r.classList.contains('revealed'));
+    rows.forEach(r => anyHidden ? r.classList.add('revealed') : r.classList.remove('revealed'));
     document.getElementById('reveal-all-btn').textContent = anyHidden ? 'Hide all' : 'Reveal all';
   }
 </script>
