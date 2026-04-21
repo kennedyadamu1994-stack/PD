@@ -11,19 +11,19 @@
    TOKENS
 ───────────────────────────────────── */
 :root {
-  --black:    #1A1A1A;
-  --blue:     #3A5A8E;
-  --blue-d:   #2A4472;
-  --cream:    #F4F3EF;
-  --white:    #FFFFFF;
-  --mid:      #8A93A0;
-  --rule:     #DEDAD3;
-  --green:    #1D7048;
-  --red:      #B33030;
-  --sb:       180px;   /* sidebar width */
-  --nav-h:    48px;
-  --pad-v:    48px;
-  --pad-h:    60px;
+  --black:  #1A1A1A;
+  --blue:   #3A5A8E;
+  --blue-d: #2A4472;
+  --cream:  #F4F3EF;
+  --white:  #FFFFFF;
+  --mid:    #8A93A0;
+  --rule:   #DEDAD3;
+  --green:  #1D7048;
+  --red:    #B33030;
+  --sb:     180px;
+  --nav:    48px;
+  --ph:     56px;   /* horizontal padding */
+  --pv:     44px;   /* vertical padding */
 }
 
 /* ─────────────────────────────────────
@@ -31,20 +31,21 @@
 ───────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body { height: 100%; }
+
 body {
   font-family: 'Lexend Deca', sans-serif;
   background: var(--cream);
   color: var(--black);
-  height: 100vh;
   overflow: hidden;
-  user-select: none;
   -webkit-font-smoothing: antialiased;
+  user-select: none;
 }
 
 /* ─────────────────────────────────────
-   DECK
+   DECK & SLIDES
 ───────────────────────────────────── */
-.deck { width: 100vw; height: 100vh; position: relative; }
+.deck { position: fixed; inset: 0; }
 
 .slide {
   position: absolute;
@@ -53,105 +54,70 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  overflow: hidden;
 }
 .slide.active { opacity: 1; pointer-events: all; }
 
 /* ─────────────────────────────────────
-   PROGRESS
+   PROGRESS BAR
 ───────────────────────────────────── */
 .progress {
   position: fixed;
-  top: 0; left: 0;
-  height: 2px;
+  top: 0; left: 0; height: 2px;
   background: var(--blue);
   transition: width 0.4s ease;
-  z-index: 400;
+  z-index: 500;
 }
 
 /* ─────────────────────────────────────
-   NAV
+   NAVIGATION
 ───────────────────────────────────── */
 .nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: var(--nav-h);
+  height: var(--nav);
   background: var(--black);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  z-index: 400;
+  z-index: 500;
 }
-
-.nav-brand {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.28);
+.nav-brand { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
+.nav-dot   { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+.nav-c     { display: flex; align-items: center; gap: 18px; }
+.nav-btn   {
+  background: none; border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.55); font-family: 'Lexend Deca', sans-serif;
+  font-size: 11px; font-weight: 500; cursor: pointer; padding: 5px 18px;
+  letter-spacing: 0.04em; transition: all 0.18s;
 }
-.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-
-.nav-centre { display: flex; align-items: center; gap: 18px; }
-
-.nav-btn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.55);
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 11px; font-weight: 500;
-  cursor: pointer; padding: 5px 18px;
-  letter-spacing: 0.04em;
-  transition: all 0.18s;
+.nav-btn:hover { background: rgba(255,255,255,0.07); color: var(--white); border-color: rgba(255,255,255,0.3); }
+.nav-n { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; min-width: 44px; text-align: center; }
+.nav-r { display: flex; gap: 8px; }
+.util  {
+  background: none; border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.3); font-family: 'Lexend Deca', sans-serif;
+  font-size: 10px; font-weight: 500; cursor: pointer; padding: 4px 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.18s;
 }
-.nav-btn:hover { background: rgba(255,255,255,0.07); color: var(--white); border-color: rgba(255,255,255,0.26); }
-
-.nav-count {
-  font-size: 11px; font-weight: 400;
-  color: rgba(255,255,255,0.28);
-  letter-spacing: 0.08em;
-  min-width: 44px; text-align: center;
-}
-
-.nav-right { display: flex; gap: 8px; }
-
-.util-btn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.3);
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 10px; font-weight: 500;
-  cursor: pointer; padding: 4px 12px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  transition: all 0.18s;
-}
-.util-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.26); }
+.util:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
 
 /* ─────────────────────────────────────
    SPEAKER NOTES
 ───────────────────────────────────── */
 .snote {
-  position: fixed;
-  bottom: 58px; right: 20px;
-  width: 264px;
-  background: var(--black);
+  position: fixed; bottom: calc(var(--nav) + 10px); right: 20px;
+  width: 264px; background: var(--black);
   border: 1px solid rgba(255,255,255,0.09);
-  padding: 14px 16px;
-  font-size: 11.5px; font-weight: 400;
-  color: rgba(255,255,255,0.48);
-  line-height: 1.7;
-  display: none; z-index: 390;
+  padding: 14px 16px; font-size: 11.5px; font-weight: 400;
+  color: rgba(255,255,255,0.48); line-height: 1.7;
+  display: none; z-index: 490;
 }
-.snote strong {
-  display: block;
-  font-size: 9px; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 6px;
-}
+.snote strong { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
 body.notes-on .snote { display: block; }
 
 /* ─────────────────────────────────────
-   SHARED: SIDEBAR
+   SIDEBAR  (shared)
 ───────────────────────────────────── */
 .sb {
   width: var(--sb);
@@ -160,161 +126,114 @@ body.notes-on .snote { display: block; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 36px 20px calc(var(--nav-h) + 20px) 24px;
+  /* top + bottom aligns with main pane; bottom clears nav */
+  padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px;
   flex-shrink: 0;
 }
-
 .sb-brand {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 13px; font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--white);
-  display: flex; align-items: center; gap: 8px;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--white); display: flex; align-items: center; gap: 8px;
 }
 .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-
 .sb-meta { display: flex; flex-direction: column; gap: 4px; }
-.sb-num {
-  font-size: 22px; font-weight: 700;
-  color: var(--blue); line-height: 1; opacity: 0.65;
-}
-.sb-sec {
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.22); line-height: 1.5;
-}
+.sb-num  { font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.65; }
+.sb-sec  { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.22); line-height: 1.5; }
 
 /* ─────────────────────────────────────
-   SHARED: MAIN PANE
-   All content areas use the same padding
-   and push bottom clear of the nav bar.
+   MAIN PANE  (shared)
+   Uses flex column. Children:
+     eyebrow (shrink 0)
+     h1      (shrink 0)
+     content (flex: 1) ← fills all remaining space
+     optional callout / note (shrink 0)
 ───────────────────────────────────── */
 .main {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: var(--pad-v) var(--pad-h) calc(var(--nav-h) + var(--pad-v)) var(--pad-h);
+  /* vertical: pv top, nav+pv bottom so nothing hides behind nav */
+  padding: var(--pv) var(--ph) calc(var(--nav) + var(--pv)) var(--ph);
   background: var(--cream);
   overflow: hidden;
-  min-width: 0; /* prevent flex blowout */
 }
 
-/* Eyebrow */
 .eyebrow {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 6px;
-  flex-shrink: 0;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 6px; flex-shrink: 0;
 }
-
-/* Slide title */
 .h1 {
-  font-size: clamp(32px, 3.5vw, 52px);
-  font-weight: 600; line-height: 1.05;
-  letter-spacing: -0.025em;
-  color: var(--black);
-  margin-bottom: 28px;
-  flex-shrink: 0;
+  font-size: clamp(30px, 3.2vw, 50px);
+  font-weight: 600; line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--black); margin-bottom: 24px; flex-shrink: 0;
 }
 
-/* Blue callout bar */
+/* Blue accent bar */
 .callout {
-  background: var(--blue);
-  color: var(--white);
-  font-size: clamp(14px, 1.4vw, 18px);
-  font-weight: 500;
-  padding: 14px 20px;
-  margin-bottom: 18px;
-  flex-shrink: 0;
-  line-height: 1.4;
+  background: var(--blue); color: var(--white);
+  font-size: clamp(13px, 1.3vw, 17px); font-weight: 500;
+  padding: 14px 20px; flex-shrink: 0; line-height: 1.45;
+  margin-top: 16px;
 }
+.callout strong { font-weight: 700; }
 
 /* Presenter note */
 .p-note {
-  margin-top: 18px;
-  border-left: 2px solid var(--blue);
-  padding: 8px 14px;
-  font-size: 12px; font-weight: 400;
-  color: var(--mid); line-height: 1.6;
-  flex-shrink: 0;
+  margin-top: 16px; border-left: 2px solid var(--blue);
+  padding: 8px 14px; font-size: 12px; font-weight: 400;
+  color: var(--mid); line-height: 1.6; flex-shrink: 0;
 }
 .p-note strong { color: var(--black); font-weight: 600; }
 
 /* Placeholder frame */
 .ph-frame {
-  flex: 1;
-  border: 1px dashed var(--rule);
-  background: var(--white);
+  flex: 1; min-height: 0;
+  border: 1px dashed var(--rule); background: var(--white);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 10px;
 }
-.ph-frame .ph-title { font-size: 15px; font-weight: 600; color: var(--black); }
-.ph-frame .ph-sub { font-size: 12.5px; font-weight: 400; color: var(--mid); text-align: center; max-width: 300px; line-height: 1.6; }
+.ph-title { font-size: 15px; font-weight: 600; color: var(--black); }
+.ph-sub   { font-size: 12.5px; font-weight: 400; color: var(--mid); text-align: center; max-width: 300px; line-height: 1.6; }
 
 /* ─────────────────────────────────────
-   SHARED: ROW LIST
-   Used by: Funnel, Methods, Engagement,
-   Questions, Task — all use the same
-   CSS grid column system so they align
-   identically at any viewport width.
+   ROW LIST  (used by most content slides)
+
+   Strategy:
+   - .row-list fills all leftover space (flex:1)
+   - each .row-item gets equal share (flex:1 1 0)
+   - 3-column grid keeps all slides aligned
+   - min-height:0 allows flex to compress rows
 ───────────────────────────────────── */
 .row-list {
-  flex: 1;
+  flex: 1 1 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  min-height: 0;
 }
 
 .row-item {
-  display: grid;
-  /* col1: step label  col2: heading  col3: description */
-  grid-template-columns: 36px 30% 1fr;
-  align-items: center;
-  gap: 0 28px;
-  padding: 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
+  display: grid;
+  grid-template-columns: 32px 28% 1fr;
+  column-gap: 28px;
+  align-items: center;
+  border-top: 1px solid var(--rule);
 }
-.row-item:first-child { border-top: 1px solid var(--rule); }
+/* bottom border only on last item */
+.row-item:last-child { border-bottom: 1px solid var(--rule); }
 
-/* For slides that only need 2 columns (step + text) */
-.row-item.two-col {
-  grid-template-columns: 36px 1fr;
-}
+.ri-n    { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
+.ri-head { font-size: clamp(14px, 1.6vw, 21px); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--black); }
+.ri-desc { font-size: clamp(12px, 1.05vw, 14.5px); font-weight: 400; line-height: 1.65; color: var(--mid); }
 
-.ri-n {
-  font-size: 11px; font-weight: 600;
-  color: var(--blue); letter-spacing: 0.06em;
-  opacity: 0.6; line-height: 1;
-  align-self: center;
-}
-
-.ri-head {
-  font-size: clamp(15px, 1.7vw, 22px);
-  font-weight: 600; line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--black);
-  align-self: center;
-}
-
-.ri-desc {
-  font-size: clamp(12px, 1.1vw, 15px);
-  font-weight: 400; line-height: 1.65;
-  color: var(--mid);
-  align-self: center;
-}
-
-/* Chips inside funnel descriptions */
-.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-.chip {
-  font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.04em;
-  padding: 2px 9px;
-  border: 1px solid var(--rule);
-  color: var(--mid); background: var(--cream);
-}
+/* ─────────────────────────────────────
+   BOLD IDEA CHIPS
+───────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.chip  { font-size: 9.5px; font-weight: 500; letter-spacing: 0.04em; padding: 2px 9px; border: 1px solid var(--rule); color: var(--mid); background: var(--cream); }
 
 /* ═══════════════════════════════════════════
    SLIDE 1 — TITLE
@@ -322,134 +241,98 @@ body.notes-on .snote { display: block; }
 #slide-1 { flex-direction: row; }
 
 .s1-left {
-  width: 220px; min-width: 220px;
-  background: var(--black);
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 36px 20px calc(var(--nav-h) + 20px) 28px;
+  width: 220px; min-width: 220px; background: var(--black);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0;
 }
 .s1-brand {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 13px; font-weight: 600;
-  letter-spacing: 0.06em; color: var(--white);
-  display: flex; align-items: center; gap: 8px;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--white); display: flex; align-items: center; gap: 8px;
 }
-.s1-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.s1-aside { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.22); }
+.s1-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.s1-tag2 { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.22); }
 
 .s1-right {
-  flex: 1;
-  background: var(--blue);
-  display: flex; flex-direction: column;
-  justify-content: flex-end;
-  padding: 52px 72px calc(var(--nav-h) + 52px) 72px;
+  flex: 1; min-width: 0; background: var(--blue);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 52px 72px calc(var(--nav) + 52px) 72px;
 }
-.s1-kicker {
-  font-size: 10.5px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.38); margin-bottom: 16px;
-}
-.s1-title {
-  font-size: clamp(64px, 9vw, 112px);
-  font-weight: 600; line-height: 0.9;
-  letter-spacing: -0.04em; color: var(--white);
-  margin-bottom: 52px;
-}
-.s1-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.22); margin-bottom: 24px; }
-.s1-meta { display: flex; align-items: flex-end; gap: 40px; }
-.s1-tag {
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(255,255,255,0.35); margin-bottom: 5px;
-}
-.s1-name { font-size: 18px; font-weight: 600; color: var(--white); }
-.s1-date { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.38); padding-bottom: 2px; }
+.s1-kicker { font-size: 10.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
+.s1-title  { font-size: clamp(60px, 8.5vw, 110px); font-weight: 600; line-height: 0.9; letter-spacing: -0.04em; color: var(--white); margin-bottom: 52px; }
+.s1-rule   { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
+.s1-meta   { display: flex; align-items: flex-end; gap: 40px; }
+.s1-ptag   { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 5px; }
+.s1-name   { font-size: 18px; font-weight: 600; color: var(--white); }
+.s1-date   { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.36); padding-bottom: 2px; }
 
 /* ═══════════════════════════════════════════
    SLIDE 2 — AGENDA
+   8 items in 2 columns × 4 rows, each row equal height
 ══════════════════════════════════════════ */
 .agenda-grid {
-  flex: 1;
+  flex: 1 1 0; min-height: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
   column-gap: 48px;
-  align-content: start;
 }
-
 .ag-row {
   display: grid;
-  grid-template-columns: 32px 1fr;
+  grid-template-columns: 30px 1fr;
   align-items: center;
   gap: 18px;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
 }
-.ag-row:nth-child(odd):first-child,
-.ag-row:nth-child(even):first-child { border-top: 1px solid var(--rule); }
+/* bottom border on last row of each column (items 7 & 8) */
+.ag-row:nth-child(7),
+.ag-row:nth-child(8) { border-bottom: 1px solid var(--rule); }
 
-/* Make top border appear on first row of each column */
-.agenda-grid .ag-row:nth-child(1),
-.agenda-grid .ag-row:nth-child(2) { border-top: 1px solid var(--rule); }
-
-.ag-n { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.6; }
-.ag-label { font-size: clamp(14px, 1.5vw, 18px); font-weight: 500; color: var(--black); line-height: 1.3; }
+.ag-n     { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
+.ag-label { font-size: clamp(14px, 1.5vw, 19px); font-weight: 500; color: var(--black); line-height: 1.3; }
 
 /* ═══════════════════════════════════════════
    SLIDE 3 — QUIZ
+   5 rows, each equal height. 2-col grid inside.
 ══════════════════════════════════════════ */
 .quiz-badge {
-  align-self: flex-start;
+  align-self: flex-start; flex-shrink: 0;
   background: var(--blue); color: var(--white);
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 5px 13px; margin-bottom: 18px; flex-shrink: 0;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 13px; margin-bottom: 16px;
 }
-
-/* Quiz uses two-col rows: big num + question */
+.quiz-list {
+  flex: 1 1 0; min-height: 0;
+  display: flex; flex-direction: column;
+}
 .quiz-row {
+  flex: 1 1 0; min-height: 0;
   display: grid;
   grid-template-columns: 52px 1fr;
   align-items: center;
   gap: 20px;
-  padding: 0;
-  border-bottom: 1px solid var(--rule);
-  flex: 1;
+  border-top: 1px solid var(--rule);
 }
-.quiz-row:first-child { border-top: 1px solid var(--rule); }
+.quiz-row:last-child { border-bottom: 1px solid var(--rule); }
 
-.quiz-n {
-  font-size: clamp(28px, 3.5vw, 46px);
-  font-weight: 700; color: var(--blue);
-  line-height: 1; opacity: 0.18;
-  text-align: right;
-}
-.quiz-q {
-  font-size: clamp(13px, 1.4vw, 17px);
-  font-weight: 400; color: var(--mid);
-  line-height: 1.55; font-style: italic;
-}
+.quiz-n { font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.15; text-align: right; }
+.quiz-q { font-size: clamp(13px, 1.35vw, 17px); font-weight: 400; color: var(--mid); line-height: 1.55; font-style: italic; }
 
 /* ═══════════════════════════════════════════
    SLIDE 6 — FUNNEL IN PRACTICE
 ══════════════════════════════════════════ */
 .practice-cols {
-  flex: 1;
+  flex: 1 1 0; min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  min-height: 0;
 }
-.prac-col { display: flex; flex-direction: column; gap: 10px; }
-.prac-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue);
-}
-.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; }
-.prac-ph {
-  flex: 1;
-  border: 1px dashed var(--rule);
-  background: var(--white);
+.prac-col  { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.prac-lbl  { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; }
+.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; flex-shrink: 0; }
+.prac-ph   {
+  flex: 1; min-height: 0;
+  border: 1px dashed var(--rule); background: var(--white);
   display: flex; align-items: center; justify-content: center;
   padding: 14px; font-size: 12.5px; font-weight: 400;
   color: var(--mid); text-align: center; font-style: italic; line-height: 1.5;
@@ -457,201 +340,143 @@ body.notes-on .snote { display: block; }
 
 /* ═══════════════════════════════════════════
    SLIDE 10 — DOS & DON'TS
-   Two-column list of rows. No boxes.
-   Verdict hidden, revealed on click.
+   Two columns × 5 rows. No boxes, just ruled rows.
+   Verdict hidden until click.
 ══════════════════════════════════════════ */
 .dnd-header {
-  display: flex; align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 14px; flex-shrink: 0;
 }
-.dnd-instr { font-size: 12.5px; font-weight: 400; color: var(--mid); font-style: italic; }
+.dnd-instr  { font-size: 12.5px; font-weight: 400; color: var(--mid); font-style: italic; }
 .reveal-btn {
-  background: none;
-  border: 1px solid var(--rule);
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--mid); padding: 5px 14px; cursor: pointer;
-  transition: all 0.18s;
+  background: none; border: 1px solid var(--rule);
+  font-family: 'Lexend Deca', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid);
+  padding: 5px 14px; cursor: pointer; transition: all 0.18s;
 }
 .reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
 
-/* Two-column grid of rows */
 .dnd-grid {
-  flex: 1;
+  flex: 1 1 0; min-height: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
   column-gap: 40px;
-  align-content: start;
-  min-height: 0;
 }
-
 .dnd-row {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 16px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--rule);
-  cursor: pointer;
-  transition: background 0.15s;
+  border-top: 1px solid var(--rule);
+  cursor: pointer; padding: 0 2px;
 }
+/* Bottom border on rows 5 and 10 (last in each column) */
+.dnd-grid .dnd-row:nth-child(5),
+.dnd-grid .dnd-row:nth-child(10) { border-bottom: 1px solid var(--rule); }
 
-/* Top border: rows 1 and 2 are the first in each column */
-.dnd-grid .dnd-row:nth-child(1),
-.dnd-grid .dnd-row:nth-child(2) { border-top: 1px solid var(--rule); }
+.dnd-stmt { font-size: clamp(12.5px, 1.25vw, 16px); font-weight: 400; line-height: 1.5; color: var(--black); }
 
-.dnd-stmt {
-  font-size: clamp(13px, 1.3vw, 16px);
-  font-weight: 400; line-height: 1.5; color: var(--black);
-}
-
-/* Verdict — fully hidden before reveal */
+/* Verdict — totally hidden before reveal */
 .dnd-verd {
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 4px 10px;
-  opacity: 0; visibility: hidden;
-  white-space: nowrap;
-  transition: opacity 0.2s;
-  align-self: center;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  padding: 4px 10px; opacity: 0; visibility: hidden;
+  white-space: nowrap; transition: opacity 0.2s;
 }
-
-/* Revealed: DO */
-.dnd-row.do.revealed .dnd-verd  { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.08); }
-.dnd-row.do.revealed .dnd-stmt  { color: var(--green); }
-
-/* Revealed: DON'T */
+.dnd-row.do.revealed   .dnd-verd { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.08); }
+.dnd-row.do.revealed   .dnd-stmt { color: var(--green); }
 .dnd-row.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.08); }
-.dnd-row.dont.revealed .dnd-stmt  { color: var(--red); }
+.dnd-row.dont.revealed .dnd-stmt { color: var(--red); }
 
 /* ═══════════════════════════════════════════
    SLIDE 11 — PROFILE CHECKLIST
-   Rows, no boxes around items
 ══════════════════════════════════════════ */
-.check-list { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.check-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 
 .check-row {
+  flex: 1 1 0; min-height: 0;
   display: grid;
-  grid-template-columns: 28px 1fr;
+  grid-template-columns: 26px 1fr;
   align-items: center;
   gap: 20px;
-  padding: 0;
-  border-bottom: 1px solid var(--rule);
-  cursor: pointer; flex: 1;
+  border-top: 1px solid var(--rule);
+  cursor: pointer;
 }
-.check-row:first-child { border-top: 1px solid var(--rule); }
+.check-row:last-child { border-bottom: 1px solid var(--rule); }
 
 .check-box {
   width: 20px; height: 20px;
   border: 1.5px solid var(--rule);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 12px; font-weight: 600;
-  color: transparent;
-  transition: all 0.18s;
+  font-size: 12px; font-weight: 600; color: transparent;
+  transition: all 0.18s; flex-shrink: 0;
 }
 .check-row.checked .check-box { background: var(--blue); border-color: var(--blue); color: var(--white); }
 
-.check-txt {
-  font-size: clamp(14px, 1.5vw, 18px);
-  font-weight: 400; line-height: 1.45; color: var(--black);
-}
+.check-txt { font-size: clamp(14px, 1.45vw, 18px); font-weight: 400; line-height: 1.45; color: var(--black); }
 .check-txt em { font-style: normal; color: var(--blue); font-weight: 500; }
 .check-row.checked .check-txt { color: var(--mid); }
 
 /* ═══════════════════════════════════════════
    SLIDE 12 — EXAMPLES
 ══════════════════════════════════════════ */
-.examples-row {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px; min-height: 0;
+.ex-row {
+  flex: 1 1 0; min-height: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
 }
 .ex-frame {
-  border: 1px dashed var(--rule);
-  background: var(--white);
+  border: 1px dashed var(--rule); background: var(--white);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 10px;
 }
-.ex-ring {
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 1.5px dashed var(--rule);
-  display: flex; align-items: center; justify-content: center;
-}
+.ex-ring   { width: 48px; height: 48px; border-radius: 50%; border: 1.5px dashed var(--rule); display: flex; align-items: center; justify-content: center; }
 .ex-person { width: 24px; height: 24px; background: var(--rule); border-radius: 50%; }
-.ex-lbl { font-size: 12.5px; font-weight: 600; color: var(--mid); }
-.ex-sub { font-size: 11px; font-weight: 400; color: var(--rule); }
+.ex-lbl    { font-size: 12.5px; font-weight: 600; color: var(--mid); }
+.ex-sub    { font-size: 11px; font-weight: 400; color: var(--rule); }
 
 /* ═══════════════════════════════════════════
    SLIDE 13 — AMA
 ══════════════════════════════════════════ */
 #slide-13 { flex-direction: row; }
 .ama-sb {
-  width: var(--sb); background: var(--black);
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 36px 20px calc(var(--nav-h) + 20px) 24px;
+  width: var(--sb); min-width: var(--sb); background: var(--black);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0;
 }
 .ama-main {
-  flex: 1; background: var(--blue);
+  flex: 1; min-width: 0; background: var(--blue);
   display: flex; flex-direction: column; justify-content: center;
-  padding: 56px 80px calc(var(--nav-h) + 56px);
+  padding: 56px 80px calc(var(--nav) + 56px);
 }
-.ama-eyebrow {
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.32); margin-bottom: 16px;
-}
-.ama-title {
-  font-size: clamp(68px, 10vw, 122px);
-  font-weight: 600; line-height: 0.88;
-  letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px;
-}
-.ama-sub { font-size: clamp(15px, 1.6vw, 20px); font-weight: 300; color: rgba(255,255,255,0.5); }
+.ama-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 16px; }
+.ama-title   { font-size: clamp(68px, 10vw, 122px); font-weight: 600; line-height: 0.88; letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px; }
+.ama-sub     { font-size: clamp(15px, 1.6vw, 20px); font-weight: 300; color: rgba(255,255,255,0.5); }
 
 /* ═══════════════════════════════════════════
    SLIDE 15 — RESOURCES
 ══════════════════════════════════════════ */
 .res-split {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-items: start;
-  min-height: 0;
+  flex: 1 1 0; min-height: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
 }
 .res-list { display: flex; flex-direction: column; }
-.res-row {
-  display: grid;
-  grid-template-columns: 10px 1fr;
-  align-items: center;
-  gap: 16px;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--rule);
+.res-row  {
+  display: grid; grid-template-columns: 10px 1fr;
+  align-items: center; gap: 16px;
+  padding: 16px 0; border-top: 1px solid var(--rule);
 }
-.res-row:first-child { border-top: 1px solid var(--rule); }
+.res-row:last-child { border-bottom: 1px solid var(--rule); }
 .res-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-.res-lbl { font-size: clamp(14px, 1.5vw, 18px); font-weight: 400; color: var(--black); }
+.res-lbl  { font-size: clamp(14px, 1.45vw, 18px); font-weight: 400; color: var(--black); }
 
-.qr-col { display: flex; flex-direction: column; gap: 14px; padding-top: 14px; }
+.qr-col { display: flex; flex-direction: column; gap: 14px; padding-top: 16px; }
 .qr-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
-.qr-box {
-  width: 120px; height: 120px;
-  border: 1px dashed var(--rule);
-  background: var(--white);
-  display: flex; align-items: center; justify-content: center;
-}
+.qr-box { width: 120px; height: 120px; border: 1px dashed var(--rule); background: var(--white); display: flex; align-items: center; justify-content: center; }
 .qr-inner {
   width: 72px; height: 72px;
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  grid-template-rows: repeat(5,1fr);
-  gap: 2px;
+  display: grid; grid-template-columns: repeat(5,1fr); grid-template-rows: repeat(5,1fr); gap: 2px;
 }
-.qc { background: var(--rule); }
-.qc.e { background: transparent; }
+.qc { background: var(--rule); } .qc.e { background: transparent; }
 .qr-sub { font-size: 12px; font-weight: 400; color: var(--mid); }
 
 /* ═══════════════════════════════════════════
@@ -659,25 +484,20 @@ body.notes-on .snote { display: block; }
 ══════════════════════════════════════════ */
 #slide-16 { flex-direction: row; }
 .s16-left {
-  width: 220px; background: var(--black);
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 36px 20px calc(var(--nav-h) + 20px) 28px;
+  width: 220px; min-width: 220px; background: var(--black);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0;
 }
 .s16-right {
-  flex: 1; background: var(--blue-d);
+  flex: 1; min-width: 0; background: var(--blue-d);
   display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 52px 72px calc(var(--nav-h) + 52px);
+  padding: 52px 72px calc(var(--nav) + 52px);
 }
-.s16-title {
-  font-size: clamp(48px, 7vw, 90px);
-  font-weight: 600; line-height: 0.92;
-  letter-spacing: -0.04em; color: var(--white); margin-bottom: 48px;
-}
-.s16-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
+.s16-title    { font-size: clamp(48px, 7vw, 90px); font-weight: 600; line-height: 0.92; letter-spacing: -0.04em; color: var(--white); margin-bottom: 48px; }
+.s16-rule     { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
 .s16-contacts { display: flex; gap: 44px; }
-.s16-c-tag { font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 5px; }
-.s16-c-val { font-size: 15px; font-weight: 600; color: var(--white); }
+.s16-c-tag    { font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 5px; }
+.s16-c-val    { font-size: 15px; font-weight: 600; color: var(--white); }
 
 </style>
 </head>
@@ -687,25 +507,25 @@ body.notes-on .snote { display: block; }
 
 <div class="deck">
 
-  <!-- ── 01 TITLE ── -->
+  <!-- 01 TITLE -->
   <div class="slide active" id="slide-1">
     <div class="s1-left">
       <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
-      <div class="s1-aside">LinkedIn Workshop</div>
+      <div class="s1-tag2">LinkedIn Workshop</div>
     </div>
     <div class="s1-right">
       <div class="s1-kicker">Public Digital — Member Workshop</div>
       <div class="s1-title">LinkedIn<br>Workshop</div>
       <div class="s1-rule"></div>
       <div class="s1-meta">
-        <div><div class="s1-tag">Presenter</div><div class="s1-name">Kennedy Adamu</div></div>
+        <div><div class="s1-ptag">Presenter</div><div class="s1-name">Kennedy Adamu</div></div>
         <div class="s1-date">April 2026</div>
       </div>
     </div>
     <div class="snote"><strong>Speaker Note</strong>Update the workshop title before the session. Set the tone early — practical and workshop-led, not a lecture.</div>
   </div>
 
-  <!-- ── 02 AGENDA ── -->
+  <!-- 02 AGENDA -->
   <div class="slide" id="slide-2">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -727,7 +547,7 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ── 03 QUIZ ── -->
+  <!-- 03 QUIZ -->
   <div class="slide" id="slide-3">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -737,7 +557,7 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">Interactive</div>
       <div class="h1">True or False?</div>
       <div class="quiz-badge">LinkedIn Stats Edition</div>
-      <div class="row-list">
+      <div class="quiz-list">
         <div class="quiz-row"><div class="quiz-n">1</div><div class="quiz-q">Add your first LinkedIn stat-based question here for the audience to guess.</div></div>
         <div class="quiz-row"><div class="quiz-n">2</div><div class="quiz-q">Add your second LinkedIn stat-based question here for the audience to guess.</div></div>
         <div class="quiz-row"><div class="quiz-n">3</div><div class="quiz-q">Add your third LinkedIn stat-based question here for the audience to guess.</div></div>
@@ -748,7 +568,7 @@ body.notes-on .snote { display: block; }
     <div class="snote"><strong>Speaker Note</strong>Replace each placeholder with a stats-based true/false question before the session. Read each one aloud, wait for the room, then reveal.</div>
   </div>
 
-  <!-- ── 04 SURVEY ── -->
+  <!-- 04 SURVEY -->
   <div class="slide" id="slide-4">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -766,7 +586,7 @@ body.notes-on .snote { display: block; }
     <div class="snote"><strong>Speaker Note</strong>Frame the results conversationally. Let the data lead into why you are covering today's agenda.</div>
   </div>
 
-  <!-- ── 05 FUNNEL ── -->
+  <!-- 05 FUNNEL -->
   <div class="slide" id="slide-5">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -784,15 +604,14 @@ body.notes-on .snote { display: block; }
         <div class="row-item">
           <div class="ri-n">02</div>
           <div class="ri-head">Check the 4 Bold Ideas</div>
-          <div class="ri-desc">
-            If it aligns — PD publishes. If not — post on your own profile. Personal posts typically reach further anyway.
+          <div class="ri-desc">If it aligns — PD publishes. If not — post on your own profile. Personal posts typically reach further anyway.
             <div class="chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshittification</span></div>
           </div>
         </div>
         <div class="row-item">
           <div class="ri-n">03</div>
           <div class="ri-head">Validate</div>
-          <div class="ri-desc">In the news? On Google Trends? LinkedIn voices discussing it? Community threads asking about it? If yes — it has traction.</div>
+          <div class="ri-desc">In the news? On Google Trends? LinkedIn voices discussing it? People asking about it in community threads? If yes — it has traction.</div>
         </div>
         <div class="row-item">
           <div class="ri-n">04</div>
@@ -808,7 +627,7 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ── 06 FUNNEL IN PRACTICE ── -->
+  <!-- 06 FUNNEL IN PRACTICE -->
   <div class="slide" id="slide-6">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -818,17 +637,17 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">Funnel in Practice</div>
       <div class="h1">A Real Example</div>
       <div class="practice-cols">
-        <div class="prac-col"><div class="prac-label">Niche</div><div class="prac-rule"></div><div class="prac-ph">Add real example here</div></div>
-        <div class="prac-col"><div class="prac-label">Bold Idea Alignment</div><div class="prac-rule"></div><div class="prac-ph">Which theme does it match?</div></div>
-        <div class="prac-col"><div class="prac-label">Validation</div><div class="prac-rule"></div><div class="prac-ph">Evidence of traction</div></div>
-        <div class="prac-col"><div class="prac-label">Output</div><div class="prac-rule"></div><div class="prac-ph">The actual content created</div></div>
+        <div class="prac-col"><div class="prac-lbl">Niche</div><div class="prac-rule"></div><div class="prac-ph">Add real example here</div></div>
+        <div class="prac-col"><div class="prac-lbl">Bold Idea Alignment</div><div class="prac-rule"></div><div class="prac-ph">Which theme does it match?</div></div>
+        <div class="prac-col"><div class="prac-lbl">Validation</div><div class="prac-rule"></div><div class="prac-ph">Evidence of traction</div></div>
+        <div class="prac-col"><div class="prac-lbl">Output</div><div class="prac-rule"></div><div class="prac-ph">The actual content created</div></div>
       </div>
       <div class="p-note"><strong>Presenter note:</strong> Add a real worked example before the session. Walk through it step by step with the room.</div>
     </div>
     <div class="snote"><strong>Speaker Note</strong>Use a real example from PD content or your own work. Show the funnel applied in practice, not just in theory.</div>
   </div>
 
-  <!-- ── 07 METHODS ── -->
+  <!-- 07 METHODS -->
   <div class="slide" id="slide-7">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -837,38 +656,18 @@ body.notes-on .snote { display: block; }
     <div class="main">
       <div class="eyebrow">You Don't Need Hours — You Need to Add Value</div>
       <div class="h1">Content Methods</div>
-      <div class="callout">Content doesn't have to be long. It has to be valuable.</div>
-      <div class="row-list">
-        <div class="row-item">
-          <div class="ri-n">01</div>
-          <div class="ri-head">Short Post</div>
-          <div class="ri-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">02</div>
-          <div class="ri-head">Voice Recording</div>
-          <div class="ri-desc">Brief script, record on your phone, transcribe, refine with AI. 30 minutes speaking generates thousands of words.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">03</div>
-          <div class="ri-head">Short Video</div>
-          <div class="ri-desc">30 seconds to 1 minute. Native video performs strongly on the platform. No studio required.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">04</div>
-          <div class="ri-head">Infographic</div>
-          <div class="ri-desc">Use data you already have. Visualise an insight your audience does not have access to.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">05</div>
-          <div class="ri-head">Data Post</div>
-          <div class="ri-desc">A single insight or stat with context. One number, well explained, is a complete post.</div>
-        </div>
+      <div class="callout" style="margin-top:0">Content doesn't have to be long. It has to be valuable.</div>
+      <div class="row-list" style="margin-top:16px">
+        <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Short Post</div><div class="ri-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div></div>
+        <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Voice Recording</div><div class="ri-desc">Brief script, record on your phone, transcribe, refine with AI. 30 minutes speaking generates thousands of words.</div></div>
+        <div class="row-item"><div class="ri-n">03</div><div class="ri-head">Short Video</div><div class="ri-desc">30 seconds to 1 minute. Native video performs strongly on the platform. No studio required.</div></div>
+        <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Infographic</div><div class="ri-desc">Use data you already have. Visualise an insight your audience does not have access to.</div></div>
+        <div class="row-item"><div class="ri-n">05</div><div class="ri-head">Data Post</div><div class="ri-desc">A single insight or stat with context. One number, well explained, is a complete post.</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── 08 ENGAGEMENT ── -->
+  <!-- 08 ENGAGEMENT -->
   <div class="slide" id="slide-8">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -878,37 +677,17 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">You Don't Have to Write to Grow</div>
       <div class="h1">Growing Through Engagement</div>
       <div class="row-list">
-        <div class="row-item">
-          <div class="ri-n">01</div>
-          <div class="ri-head">Find Key Voices in Your Niche</div>
-          <div class="ri-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">02</div>
-          <div class="ri-head">Identify the Best Communities</div>
-          <div class="ri-desc">Which organisations and communities consistently put out relevant content?</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">03</div>
-          <div class="ri-head">Study Your Algorithm Feed</div>
-          <div class="ri-desc">Your feed is already curated to you. Study what surfaces and why — it signals what performs.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">04</div>
-          <div class="ri-head">Analyse Engagement Patterns</div>
-          <div class="ri-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">05</div>
-          <div class="ri-head">Engage Thoughtfully</div>
-          <div class="ri-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div>
-        </div>
+        <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Find Key Voices in Your Niche</div><div class="ri-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div></div>
+        <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Identify the Best Communities</div><div class="ri-desc">Which organisations and communities consistently put out relevant content?</div></div>
+        <div class="row-item"><div class="ri-n">03</div><div class="ri-head">Study Your Algorithm Feed</div><div class="ri-desc">Your feed is already curated to you. Study what surfaces and why — it signals what performs.</div></div>
+        <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Analyse Engagement Patterns</div><div class="ri-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div></div>
+        <div class="row-item"><div class="ri-n">05</div><div class="ri-head">Engage Thoughtfully</div><div class="ri-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div></div>
       </div>
-      <div class="callout" style="margin-top:16px;margin-bottom:0">The bare minimum on LinkedIn is to engage. That is your in.</div>
+      <div class="callout">The bare minimum on LinkedIn is to engage. That is your in.</div>
     </div>
   </div>
 
-  <!-- ── 09 BEFORE YOU WRITE ── -->
+  <!-- 09 BEFORE YOU WRITE -->
   <div class="slide" id="slide-9">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -918,36 +697,16 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">Before You Write</div>
       <div class="h1">Ask Yourself These</div>
       <div class="row-list">
-        <div class="row-item">
-          <div class="ri-n">01</div>
-          <div class="ri-head">Who do I want to read this?</div>
-          <div class="ri-desc">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">02</div>
-          <div class="ri-head">What am I adding that is new?</div>
-          <div class="ri-desc">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">03</div>
-          <div class="ri-head">Why should anyone care?</div>
-          <div class="ri-desc">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">04</div>
-          <div class="ri-head">Would I actually read this?</div>
-          <div class="ri-desc">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">05</div>
-          <div class="ri-head">How can I make this genuinely valuable?</div>
-          <div class="ri-desc">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div>
-        </div>
+        <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Who do I want to read this?</div><div class="ri-desc">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div></div>
+        <div class="row-item"><div class="ri-n">02</div><div class="ri-head">What am I adding that is new?</div><div class="ri-desc">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div></div>
+        <div class="row-item"><div class="ri-n">03</div><div class="ri-head">Why should anyone care?</div><div class="ri-desc">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div></div>
+        <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Would I actually read this?</div><div class="ri-desc">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div></div>
+        <div class="row-item"><div class="ri-n">05</div><div class="ri-head">How can I make this genuinely valuable?</div><div class="ri-desc">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── 10 DOS & DON'TS ── -->
+  <!-- 10 DOS & DON'TS -->
   <div class="slide" id="slide-10">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -973,10 +732,10 @@ body.notes-on .snote { display: block; }
         <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each statement, ask for hands, click to reveal. Key: outbound links penalised by LinkedIn algorithm; hashtags offer minimal benefit; keep articles under 1,000 words; get inspired but always create from scratch. Tools: Claude for writing, Perplexity AI for research.</div>
+    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each statement, ask for hands, click to reveal. Key: outbound links penalised; hashtags offer minimal benefit; keep articles under 1,000 words; always create from scratch. Tools: Claude for writing, Perplexity AI for research.</div>
   </div>
 
-  <!-- ── 11 PROFILE ── -->
+  <!-- 11 PROFILE -->
   <div class="slide" id="slide-11">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -1006,7 +765,7 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ── 12 EXAMPLES ── -->
+  <!-- 12 EXAMPLES -->
   <div class="slide" id="slide-12">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -1015,7 +774,7 @@ body.notes-on .snote { display: block; }
     <div class="main">
       <div class="eyebrow">Profile Examples</div>
       <div class="h1">Good LinkedIn Profiles</div>
-      <div class="examples-row">
+      <div class="ex-row">
         <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 1</div><div class="ex-sub">Add screenshot here</div></div>
         <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 2</div><div class="ex-sub">Add screenshot here</div></div>
         <div class="ex-frame"><div class="ex-ring"><div class="ex-person"></div></div><div class="ex-lbl">Profile Example 3</div><div class="ex-sub">Add screenshot here</div></div>
@@ -1025,7 +784,7 @@ body.notes-on .snote { display: block; }
     <div class="snote"><strong>Speaker Note</strong>Walk through each profile and call out specifics: headline clarity, featured section use, recent posts, and how they engage in comments.</div>
   </div>
 
-  <!-- ── 13 AMA ── -->
+  <!-- 13 AMA -->
   <div class="slide" id="slide-13">
     <div class="ama-sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -1038,7 +797,7 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ── 14 TASK ── -->
+  <!-- 14 TASK -->
   <div class="slide" id="slide-14">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -1048,37 +807,17 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">Workshop Takeaway</div>
       <div class="h1">Your Task</div>
       <div class="row-list">
-        <div class="row-item">
-          <div class="ri-n">01</div>
-          <div class="ri-head">Pick a Content Idea in Your Niche</div>
-          <div class="ri-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">02</div>
-          <div class="ri-head">Run it Through the Bold Ideas Checklist</div>
-          <div class="ri-desc">AI, Digital Sovereignty, State Capacity, or Enshittification — if it aligns, PD publishes. If not, post it yourself.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">03</div>
-          <div class="ri-head">Validate the Idea</div>
-          <div class="ri-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this?</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">04</div>
-          <div class="ri-head">Create the Content Within the Next Month</div>
-          <div class="ri-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">05</div>
-          <div class="ri-head">Submit Your Idea to Kennedy Adamu</div>
-          <div class="ri-desc">Share your content idea to receive feedback and help developing it further before publishing.</div>
-        </div>
+        <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Pick a Content Idea in Your Niche</div><div class="ri-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div></div>
+        <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Run it Through the Bold Ideas Checklist</div><div class="ri-desc">AI, Digital Sovereignty, State Capacity, or Enshittification — if it aligns, PD publishes. If not, post it yourself.</div></div>
+        <div class="row-item"><div class="ri-n">03</div><div class="ri-head">Validate the Idea</div><div class="ri-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this?</div></div>
+        <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Create the Content Within the Next Month</div><div class="ri-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div></div>
+        <div class="row-item"><div class="ri-n">05</div><div class="ri-head">Submit Your Idea to Kennedy Adamu</div><div class="ri-desc">Share your content idea to receive feedback and help developing it further before publishing.</div></div>
       </div>
-      <div class="callout" style="margin-top:16px;margin-bottom:0">Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop.</div>
+      <div class="callout">Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop.</div>
     </div>
   </div>
 
-  <!-- ── 15 RESOURCES ── -->
+  <!-- 15 RESOURCES -->
   <div class="slide" id="slide-15">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -1114,11 +853,11 @@ body.notes-on .snote { display: block; }
     <div class="snote"><strong>Speaker Note</strong>Give the room time to scan the QR code before closing. Remind them the workshop slides are in the resource bank.</div>
   </div>
 
-  <!-- ── 16 CLOSE ── -->
+  <!-- 16 CLOSE -->
   <div class="slide" id="slide-16">
     <div class="s16-left">
       <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
-      <div class="s1-aside">Thank you</div>
+      <div class="s1-tag2">Thank you</div>
     </div>
     <div class="s16-right">
       <div class="s16-title">Now go make<br>something<br>worth reading.</div>
@@ -1134,17 +873,16 @@ body.notes-on .snote { display: block; }
 
 </div><!-- /deck -->
 
-<!-- NAV -->
 <div class="nav">
   <div class="nav-brand"><div class="nav-dot"></div>public.digital</div>
-  <div class="nav-centre">
+  <div class="nav-c">
     <button class="nav-btn" onclick="prevSlide()">Previous</button>
-    <div class="nav-count" id="nav-count">1 / 16</div>
+    <div class="nav-n" id="nav-count">1 / 16</div>
     <button class="nav-btn" onclick="nextSlide()">Next</button>
   </div>
-  <div class="nav-right">
-    <button class="util-btn" onclick="toggleNotes()">Notes</button>
-    <button class="util-btn" onclick="toggleFullscreen()">Fullscreen</button>
+  <div class="nav-r">
+    <button class="util" onclick="toggleNotes()">Notes</button>
+    <button class="util" onclick="toggleFullscreen()">Fullscreen</button>
   </div>
 </div>
 
@@ -1165,11 +903,10 @@ body.notes-on .snote { display: block; }
 
   document.addEventListener('keydown', e => {
     if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
-    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key))         { e.preventDefault(); prevSlide(); }
   });
 
-  function toggleNotes() { document.body.classList.toggle('notes-on'); }
-
+  function toggleNotes()      { document.body.classList.toggle('notes-on'); }
   function toggleFullscreen() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
     else document.exitFullscreen();
