@@ -20,7 +20,7 @@
   --sb:     180px;
   --nav:    48px;
   --ph:     56px;
-  --pv:     44px;
+  --pv:     40px;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,25 +35,16 @@ body {
   user-select: none;
 }
 
+/* ── DECK ── */
 .deck { position: fixed; inset: 0; }
-
-.slide {
-  position: absolute; inset: 0;
-  display: flex; opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+.slide { position: absolute; inset: 0; display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .slide.active { opacity: 1; pointer-events: all; }
 
-/* PROGRESS */
+/* ── PROGRESS ── */
 .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--blue); transition: width 0.4s ease; z-index: 500; }
 
-/* NAV */
-.nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  height: var(--nav); background: var(--black);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px; z-index: 500;
-}
+/* ── NAV ── */
+.nav { position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav); background: var(--black); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 500; }
 .nav-brand { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
 .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 .nav-c { display: flex; align-items: center; gap: 18px; }
@@ -64,12 +55,12 @@ body {
 .util { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.3); font-family: 'Lexend Deca', sans-serif; font-size: 10px; font-weight: 500; cursor: pointer; padding: 4px 12px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.18s; }
 .util:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
 
-/* SPEAKER NOTES */
+/* ── SPEAKER NOTES ── */
 .snote { position: fixed; bottom: calc(var(--nav) + 10px); right: 20px; width: 264px; background: var(--black); border: 1px solid rgba(255,255,255,0.09); padding: 14px 16px; font-size: 11.5px; font-weight: 400; color: rgba(255,255,255,0.48); line-height: 1.7; display: none; z-index: 490; }
 .snote strong { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
 body.notes-on .snote { display: block; }
 
-/* SIDEBAR */
+/* ── SIDEBAR ── */
 .sb { width: var(--sb); min-width: var(--sb); background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0; }
 .sb-brand { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--white); display: flex; align-items: center; gap: 8px; }
 .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
@@ -77,171 +68,248 @@ body.notes-on .snote { display: block; }
 .sb-num { font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.65; }
 .sb-sec { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.22); line-height: 1.5; }
 
-/* MAIN PANE */
+/* ── MAIN PANE ── */
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: var(--pv) var(--ph) calc(var(--nav) + var(--pv)) var(--ph); background: var(--cream); overflow: hidden; }
 
 .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; flex-shrink: 0; }
-.h1 { font-size: clamp(30px, 3.2vw, 50px); font-weight: 600; line-height: 1.05; letter-spacing: -0.025em; color: var(--black); margin-bottom: 24px; flex-shrink: 0; }
 
-.callout { background: var(--blue); color: var(--white); font-size: clamp(13px, 1.3vw, 17px); font-weight: 500; padding: 14px 20px; flex-shrink: 0; line-height: 1.45; margin-top: 16px; }
+/* Bigger h1 — flex-shrink 0 so it never collapses */
+.h1 { font-size: clamp(34px, 3.8vw, 56px); font-weight: 600; line-height: 1.02; letter-spacing: -0.025em; color: var(--black); margin-bottom: 20px; flex-shrink: 0; }
+
+.callout { background: var(--blue); color: var(--white); font-size: clamp(15px, 1.5vw, 19px); font-weight: 500; padding: 16px 22px; flex-shrink: 0; line-height: 1.45; margin-top: 16px; }
 .callout strong { font-weight: 700; }
 
-.p-note { margin-top: 16px; border-left: 2px solid var(--blue); padding: 8px 14px; font-size: 12px; font-weight: 400; color: var(--mid); line-height: 1.6; flex-shrink: 0; }
+.p-note { margin-top: 14px; border-left: 2px solid var(--blue); padding: 8px 14px; font-size: 13px; font-weight: 400; color: var(--mid); line-height: 1.6; flex-shrink: 0; }
 .p-note strong { color: var(--black); font-weight: 600; }
 
-/* ROW LIST */
+/* ── ROW LIST ─ fills all leftover height, rows share it equally ── */
 .row-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 .row-item { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 32px 28% 1fr; column-gap: 28px; align-items: center; border-top: 1px solid var(--rule); }
 .row-item:last-child { border-bottom: 1px solid var(--rule); }
-.ri-n { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
-.ri-head { font-size: clamp(14px, 1.6vw, 21px); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--black); }
-.ri-desc { font-size: clamp(12px, 1.05vw, 14.5px); font-weight: 400; line-height: 1.65; color: var(--mid); }
+
+.ri-n    { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
+/* Bigger heading text */
+.ri-head { font-size: clamp(17px, 1.8vw, 24px); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--black); }
+/* Bigger description text */
+.ri-desc { font-size: clamp(14px, 1.25vw, 17px); font-weight: 400; line-height: 1.65; color: var(--mid); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.chip { font-size: 9.5px; font-weight: 500; letter-spacing: 0.04em; padding: 2px 9px; border: 1px solid var(--rule); color: var(--mid); background: var(--cream); }
+.chip  { font-size: 10px; font-weight: 500; letter-spacing: 0.04em; padding: 2px 9px; border: 1px solid var(--rule); color: var(--mid); background: var(--cream); }
 
-/* ─── SLIDE 1 ─── */
+/* ═══════════════════════════════════════
+   SLIDE 1 — TITLE
+═══════════════════════════════════════ */
 #slide-1 { flex-direction: row; }
 .s1-left { width: 220px; min-width: 220px; background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0; }
 .s1-brand { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--white); display: flex; align-items: center; gap: 8px; }
 .s1-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.s1-sub { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.22); }
+.s1-sub  { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.22); }
 .s1-right { flex: 1; min-width: 0; background: var(--blue); display: flex; flex-direction: column; justify-content: flex-end; padding: 52px 72px calc(var(--nav) + 52px) 72px; }
-.s1-kicker { font-size: 10.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
-.s1-title { font-size: clamp(60px, 8.5vw, 110px); font-weight: 600; line-height: 0.9; letter-spacing: -0.04em; color: var(--white); margin-bottom: 52px; }
-.s1-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
-.s1-meta { display: flex; align-items: flex-end; gap: 40px; }
-.s1-ptag { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 5px; }
-.s1-name { font-size: 18px; font-weight: 600; color: var(--white); }
-.s1-date { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.36); padding-bottom: 2px; }
+.s1-kicker { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
+.s1-title  { font-size: clamp(60px, 8.5vw, 110px); font-weight: 600; line-height: 0.9; letter-spacing: -0.04em; color: var(--white); margin-bottom: 52px; }
+.s1-rule   { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
+.s1-meta   { display: flex; align-items: flex-end; gap: 40px; }
+.s1-ptag   { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 5px; }
+.s1-name   { font-size: 20px; font-weight: 600; color: var(--white); }
+.s1-date   { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.36); padding-bottom: 2px; }
 
-/* ─── SLIDE 2 AGENDA ─── */
+/* ═══════════════════════════════════════
+   SLIDE 2 — AGENDA
+═══════════════════════════════════════ */
 .agenda-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); column-gap: 48px; }
-.ag-row { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 18px; border-top: 1px solid var(--rule); }
+.ag-row { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 20px; border-top: 1px solid var(--rule); }
 .ag-row:nth-child(7), .ag-row:nth-child(8) { border-bottom: 1px solid var(--rule); }
-.ag-n { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
-.ag-label { font-size: clamp(14px, 1.5vw, 19px); font-weight: 500; color: var(--black); line-height: 1.3; }
+.ag-n     { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
+.ag-label { font-size: clamp(15px, 1.7vw, 21px); font-weight: 500; color: var(--black); line-height: 1.3; }
 
-/* ─── SLIDE 3 QUIZ ─── */
-.quiz-badge { align-self: flex-start; flex-shrink: 0; background: var(--blue); color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 13px; margin-bottom: 16px; }
-.quiz-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.quiz-row { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 20px; border-top: 1px solid var(--rule); }
-.quiz-row:last-child { border-bottom: 1px solid var(--rule); }
-.quiz-n { font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.15; text-align: right; }
-.quiz-q { font-size: clamp(13px, 1.35vw, 17px); font-weight: 400; color: var(--black); line-height: 1.55; }
-.quiz-tag { display: inline-block; font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
-
-/* ─── SLIDE 4 SURVEY CHARTS ─── */
-.survey-headline {
-  display: flex; align-items: center; gap: 32px;
-  margin-bottom: 20px; flex-shrink: 0;
-  border-bottom: 1px solid var(--rule); padding-bottom: 16px;
+/* ═══════════════════════════════════════
+   SLIDE 3 — QUIZ (interactive reveal)
+   Clicking a row reveals TRUE or FALSE.
+   Before reveal: answer badge invisible,
+   no colour cues whatsoever.
+═══════════════════════════════════════ */
+.quiz-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; flex-shrink: 0;
 }
-.survey-stat { display: flex; flex-direction: column; gap: 2px; }
-.survey-stat-n { font-size: clamp(28px, 3vw, 42px); font-weight: 700; color: var(--blue); line-height: 1; letter-spacing: -0.03em; }
-.survey-stat-l { font-size: 11px; font-weight: 500; color: var(--mid); letter-spacing: 0.04em; }
-.survey-stat-div { width: 1px; height: 40px; background: var(--rule); }
+.quiz-badge { background: var(--blue); color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 13px; }
+.quiz-reveal-btn { background: none; border: 1px solid var(--rule); font-family: 'Lexend Deca', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); padding: 5px 14px; cursor: pointer; transition: all 0.18s; }
+.quiz-reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
 
-.survey-body { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.quiz-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 
-.chart-block { display: flex; flex-direction: column; gap: 10px; }
-.chart-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; }
-.chart-rule { height: 1px; background: var(--blue); opacity: 0.2; flex-shrink: 0; margin-bottom: 2px; }
+.quiz-row {
+  flex: 1 1 0; min-height: 0;
+  display: grid;
+  /* col1: big number  col2: topic + question  col3: answer badge */
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid var(--rule);
+  cursor: pointer;
+  padding: 0 4px;
+  transition: background 0.15s;
+}
+.quiz-row:last-child { border-bottom: 1px solid var(--rule); }
+.quiz-row:hover { background: rgba(58,90,142,0.03); }
 
-/* Horizontal bar chart rows */
-.bar-rows { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: space-around; }
-.bar-row { display: flex; flex-direction: column; gap: 4px; }
-.bar-row-label { font-size: clamp(10.5px, 1vw, 13px); font-weight: 500; color: var(--black); line-height: 1.3; }
-.bar-track { height: 6px; background: var(--rule); border-radius: 0; position: relative; width: 100%; }
-.bar-fill { height: 100%; background: var(--blue); border-radius: 0; transition: width 0.6s ease; }
-.bar-pct { font-size: 10px; font-weight: 600; color: var(--mid); margin-top: 1px; }
+.quiz-n { font-size: clamp(30px, 3.8vw, 52px); font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.14; text-align: right; }
 
-/* Confidence: vertical bars */
-.conf-bars { flex: 1 1 0; min-height: 0; display: flex; align-items: flex-end; gap: 10px; padding-top: 20px; }
-.conf-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.conf-bar-wrap { width: 100%; flex: 1; display: flex; align-items: flex-end; }
-.conf-bar { width: 100%; background: var(--blue); transition: height 0.6s ease; }
-.conf-bar.low { background: var(--rule); }
-.conf-n-label { font-size: 12px; font-weight: 600; color: var(--mid); }
-.conf-count { font-size: 11px; font-weight: 600; color: var(--blue); }
+.quiz-body { display: flex; flex-direction: column; gap: 4px; }
+.quiz-tag  { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+.quiz-q    { font-size: clamp(14px, 1.5vw, 19px); font-weight: 500; color: var(--black); line-height: 1.45; }
 
-/* ─── SLIDE 6 FUNNEL IN PRACTICE ─── */
+/* Answer badge — hidden by default */
+.quiz-ans {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 7px 16px;
+  white-space: nowrap;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.22s;
+}
+
+/* Revealed states */
+.quiz-row.true-ans.revealed  { background: rgba(29,112,72,0.04); }
+.quiz-row.false-ans.revealed { background: rgba(179,48,48,0.04); }
+
+.quiz-row.true-ans.revealed  .quiz-ans { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.1); }
+.quiz-row.false-ans.revealed .quiz-ans { opacity: 1; visibility: visible; color: var(--red);   background: rgba(179,48,48,0.1); }
+
+.quiz-row.true-ans.revealed  .quiz-q { color: var(--green); }
+.quiz-row.false-ans.revealed .quiz-q { color: var(--red);   }
+
+/* ═══════════════════════════════════════
+   SLIDE 4 — SURVEY RESULTS
+   Full-height two-column chart layout.
+═══════════════════════════════════════ */
+.survey-headline {
+  display: flex; align-items: center; gap: 36px;
+  padding-bottom: 18px; border-bottom: 1px solid var(--rule);
+  flex-shrink: 0; margin-bottom: 20px;
+}
+.survey-stat-n { font-size: clamp(30px, 3.5vw, 46px); font-weight: 700; color: var(--blue); line-height: 1; letter-spacing: -0.03em; }
+.survey-stat-l { font-size: 13px; font-weight: 500; color: var(--mid); margin-top: 2px; }
+.survey-div    { width: 1px; height: 44px; background: var(--rule); }
+
+/* Two-column chart area fills all remaining height */
+.survey-body {
+  flex: 1 1 0; min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.chart-block { display: flex; flex-direction: column; min-height: 0; }
+.chart-lbl   { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; flex-shrink: 0; }
+.chart-rule  { height: 1px; background: var(--blue); opacity: 0.2; margin-bottom: 8px; flex-shrink: 0; }
+
+/* Bar rows fill the column evenly */
+.bar-rows { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.bar-row  { display: flex; flex-direction: column; gap: 5px; flex: 1 1 0; justify-content: center; }
+
+.bar-row-label { font-size: clamp(13px, 1.25vw, 16px); font-weight: 500; color: var(--black); line-height: 1.3; }
+.bar-track { height: 7px; background: var(--rule); width: 100%; }
+.bar-fill  { height: 100%; background: var(--blue); }
+.bar-pct   { font-size: clamp(11px, 1vw, 13px); font-weight: 400; color: var(--mid); }
+
+/* ═══════════════════════════════════════
+   SLIDE 6 — FUNNEL IN PRACTICE
+   4 columns, each fills full height.
+═══════════════════════════════════════ */
 .practice-cols { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.prac-col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
-.prac-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; }
-.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; flex-shrink: 0; }
-.prac-content { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 10px; gap: 8px; overflow: hidden; }
-.prac-head { font-size: clamp(13px, 1.3vw, 17px); font-weight: 600; color: var(--black); line-height: 1.3; letter-spacing: -0.01em; }
-.prac-body { font-size: clamp(11px, 1vw, 13.5px); font-weight: 400; color: var(--mid); line-height: 1.6; }
-.prac-tag { display: inline-block; font-size: 9.5px; font-weight: 600; padding: 2px 9px; border: 1px solid rgba(58,90,142,0.3); color: var(--blue); background: rgba(58,90,142,0.05); margin-top: 2px; }
 
-/* ─── SLIDE 10 DOS & DON'TS ─── */
+.prac-col  { display: flex; flex-direction: column; min-height: 0; }
+.prac-lbl  { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; margin-bottom: 8px; }
+.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; flex-shrink: 0; margin-bottom: 14px; }
+
+/* Content fills rest of column */
+.prac-content { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.prac-head { font-size: clamp(15px, 1.5vw, 20px); font-weight: 600; color: var(--black); line-height: 1.3; letter-spacing: -0.01em; }
+.prac-body { font-size: clamp(13px, 1.15vw, 16px); font-weight: 400; color: var(--mid); line-height: 1.65; }
+.prac-tag  { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border: 1px solid rgba(58,90,142,0.3); color: var(--blue); background: rgba(58,90,142,0.05); align-self: flex-start; }
+
+/* ═══════════════════════════════════════
+   SLIDE 10 — DOS & DON'TS
+═══════════════════════════════════════ */
 .dnd-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-shrink: 0; }
-.dnd-instr { font-size: 12.5px; font-weight: 400; color: var(--mid); font-style: italic; }
+.dnd-instr  { font-size: 14px; font-weight: 400; color: var(--mid); font-style: italic; }
 .reveal-btn { background: none; border: 1px solid var(--rule); font-family: 'Lexend Deca', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); padding: 5px 14px; cursor: pointer; transition: all 0.18s; }
 .reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
+
 .dnd-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); column-gap: 40px; }
-.dnd-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; border-top: 1px solid var(--rule); cursor: pointer; padding: 0 2px; }
-.dnd-grid .dnd-row:nth-child(5),
-.dnd-grid .dnd-row:nth-child(10) { border-bottom: 1px solid var(--rule); }
-.dnd-stmt { font-size: clamp(12.5px, 1.25vw, 16px); font-weight: 400; line-height: 1.5; color: var(--black); }
-.dnd-verd { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; padding: 4px 10px; opacity: 0; visibility: hidden; white-space: nowrap; transition: opacity 0.2s; }
+.dnd-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; border-top: 1px solid var(--rule); cursor: pointer; padding: 0 2px; transition: background 0.15s; }
+.dnd-grid .dnd-row:nth-child(5), .dnd-grid .dnd-row:nth-child(10) { border-bottom: 1px solid var(--rule); }
+.dnd-row:hover { background: rgba(58,90,142,0.03); }
+
+.dnd-stmt { font-size: clamp(13px, 1.35vw, 17px); font-weight: 400; line-height: 1.5; color: var(--black); }
+.dnd-verd { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; padding: 5px 12px; opacity: 0; visibility: hidden; white-space: nowrap; transition: opacity 0.2s; }
 .dnd-row.do.revealed   .dnd-verd { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.08); }
 .dnd-row.do.revealed   .dnd-stmt { color: var(--green); }
-.dnd-row.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.08); }
+.dnd-row.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red);   background: rgba(179,48,48,0.08); }
 .dnd-row.dont.revealed .dnd-stmt { color: var(--red); }
 
-/* ─── SLIDE 11 CHECKLIST ─── */
+/* ═══════════════════════════════════════
+   SLIDE 11 — PROFILE CHECKLIST
+═══════════════════════════════════════ */
 .check-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.check-row { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 26px 1fr; align-items: center; gap: 20px; border-top: 1px solid var(--rule); cursor: pointer; }
+.check-row  { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 26px 1fr; align-items: center; gap: 22px; border-top: 1px solid var(--rule); cursor: pointer; }
 .check-row:last-child { border-bottom: 1px solid var(--rule); }
-.check-box { width: 20px; height: 20px; border: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: transparent; transition: all 0.18s; flex-shrink: 0; }
+.check-box  { width: 22px; height: 22px; border: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: transparent; transition: all 0.18s; flex-shrink: 0; }
 .check-row.checked .check-box { background: var(--blue); border-color: var(--blue); color: var(--white); }
-.check-txt { font-size: clamp(14px, 1.45vw, 18px); font-weight: 400; line-height: 1.45; color: var(--black); }
+.check-txt  { font-size: clamp(15px, 1.55vw, 20px); font-weight: 400; line-height: 1.45; color: var(--black); }
 .check-txt em { font-style: normal; color: var(--blue); font-weight: 500; }
 .check-row.checked .check-txt { color: var(--mid); }
 
-/* ─── SLIDE 12 EXAMPLES ─── */
+/* ═══════════════════════════════════════
+   SLIDE 12 — PROFILE EXAMPLES
+═══════════════════════════════════════ */
 .ex-row { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.ex-frame { border: 1px solid var(--rule); background: var(--white); display: flex; flex-direction: column; padding: 28px 24px 24px; gap: 8px; }
-.ex-name { font-size: clamp(16px, 1.6vw, 22px); font-weight: 600; color: var(--black); letter-spacing: -0.02em; line-height: 1.1; }
-.ex-role { font-size: 11px; font-weight: 500; color: var(--blue); letter-spacing: 0.06em; }
-.ex-rule { width: 100%; height: 1px; background: var(--rule); margin: 4px 0; }
-.ex-why-label { font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-top: 4px; }
-.ex-why { font-size: clamp(11.5px, 1.05vw, 14px); font-weight: 400; color: var(--black); line-height: 1.6; flex: 1; }
-.ex-url { font-size: 10.5px; font-weight: 400; color: var(--mid); margin-top: auto; padding-top: 8px; word-break: break-all; }
+.ex-frame { border: 1px solid var(--rule); background: var(--white); display: flex; flex-direction: column; padding: 28px 26px 24px; gap: 6px; }
+.ex-name  { font-size: clamp(18px, 1.9vw, 26px); font-weight: 600; color: var(--black); letter-spacing: -0.02em; line-height: 1.1; }
+.ex-role  { font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; }
+.ex-rule2 { width: 100%; height: 1px; background: var(--rule); margin: 6px 0; flex-shrink: 0; }
+.ex-why-label { font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.ex-why   { font-size: clamp(13px, 1.2vw, 16px); font-weight: 400; color: var(--black); line-height: 1.65; flex: 1; }
+.ex-url   { font-size: 11px; font-weight: 400; color: var(--mid); margin-top: auto; padding-top: 10px; word-break: break-all; border-top: 1px solid var(--rule); }
 
-/* ─── SLIDE 13 AMA ─── */
+/* ═══════════════════════════════════════
+   SLIDE 13 — AMA
+═══════════════════════════════════════ */
 #slide-13 { flex-direction: row; }
-.ama-sb { width: var(--sb); min-width: var(--sb); background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0; }
+.ama-sb   { width: var(--sb); min-width: var(--sb); background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0; }
 .ama-main { flex: 1; min-width: 0; background: var(--blue); display: flex; flex-direction: column; justify-content: center; padding: 56px 80px calc(var(--nav) + 56px); }
 .ama-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 16px; }
-.ama-title { font-size: clamp(68px, 10vw, 122px); font-weight: 600; line-height: 0.88; letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px; }
-.ama-sub { font-size: clamp(15px, 1.6vw, 20px); font-weight: 300; color: rgba(255,255,255,0.5); }
+.ama-title   { font-size: clamp(68px, 10vw, 122px); font-weight: 600; line-height: 0.88; letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px; }
+.ama-sub     { font-size: clamp(16px, 1.7vw, 22px); font-weight: 300; color: rgba(255,255,255,0.5); }
 
-/* ─── SLIDE 15 RESOURCES ─── */
+/* ═══════════════════════════════════════
+   SLIDE 15 — RESOURCES
+═══════════════════════════════════════ */
 .res-split { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-.res-list { display: flex; flex-direction: column; }
-.res-row { display: grid; grid-template-columns: 10px 1fr; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid var(--rule); }
+.res-list  { display: flex; flex-direction: column; }
+.res-row   { display: grid; grid-template-columns: 10px 1fr; align-items: center; gap: 18px; padding: 18px 0; border-top: 1px solid var(--rule); }
 .res-row:last-child { border-bottom: 1px solid var(--rule); }
-.res-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-.res-lbl { font-size: clamp(14px, 1.45vw, 18px); font-weight: 400; color: var(--black); }
-.qr-col { display: flex; flex-direction: column; gap: 14px; padding-top: 16px; }
-.qr-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
-.qr-box { width: 120px; height: 120px; border: 1px dashed var(--rule); background: var(--white); display: flex; align-items: center; justify-content: center; }
-.qr-inner { width: 72px; height: 72px; display: grid; grid-template-columns: repeat(5,1fr); grid-template-rows: repeat(5,1fr); gap: 2px; }
-.qc { background: var(--rule); } .qc.e { background: transparent; }
-.qr-url { font-size: 11px; font-weight: 400; color: var(--mid); line-height: 1.5; max-width: 240px; word-break: break-all; }
-.qr-note { font-size: 10px; font-weight: 500; color: var(--blue); }
+.res-mark  { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+.res-lbl   { font-size: clamp(15px, 1.5vw, 20px); font-weight: 400; color: var(--black); }
 
-/* ─── SLIDE 16 CLOSE ─── */
+.qr-col  { display: flex; flex-direction: column; gap: 14px; padding-top: 16px; }
+.qr-lbl  { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
+.qr-box  { width: 120px; height: 120px; border: 1px dashed var(--rule); background: var(--white); display: flex; align-items: center; justify-content: center; }
+.qr-inner{ width: 72px; height: 72px; display: grid; grid-template-columns: repeat(5,1fr); grid-template-rows: repeat(5,1fr); gap: 2px; }
+.qc { background: var(--rule); } .qc.e { background: transparent; }
+.qr-note { font-size: 12px; font-weight: 600; color: var(--blue); }
+.qr-url  { font-size: 11.5px; font-weight: 400; color: var(--mid); line-height: 1.5; max-width: 240px; word-break: break-all; }
+
+/* ═══════════════════════════════════════
+   SLIDE 16 — CLOSE
+═══════════════════════════════════════ */
 #slide-16 { flex-direction: row; }
-.s16-left { width: 220px; min-width: 220px; background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0; }
+.s16-left  { width: 220px; min-width: 220px; background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0; }
 .s16-right { flex: 1; min-width: 0; background: var(--blue-d); display: flex; flex-direction: column; justify-content: flex-end; padding: 52px 72px calc(var(--nav) + 52px); }
 .s16-title { font-size: clamp(48px, 7vw, 90px); font-weight: 600; line-height: 0.92; letter-spacing: -0.04em; color: var(--white); margin-bottom: 40px; }
-.s16-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
-.s16-presenter-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 6px; }
-.s16-presenter-name { font-size: 18px; font-weight: 600; color: var(--white); }
+.s16-rule  { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
+.s16-ptag  { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 6px; }
+.s16-pname { font-size: 20px; font-weight: 600; color: var(--white); }
 
 </style>
 </head>
@@ -266,7 +334,7 @@ body.notes-on .snote { display: block; }
         <div class="s1-date">April 2026</div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Set the tone early — practical and workshop-led, not a lecture. LinkedIn Simplified: the clue's in the title.</div>
+    <div class="snote"><strong>Speaker Note</strong>Set the tone early — practical and workshop-led, not a lecture.</div>
   </div>
 
   <!-- 02 AGENDA -->
@@ -291,7 +359,7 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- 03 QUIZ -->
+  <!-- 03 QUIZ — interactive reveal -->
   <div class="slide" id="slide-3">
     <div class="sb">
       <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
@@ -300,46 +368,60 @@ body.notes-on .snote { display: block; }
     <div class="main">
       <div class="eyebrow">Interactive</div>
       <div class="h1">True or False?</div>
-      <div class="quiz-badge">LinkedIn Stats Edition</div>
+      <div class="quiz-header">
+        <div class="quiz-badge">LinkedIn Stats Edition</div>
+        <button class="quiz-reveal-btn" id="quiz-reveal-btn" onclick="revealAllQuiz()">Reveal all</button>
+      </div>
       <div class="quiz-list">
-        <div class="quiz-row">
+
+        <div class="quiz-row false-ans" onclick="toggleQuiz(this)">
           <div class="quiz-n">1</div>
-          <div>
+          <div class="quiz-body">
             <div class="quiz-tag">Profile Optimisation</div>
             <div class="quiz-q">Optimised LinkedIn profiles are 10 times more likely to receive opportunities.</div>
           </div>
+          <div class="quiz-ans">FALSE — it's 40x</div>
         </div>
-        <div class="quiz-row">
+
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
           <div class="quiz-n">2</div>
-          <div>
+          <div class="quiz-body">
             <div class="quiz-tag">Buying Influence</div>
-            <div class="quiz-q">About 82% of B2B buyers will review your LinkedIn profile before accepting a meeting or otherwise connecting with you.</div>
+            <div class="quiz-q">About 82% of B2B buyers will review your LinkedIn profile before accepting a meeting or connecting with you.</div>
           </div>
+          <div class="quiz-ans">TRUE</div>
         </div>
-        <div class="quiz-row">
+
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
           <div class="quiz-n">3</div>
-          <div>
+          <div class="quiz-body">
             <div class="quiz-tag">Profile Completeness</div>
             <div class="quiz-q">A complete LinkedIn profile will get you 21x more profile views and 36x more messages.</div>
           </div>
+          <div class="quiz-ans">TRUE</div>
         </div>
-        <div class="quiz-row">
+
+        <div class="quiz-row false-ans" onclick="toggleQuiz(this)">
           <div class="quiz-n">4</div>
-          <div>
+          <div class="quiz-body">
             <div class="quiz-tag">Carousel Posts</div>
             <div class="quiz-q">Carousel posts get about 50% more engagement than video posts, 303% more than image posts, and 60% more than text-only posts.</div>
           </div>
+          <div class="quiz-ans">FALSE — 278%, 303%, 596%</div>
         </div>
-        <div class="quiz-row">
+
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
           <div class="quiz-n">5</div>
-          <div>
+          <div class="quiz-body">
             <div class="quiz-tag">Total User Base</div>
             <div class="quiz-q">LinkedIn has over 1.1 billion members worldwide as of January 2025.</div>
           </div>
+          <div class="quiz-ans">TRUE</div>
         </div>
+
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Read each statement. Ask for hands — True or False? Then reveal. Answers: 1=FALSE (it's 40x), 2=TRUE, 3=TRUE, 4=FALSE (278%, 303%, 596%), 5=TRUE.</div>
+    <div class="snote"><strong>Speaker Note</strong>Read each statement, ask for hands, then click to reveal. Answers: 1=FALSE (40x not 10x), 2=TRUE, 3=TRUE, 4=FALSE (278%, not 50%; 596% not 60%), 5=TRUE.</div>
   </div>
 
   <!-- 04 SURVEY RESULTS -->
@@ -352,30 +434,26 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">What You Told Us</div>
       <div class="h1">Survey Results</div>
 
-      <!-- Headline stats -->
       <div class="survey-headline">
-        <div class="survey-stat">
+        <div>
           <div class="survey-stat-n">17</div>
           <div class="survey-stat-l">Members responded</div>
         </div>
-        <div class="survey-stat-div"></div>
-        <div class="survey-stat">
+        <div class="survey-div"></div>
+        <div>
           <div class="survey-stat-n">100%</div>
           <div class="survey-stat-l">Want this workshop</div>
         </div>
-        <div class="survey-stat-div"></div>
-        <div class="survey-stat">
+        <div class="survey-div"></div>
+        <div>
           <div class="survey-stat-n">82%</div>
           <div class="survey-stat-l">Rated confidence 1–2 out of 5</div>
         </div>
       </div>
 
-      <!-- Charts -->
       <div class="survey-body">
-
-        <!-- Left: Barriers -->
         <div class="chart-block">
-          <div class="chart-label">What's holding you back?</div>
+          <div class="chart-lbl">What's holding you back?</div>
           <div class="chart-rule"></div>
           <div class="bar-rows">
             <div class="bar-row">
@@ -406,9 +484,8 @@ body.notes-on .snote { display: block; }
           </div>
         </div>
 
-        <!-- Right: Workshop interests -->
         <div class="chart-block">
-          <div class="chart-label">What do you want from today?</div>
+          <div class="chart-lbl">What do you want from today?</div>
           <div class="chart-rule"></div>
           <div class="bar-rows">
             <div class="bar-row">
@@ -438,7 +515,6 @@ body.notes-on .snote { display: block; }
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <div class="snote"><strong>Speaker Note</strong>The biggest barrier is simply not knowing what to do — that's exactly what today addresses. Lead with that framing.</div>
@@ -534,7 +610,7 @@ body.notes-on .snote { display: block; }
 
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Walk through each column left to right. Emphasise that the output was produced using the voice recording method from the Content Methods slide — it is a real demonstration of the whole funnel working end to end.</div>
+    <div class="snote"><strong>Speaker Note</strong>Walk left to right. Emphasise that the output used the voice recording method from the Content Methods slide — a real end-to-end demonstration of the funnel.</div>
   </div>
 
   <!-- 07 METHODS -->
@@ -622,7 +698,7 @@ body.notes-on .snote { display: block; }
         <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each, ask for hands, click to reveal. Key points: outbound links penalised by the algorithm; hashtags offer minimal benefit; keep articles under 1,000 words; always create from scratch. Recommended tools: Claude for writing and refining, Perplexity AI for research (cites sources).</div>
+    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each, ask for hands, click to reveal. Key: outbound links penalised by algorithm; hashtags minimal benefit; keep articles under 1,000 words; always create from scratch. Tools: Claude for writing, Perplexity AI for research.</div>
   </div>
 
   <!-- 11 PROFILE -->
@@ -665,37 +741,33 @@ body.notes-on .snote { display: block; }
       <div class="eyebrow">Profile Examples</div>
       <div class="h1">Good LinkedIn Profiles</div>
       <div class="ex-row">
-
         <div class="ex-frame">
           <div class="ex-name">Rob Miller</div>
           <div class="ex-role">Content &amp; Writing</div>
-          <div class="ex-rule"></div>
+          <div class="ex-rule2"></div>
           <div class="ex-why-label">Why he works</div>
           <div class="ex-why">Rob is an excellent example of creating content and writing on LinkedIn. Study his structure, how he opens posts, and how he keeps readers moving through his content.</div>
           <div class="ex-url">linkedin.com/in/rob-miller-11072b6</div>
         </div>
-
         <div class="ex-frame">
           <div class="ex-name">Kate Marks</div>
           <div class="ex-role">Personality &amp; Perspective</div>
-          <div class="ex-rule"></div>
+          <div class="ex-rule2"></div>
           <div class="ex-why-label">Why she works</div>
-          <div class="ex-why">Kate showcases her personality and perspective with confidence. She also makes excellent use of LinkedIn's native tools — articles, newsletters, featured sections — to maximise her presence.</div>
+          <div class="ex-why">Kate showcases her personality and perspective with confidence. She makes excellent use of LinkedIn's native tools — articles, newsletters, featured sections — to maximise her presence.</div>
           <div class="ex-url">linkedin.com/in/drkatemarks</div>
         </div>
-
         <div class="ex-frame">
           <div class="ex-name">Dai Vaughan</div>
           <div class="ex-role">Networking &amp; Collaboration</div>
-          <div class="ex-rule"></div>
+          <div class="ex-rule2"></div>
           <div class="ex-why-label">Why he works</div>
-          <div class="ex-why">Dai is a strong example of networking and working with others on LinkedIn. He has built a cross-promotional presence — appearing in other people's content while consistently amplifying theirs.</div>
+          <div class="ex-why">Dai has built a cross-promotional presence — appearing in other people's content while consistently amplifying theirs. A strong model for networking and working with others on LinkedIn.</div>
           <div class="ex-url">linkedin.com/in/dafyddvaughan</div>
         </div>
-
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Pull up each profile live if possible. Point to specific posts or sections that illustrate the "why they work" description. Each profile demonstrates a different route to LinkedIn success.</div>
+    <div class="snote"><strong>Speaker Note</strong>Pull up each profile live if possible. Each demonstrates a different route to LinkedIn success — point to specific posts or sections as you go.</div>
   </div>
 
   <!-- 13 AMA -->
@@ -764,7 +836,7 @@ body.notes-on .snote { display: block; }
         </div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Give the room time to open the link or scan before closing. Remind them the workshop slides are inside the folder too.</div>
+    <div class="snote"><strong>Speaker Note</strong>Give the room time to open the link before closing. Remind them the workshop slides are inside the folder too.</div>
   </div>
 
   <!-- 16 CLOSE -->
@@ -776,8 +848,8 @@ body.notes-on .snote { display: block; }
     <div class="s16-right">
       <div class="s16-title">Now go make<br>something<br>worth reading.</div>
       <div class="s16-rule"></div>
-      <div class="s16-presenter-tag">Workshop facilitated by</div>
-      <div class="s16-presenter-name">Kennedy Adamu</div>
+      <div class="s16-ptag">Workshop facilitated by</div>
+      <div class="s16-pname">Kennedy Adamu</div>
     </div>
     <div class="snote"><strong>Speaker Note</strong>Warm and personal. Thank the room. Remind them 1:1 follow-up sessions are bookable and the resource bank is live. Leave on a high.</div>
   </div>
@@ -823,6 +895,17 @@ body.notes-on .snote { display: block; }
     else document.exitFullscreen();
   }
 
+  /* ── Quiz reveal ── */
+  function toggleQuiz(row) { row.classList.toggle('revealed'); }
+
+  function revealAllQuiz() {
+    const rows = document.querySelectorAll('.quiz-row');
+    const anyHidden = [...rows].some(r => !r.classList.contains('revealed'));
+    rows.forEach(r => anyHidden ? r.classList.add('revealed') : r.classList.remove('revealed'));
+    document.getElementById('quiz-reveal-btn').textContent = anyHidden ? 'Hide all' : 'Reveal all';
+  }
+
+  /* ── Dos & Don'ts reveal ── */
   function toggleReveal(row) { row.classList.toggle('revealed'); }
 
   function revealAll() {
