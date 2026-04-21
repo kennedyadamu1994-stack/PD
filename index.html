@@ -4,40 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkedIn Workshop — Public Digital</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
+
+/* ─────────────────────────────────────
+   TOKENS
+───────────────────────────────────── */
 :root {
-  --pd-black:   #1A1A1A;
-  --pd-blue:    #3A5A8E;
-  --pd-blue-d:  #2A4472;
-  --pd-blue-l:  #4E72A8;
-  --pd-cream:   #F4F3EF;
-  --pd-white:   #FFFFFF;
-  --pd-grey:    #6B7585;
-  --pd-border:  #D6D4CE;
-  --pd-green:   #1D7048;
-  --pd-red:     #B33030;
+  --black:  #1A1A1A;
+  --blue:   #3A5A8E;
+  --blue-d: #2A4472;
+  --cream:  #F4F3EF;
+  --white:  #FFFFFF;
+  --mid:    #8A93A0;
+  --rule:   #D8D6D0;
+  --green:  #1D7048;
+  --red:    #B33030;
+  --sidebar-w: 184px;
 }
 
-/* ── BASE ── */
-*  { margin: 0; padding: 0; box-sizing: border-box; }
+/* ─────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--pd-cream);
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Lexend Deca', sans-serif;
+  background: var(--cream);
+  color: var(--black);
   height: 100vh;
   overflow: hidden;
-  color: var(--pd-black);
   user-select: none;
 }
 
-/* ── DECK ── */
-.deck {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-}
+/* ─────────────────────────────────────
+   DECK
+───────────────────────────────────── */
+.deck { width: 100vw; height: 100vh; position: relative; }
 
 .slide {
   position: absolute;
@@ -45,748 +48,678 @@ body {
   display: flex;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
   overflow: hidden;
 }
 
-.slide.active {
-  opacity: 1;
-  pointer-events: all;
-}
+.slide.active { opacity: 1; pointer-events: all; }
 
-/* ── PROGRESS ── */
+/* ─────────────────────────────────────
+   PROGRESS
+───────────────────────────────────── */
 .progress {
   position: fixed;
   top: 0; left: 0;
-  height: 3px;
-  background: var(--pd-blue);
+  height: 2px;
+  background: var(--blue);
   transition: width 0.4s ease;
-  z-index: 200;
+  z-index: 300;
 }
 
-/* ── NAV BAR ── */
+/* ─────────────────────────────────────
+   NAV
+───────────────────────────────────── */
 .nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 52px;
-  background: var(--pd-black);
+  height: 48px;
+  background: var(--black);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  z-index: 200;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.nav-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--pd-blue);
+  padding: 0 36px;
+  z-index: 300;
 }
 
 .nav-brand {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.35);
-  text-transform: lowercase;
-}
-
-.nav-controls {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
 }
 
-.nav-counter {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.1em;
-  min-width: 48px;
-  text-align: center;
-}
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+
+.nav-centre { display: flex; align-items: center; gap: 20px; }
 
 .nav-btn {
   background: none;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.65);
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.6);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
-  padding: 6px 18px;
-  border-radius: 3px;
+  padding: 5px 16px;
+  border-radius: 2px;
   letter-spacing: 0.04em;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: all 0.18s;
 }
 
-.nav-btn:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.3);
-  color: var(--pd-white);
+.nav-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); border-color: rgba(255,255,255,0.28); }
+
+.nav-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+  min-width: 44px;
+  text-align: center;
 }
 
 .nav-right { display: flex; gap: 8px; }
 
 .util-btn {
   background: none;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.4);
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.35);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 3px;
-  letter-spacing: 0.06em;
+  padding: 4px 11px;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: all 0.2s;
+  transition: all 0.18s;
 }
 
-.util-btn:hover { color: var(--pd-white); border-color: rgba(255,255,255,0.3); }
+.util-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
 
-/* ── SPEAKER NOTES ── */
-.speaker-note {
+/* ─────────────────────────────────────
+   SPEAKER NOTES
+───────────────────────────────────── */
+.snote {
   position: fixed;
-  bottom: 62px; right: 24px;
-  width: 272px;
-  background: var(--pd-black);
+  bottom: 58px; right: 20px;
+  width: 268px;
+  background: var(--black);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 3px;
   padding: 14px 16px;
   font-size: 11.5px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.5);
   line-height: 1.7;
   display: none;
-  z-index: 190;
+  z-index: 290;
 }
 
-.speaker-note strong {
+.snote strong {
   display: block;
-  font-family: 'Syne', sans-serif;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--pd-blue-l);
-  margin-bottom: 6px;
+  color: var(--blue);
+  margin-bottom: 7px;
 }
 
-body.notes-on .speaker-note { display: block; }
+body.notes-on .snote { display: block; }
 
-/* ═══════════════════════════════════════
-   SHARED LAYOUT
-═══════════════════════════════════════ */
-
+/* ─────────────────────────────────────
+   SHARED SIDEBAR
+───────────────────────────────────── */
 .sidebar {
-  width: 196px;
-  min-width: 196px;
-  background: var(--pd-black);
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px 26px 68px 28px;
+  padding: 36px 22px 62px 24px;
   flex-shrink: 0;
 }
 
-.sidebar-brand {
+.sb-brand {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-family: 'Syne', sans-serif;
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--pd-white);
+  letter-spacing: 0.07em;
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.sidebar-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--pd-blue);
-  flex-shrink: 0;
-}
+.sb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 
-.sidebar-meta { display: flex; flex-direction: column; gap: 5px; }
+.sb-meta { display: flex; flex-direction: column; gap: 4px; }
 
-.sidebar-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--pd-blue-l);
+.sb-num {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--blue);
   line-height: 1;
+  opacity: 0.7;
 }
 
-.sidebar-section {
-  font-size: 10px;
+.sb-section {
+  font-size: 9.5px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.25);
   line-height: 1.5;
 }
 
+/* ─────────────────────────────────────
+   SHARED MAIN PANE
+───────────────────────────────────── */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 44px 56px 66px 52px;
+  padding: 44px 64px 62px 56px;
+  background: var(--cream);
   overflow: hidden;
-  background: var(--pd-cream);
 }
 
+/* Eyebrow label */
 .eyebrow {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--pd-blue);
-  margin-bottom: 6px;
+  color: var(--blue);
+  margin-bottom: 8px;
 }
 
-.slide-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 3.2vw, 44px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--pd-black);
-  margin-bottom: 26px;
+/* Main heading */
+.h1 {
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--black);
+  margin-bottom: 0;
 }
 
-.presenter-note {
-  margin-top: 14px;
-  background: var(--pd-white);
-  border-left: 3px solid var(--pd-blue);
-  padding: 9px 15px;
-  font-size: 11px;
-  color: var(--pd-grey);
-  line-height: 1.6;
-  border-radius: 0 2px 2px 0;
+/* Rule */
+.rule-line {
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin: 20px 0;
   flex-shrink: 0;
 }
 
-.presenter-note strong { color: var(--pd-black); font-weight: 600; }
-
-.ph-box {
-  flex: 1;
-  border: 1.5px dashed var(--pd-border);
-  border-radius: 3px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: var(--pd-white);
-}
-
-.ph-box .ph-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--pd-black);
-}
-
-.ph-box .ph-sub {
-  font-size: 12px;
-  color: var(--pd-grey);
-  text-align: center;
-  max-width: 280px;
+/* Presenter note */
+.p-note {
+  margin-top: 20px;
+  border-left: 2px solid var(--blue);
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--mid);
   line-height: 1.6;
+  flex-shrink: 0;
 }
 
-.ph-bar {
-  width: 36px;
-  height: 3px;
-  background: var(--pd-border);
-  border-radius: 2px;
-}
+.p-note strong { color: var(--black); font-weight: 600; }
 
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 1 — TITLE
-═══════════════════════════════════════ */
+════════════════════════════════════════════════ */
 #slide-1 { flex-direction: row; }
 
 .s1-left {
-  width: 236px;
-  min-width: 236px;
-  background: var(--pd-black);
+  width: 220px;
+  min-width: 220px;
+  background: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px 28px 68px 32px;
+  padding: 36px 22px 62px 28px;
 }
 
 .s1-brand {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--pd-white);
+  letter-spacing: 0.07em;
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.s1-brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pd-blue); flex-shrink: 0; }
-
-.s1-aside-label { font-size: 10.5px; color: rgba(255,255,255,0.28); font-weight: 400; }
+.s1-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.s1-aside { font-size: 10px; color: rgba(255,255,255,0.25); font-weight: 400; }
 
 .s1-right {
   flex: 1;
-  background: var(--pd-blue);
+  background: var(--blue);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 56px 68px 76px 68px;
+  padding: 52px 72px 72px 72px;
 }
 
 .s1-kicker {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 18px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
 }
 
 .s1-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(60px, 9vw, 110px);
-  font-weight: 800;
-  line-height: 0.9;
+  font-size: clamp(64px, 9.5vw, 116px);
+  font-weight: 900;
+  line-height: 0.88;
   letter-spacing: -0.04em;
-  color: var(--pd-white);
-  margin-bottom: 48px;
+  color: var(--white);
+  margin-bottom: 52px;
 }
 
-.s1-rule { width: 44px; height: 3px; background: rgba(255,255,255,0.25); margin-bottom: 26px; }
+.s1-rule { width: 40px; height: 2px; background: rgba(255,255,255,0.22); margin-bottom: 24px; }
 
-.s1-meta { display: flex; align-items: flex-end; gap: 36px; }
+.s1-meta { display: flex; align-items: flex-end; gap: 40px; }
 
-.s1-presenter-label {
-  font-size: 10.5px;
+.s1-presenter-tag {
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.38);
+  color: rgba(255,255,255,0.35);
   margin-bottom: 5px;
 }
 
-.s1-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--pd-white);
-}
+.s1-name { font-size: 18px; font-weight: 700; color: var(--white); }
+.s1-date { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.38); padding-bottom: 2px; }
 
-.s1-date { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.4); padding-bottom: 2px; }
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 2 — AGENDA
-═══════════════════════════════════════ */
-.agenda-grid {
+════════════════════════════════════════════════ */
+.agenda-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
   flex: 1;
+  align-content: start;
+  row-gap: 0;
 }
 
-.agenda-card {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 20px 16px;
+.agenda-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: border-color 0.2s;
+  align-items: baseline;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.2s;
 }
 
-.agenda-card:hover { border-color: var(--pd-blue); }
+.agenda-row:hover .agenda-item-label { color: var(--blue); }
 
-.agenda-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--pd-blue);
-  letter-spacing: 0.1em;
-}
-
-.agenda-bar { width: 22px; height: 2px; background: var(--pd-border); }
-
-.agenda-label {
-  font-size: 12.5px;
-  font-weight: 600;
-  line-height: 1.45;
-  color: var(--pd-black);
-}
-
-
-/* ═══════════════════════════════════════
-   SLIDE 3 — QUIZ
-═══════════════════════════════════════ */
-.quiz-badge {
-  display: inline-flex;
-  align-items: center;
-  background: var(--pd-blue);
-  color: var(--pd-white);
-  border-radius: 2px;
-  padding: 5px 13px;
-  font-family: 'Syne', sans-serif;
-  font-size: 10.5px;
+.agenda-n {
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  color: var(--blue);
+  letter-spacing: 0.08em;
+  min-width: 24px;
+  opacity: 0.7;
+}
+
+.agenda-item-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+
+/* ═══════════════════════════════════════════════
+   SLIDE 3 — QUIZ
+════════════════════════════════════════════════ */
+.quiz-badge {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  padding: 5px 13px;
+  margin-bottom: 20px;
   align-self: flex-start;
 }
 
-.quiz-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.quiz-list { flex: 1; display: flex; flex-direction: column; }
+
+.quiz-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
   flex: 1;
 }
 
-.quiz-card {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 20px 22px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  transition: border-color 0.2s;
-}
-
-.quiz-card:hover { border-color: var(--pd-blue); }
-.quiz-card:last-child { grid-column: 1 / -1; }
-
-.quiz-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 30px;
-  font-weight: 800;
-  color: var(--pd-blue);
+.quiz-n {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900;
+  color: var(--blue);
   line-height: 1;
-  opacity: 0.28;
-  min-width: 42px;
+  min-width: 52px;
+  opacity: 0.18;
 }
 
-.quiz-text {
-  font-size: 13px;
+.quiz-q {
+  font-size: 15px;
   font-weight: 400;
-  color: var(--pd-grey);
-  line-height: 1.6;
-  padding-top: 5px;
+  color: var(--mid);
+  line-height: 1.5;
   font-style: italic;
 }
 
-
-/* ═══════════════════════════════════════
-   SLIDE 5 — FUNNEL
-═══════════════════════════════════════ */
-.funnel-steps { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-
-.funnel-step {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 12px 16px;
+/* ═══════════════════════════════════════════════
+   SLIDE 4 — SURVEY
+════════════════════════════════════════════════ */
+.ph-frame {
+  flex: 1;
+  border: 1.5px dashed var(--rule);
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: border-color 0.2s;
-}
-
-.funnel-step:hover { border-color: var(--pd-blue); }
-
-.f-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--pd-white);
-  background: var(--pd-blue);
-  width: 24px;
-  height: 24px;
-  border-radius: 2px;
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
+  gap: 10px;
+  background: var(--white);
 }
 
-.f-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
+.ph-frame .ph-tit {
+  font-size: 15px;
   font-weight: 700;
-  color: var(--pd-black);
+  color: var(--black);
+}
+
+.ph-frame .ph-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  text-align: center;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.ph-bar-sm { width: 32px; height: 2px; background: var(--rule); }
+
+/* ═══════════════════════════════════════════════
+   SLIDE 5 — FUNNEL
+════════════════════════════════════════════════ */
+.funnel-list { flex: 1; display: flex; flex-direction: column; }
+
+.funnel-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  flex: 1;
+  transition: background 0.15s;
+}
+
+.funnel-row:first-child { border-top: 1px solid var(--rule); }
+
+.fn {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  min-width: 20px;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.f-right { flex: 1; }
+
+.f-tit {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--black);
+  line-height: 1.2;
   margin-bottom: 3px;
 }
 
-.f-desc { font-size: 11.5px; color: var(--pd-grey); line-height: 1.55; }
+.f-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.55;
+}
 
 .bold-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
 
 .chip {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 0.05em;
   padding: 2px 9px;
-  border-radius: 2px;
-  border: 1px solid var(--pd-border);
-  color: var(--pd-grey);
-  background: var(--pd-cream);
+  border: 1px solid var(--rule);
+  color: var(--mid);
+  background: var(--cream);
 }
 
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 6 — FUNNEL IN PRACTICE
-═══════════════════════════════════════ */
-.practice-flow {
+════════════════════════════════════════════════ */
+.practice-cols {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 24px;
   flex: 1;
 }
 
-.practice-step {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 20px 16px;
+.practice-col {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 10px;
 }
 
-.p-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 9.5px;
+.p-col-label {
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--pd-blue);
+  color: var(--blue);
 }
 
-.p-bar { width: 100%; height: 2px; background: var(--pd-border); }
+.p-col-rule { height: 2px; background: var(--blue); opacity: 0.25; }
 
-.p-ph {
+.p-col-ph {
   flex: 1;
-  border: 1px dashed var(--pd-border);
-  border-radius: 2px;
+  border: 1px dashed var(--rule);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  font-size: 11px;
-  color: var(--pd-grey);
+  padding: 14px;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--mid);
   text-align: center;
   font-style: italic;
   line-height: 1.5;
+  background: var(--white);
 }
 
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 7 — CONTENT METHODS
-═══════════════════════════════════════ */
-.methods-callout {
-  background: var(--pd-blue);
-  color: var(--pd-white);
-  border-radius: 3px;
-  padding: 12px 20px;
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 16px;
+════════════════════════════════════════════════ */
+.callout-bar {
+  background: var(--blue);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 14px 20px;
   letter-spacing: -0.01em;
+  margin-bottom: 20px;
   flex-shrink: 0;
 }
 
-.methods-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+.methods-list { flex: 1; display: flex; flex-direction: column; }
+
+.method-row {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--rule);
   flex: 1;
 }
 
-.method-card {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  transition: border-color 0.2s, transform 0.15s;
+.method-row:first-child { border-top: 1px solid var(--rule); }
+
+.m-name {
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 900;
+  color: var(--black);
+  min-width: 220px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-.method-card:hover { border-color: var(--pd-blue); transform: translateY(-2px); }
-
-.method-bar { width: 26px; height: 3px; background: var(--pd-blue); }
-
-.method-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--pd-black);
-  line-height: 1.3;
+.m-desc {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.6;
+  flex: 1;
+  align-self: center;
 }
 
-.method-desc { font-size: 11.5px; color: var(--pd-grey); line-height: 1.6; }
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 8 — ENGAGEMENT
-═══════════════════════════════════════ */
-.engage-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+════════════════════════════════════════════════ */
+.engage-list { flex: 1; display: flex; flex-direction: column; }
+
+.engage-row {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
   flex: 1;
 }
 
-.engage-step {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  transition: border-color 0.2s;
+.engage-row:first-child { border-top: 1px solid var(--rule); }
+
+.e-step {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  min-width: 56px;
+  opacity: 0.7;
 }
 
-.engage-step:hover { border-color: var(--pd-blue); }
+.e-tit {
+  font-size: clamp(15px, 1.8vw, 22px);
+  font-weight: 800;
+  color: var(--black);
+  min-width: 230px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
 
-.engage-num {
-  font-family: 'Syne', sans-serif;
+.e-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.6;
+  flex: 1;
+  align-self: center;
+}
+
+/* ═══════════════════════════════════════════════
+   SLIDE 9 — BEFORE YOU WRITE
+════════════════════════════════════════════════ */
+.q-list { flex: 1; display: flex; flex-direction: column; }
+
+.q-row {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  flex: 1;
+}
+
+.q-row:first-child { border-top: 1px solid var(--rule); }
+
+.q-n {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--pd-blue);
-}
-
-.engage-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--pd-black);
-  line-height: 1.3;
-}
-
-.engage-desc { font-size: 11.5px; color: var(--pd-grey); line-height: 1.6; }
-
-.engage-callout {
-  margin-top: 14px;
-  background: var(--pd-blue);
-  color: var(--pd-white);
-  border-radius: 3px;
-  padding: 12px 20px;
-  font-family: 'Syne', sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-
-/* ═══════════════════════════════════════
-   SLIDE 9 — BEFORE YOU WRITE
-═══════════════════════════════════════ */
-.q-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  flex: 1;
-}
-
-.q-card {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: border-color 0.2s;
-}
-
-.q-card:hover { border-color: var(--pd-blue); }
-.q-card.wide { grid-column: 1 / -1; flex-direction: row; align-items: flex-start; gap: 20px; }
-
-.q-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--pd-blue);
+  color: var(--blue);
+  min-width: 24px;
+  opacity: 0.7;
 }
 
 .q-question {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--pd-black);
-  line-height: 1.3;
+  font-size: clamp(15px, 1.8vw, 22px);
+  font-weight: 800;
+  color: var(--black);
+  min-width: 280px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-.q-hint { font-size: 12px; color: var(--pd-grey); line-height: 1.6; flex: 1; }
+.q-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.6;
+  flex: 1;
+  align-self: center;
+}
 
-.q-card.wide .q-question { min-width: 280px; }
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 10 — DOS & DON'TS
-   CRITICAL: Cards look IDENTICAL before reveal.
-   No coloured top border, no tinted background.
-   Type class (do/dont) activates only on .revealed.
-═══════════════════════════════════════ */
-.dnd-controls {
+   Cards fully neutral until clicked.
+════════════════════════════════════════════════ */
+.dnd-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
-.dnd-instructions {
-  font-size: 12px;
-  color: var(--pd-grey);
+.dnd-instr {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--mid);
   font-style: italic;
 }
 
-.reveal-all-btn {
+.reveal-btn {
   background: none;
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 5px 13px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--pd-grey);
-  cursor: pointer;
-  letter-spacing: 0.05em;
+  border: 1px solid var(--rule);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: all 0.2s;
+  color: var(--mid);
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: all 0.18s;
 }
 
-.reveal-all-btn:hover { border-color: var(--pd-blue); color: var(--pd-blue); }
+.reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
 
 .dnd-grid {
   display: grid;
@@ -795,388 +728,357 @@ body.notes-on .speaker-note { display: block; }
   flex: 1;
 }
 
-/* Base card — completely neutral, gives nothing away */
+/* Base card — fully neutral */
 .dnd-card {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-top: 3px solid var(--pd-border); /* same neutral colour for ALL cards */
-  border-radius: 3px;
-  padding: 14px 13px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--rule); /* neutral for all cards */
+  padding: 16px 14px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
-  transition: border-color 0.25s, background 0.25s;
-  user-select: none;
+  gap: 10px;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .dnd-card:hover {
-  border-color: #A0AABC;
-  border-top-color: #A0AABC;
+  border-color: #AAB4C0;
+  border-top-color: #AAB4C0;
 }
 
-.dnd-statement {
-  font-size: 12px;
+.dnd-stmt {
+  font-size: 12.5px;
   font-weight: 500;
   line-height: 1.55;
-  color: var(--pd-black);
+  color: var(--black);
   flex: 1;
 }
 
-/* Verdict — completely invisible + takes up no layout space before reveal */
-.dnd-verdict {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
+/* Verdict — hidden and takes no visual space until revealed */
+.dnd-verd {
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   padding: 4px 10px;
-  border-radius: 2px;
   align-self: flex-start;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
   transition: opacity 0.2s;
 }
 
 /* Revealed: DO */
-.dnd-card.do.revealed {
-  border-top-color: var(--pd-green);
-  background: #F0F8F4;
-}
-
-.dnd-card.do.revealed .dnd-verdict {
-  opacity: 1;
-  visibility: visible;
-  background: rgba(29,112,72,0.1);
-  color: var(--pd-green);
-}
+.dnd-card.do.revealed { border-top-color: var(--green); background: #F0F8F4; }
+.dnd-card.do.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.1); }
 
 /* Revealed: DON'T */
-.dnd-card.dont.revealed {
-  border-top-color: var(--pd-red);
-  background: #FDF0F0;
-}
+.dnd-card.dont.revealed { border-top-color: var(--red); background: #FDF0F0; }
+.dnd-card.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.1); }
 
-.dnd-card.dont.revealed .dnd-verdict {
-  opacity: 1;
-  visibility: visible;
-  background: rgba(179,48,48,0.1);
-  color: var(--pd-red);
-}
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 11 — PROFILE
-═══════════════════════════════════════ */
-.checklist { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+════════════════════════════════════════════════ */
+.check-list { flex: 1; display: flex; flex-direction: column; }
 
-.check-item {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 16px 18px;
+.check-row {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: border-color 0.2s;
+  align-items: center;
+  gap: 22px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
   cursor: pointer;
+  flex: 1;
+  transition: background 0.15s;
 }
 
-.check-item:hover { border-color: var(--pd-blue); }
+.check-row:first-child { border-top: 1px solid var(--rule); }
+.check-row:hover .check-txt { color: var(--blue); }
 
 .check-box {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--pd-border);
-  border-radius: 2px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--rule);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: transparent;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-  margin-top: 2px;
+  transition: all 0.18s;
 }
 
-.check-item.checked .check-box {
-  background: var(--pd-blue);
-  border-color: var(--pd-blue);
-  color: var(--pd-white);
+.check-row.checked .check-box {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
 }
 
-.check-text { font-size: 13.5px; line-height: 1.6; color: var(--pd-black); }
-.check-text strong { font-weight: 600; color: var(--pd-blue-d); }
+.check-txt {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--black);
+  transition: color 0.18s;
+}
 
+.check-txt em {
+  font-style: normal;
+  color: var(--blue);
+}
 
-/* ═══════════════════════════════════════
-   SLIDE 12 — EXAMPLES
-═══════════════════════════════════════ */
-.examples-grid {
+/* ═══════════════════════════════════════════════
+   SLIDE 12 — PROFILE EXAMPLES
+════════════════════════════════════════════════ */
+.examples-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
   flex: 1;
 }
 
-.example-frame {
-  background: var(--pd-white);
-  border: 1.5px dashed var(--pd-border);
-  border-radius: 3px;
+.ex-frame {
+  border: 1.5px dashed var(--rule);
+  background: var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 24px;
 }
 
 .ex-ring {
   width: 52px; height: 52px;
   border-radius: 50%;
-  border: 2px dashed var(--pd-border);
+  border: 2px dashed var(--rule);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.ex-person {
-  width: 26px; height: 26px;
-  background: var(--pd-border);
-  border-radius: 50%;
-}
+.ex-person { width: 26px; height: 26px; background: var(--rule); border-radius: 50%; }
 
-.ex-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--pd-grey);
-}
+.ex-lbl { font-size: 12px; font-weight: 700; color: var(--mid); }
+.ex-sub { font-size: 11px; font-weight: 400; color: var(--rule); }
 
-.ex-sub { font-size: 11px; color: var(--pd-border); }
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 13 — AMA
-═══════════════════════════════════════ */
+════════════════════════════════════════════════ */
 #slide-13 { flex-direction: row; }
 
 .ama-sidebar {
-  width: 196px;
-  background: var(--pd-black);
+  width: var(--sidebar-w);
+  background: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px 26px 68px 28px;
+  padding: 36px 22px 62px 24px;
 }
 
 .ama-main {
   flex: 1;
-  background: var(--pd-blue);
+  background: var(--blue);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 56px 76px;
+  padding: 56px 80px;
 }
 
 .ama-eyebrow {
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.38);
-  margin-bottom: 18px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 16px;
 }
 
 .ama-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(60px, 9.5vw, 116px);
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
-  color: var(--pd-white);
-  margin-bottom: 32px;
+  font-size: clamp(68px, 10.5vw, 124px);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  color: var(--white);
+  margin-bottom: 30px;
 }
 
 .ama-sub {
   font-size: 17px;
   font-weight: 300;
-  color: rgba(255,255,255,0.52);
+  color: rgba(255,255,255,0.5);
   letter-spacing: 0.01em;
 }
 
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 14 — TASK
-═══════════════════════════════════════ */
-.task-steps { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+════════════════════════════════════════════════ */
+.task-list { flex: 1; display: flex; flex-direction: column; }
 
-.task-step {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 13px 18px;
+.task-row {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  transition: border-color 0.2s;
+  align-items: baseline;
+  gap: 24px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  flex: 1;
 }
 
-.task-step:hover { border-color: var(--pd-blue); }
+.task-row:first-child { border-top: 1px solid var(--rule); }
 
-.task-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--pd-blue);
-  opacity: 0.28;
-  min-width: 28px;
+.t-n {
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 900;
+  color: var(--blue);
+  opacity: 0.2;
+  min-width: 52px;
   line-height: 1;
-  margin-top: 3px;
+  letter-spacing: -0.03em;
 }
 
-.task-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--pd-black);
+.t-body { flex: 1; }
+
+.t-tit {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--black);
   margin-bottom: 3px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-.task-desc { font-size: 12px; color: var(--pd-grey); line-height: 1.6; }
-.task-desc strong { color: var(--pd-blue-d); font-weight: 600; }
+.t-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mid);
+  line-height: 1.55;
+}
+
+.t-desc strong { color: var(--blue-d); font-weight: 600; }
 
 .task-note {
-  margin-top: 12px;
-  background: var(--pd-blue);
-  border-radius: 3px;
-  padding: 13px 18px;
+  margin-top: 16px;
+  background: var(--blue);
+  padding: 14px 20px;
   font-size: 13px;
-  color: rgba(255,255,255,0.82);
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
   line-height: 1.6;
   flex-shrink: 0;
 }
 
-.task-note strong { color: var(--pd-white); font-weight: 600; }
+.task-note strong { color: var(--white); font-weight: 700; }
 
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 15 — RESOURCES
-═══════════════════════════════════════ */
-.resources-layout {
+════════════════════════════════════════════════ */
+.resources-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 40px;
   flex: 1;
+  align-items: start;
 }
 
-.resource-list { display: flex; flex-direction: column; gap: 8px; }
+.res-list { display: flex; flex-direction: column; }
 
-.resource-item {
-  background: var(--pd-white);
-  border: 1px solid var(--pd-border);
-  border-radius: 3px;
-  padding: 13px 16px;
+.res-row {
   display: flex;
   align-items: center;
-  gap: 13px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--pd-black);
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-.resource-mark { width: 6px; height: 6px; background: var(--pd-blue); border-radius: 50%; flex-shrink: 0; }
+.res-row:first-child { border-top: 1px solid var(--rule); }
 
-.qr-area {
-  background: var(--pd-white);
-  border: 1.5px dashed var(--pd-border);
-  border-radius: 3px;
+.res-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+.res-lbl { font-size: 15px; font-weight: 600; color: var(--black); }
+
+.qr-col {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-top: 14px;
+}
+
+.qr-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.qr-box {
+  width: 120px; height: 120px;
+  border: 2px dashed var(--rule);
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  background: var(--white);
 }
 
-.qr-mock {
-  width: 80px; height: 80px;
-  border: 2px solid var(--pd-border);
-  border-radius: 3px;
+.qr-inner {
+  width: 72px; height: 72px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 3px;
-  padding: 8px;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(5,1fr);
+  gap: 2px;
 }
 
-.qr-cell { background: var(--pd-border); border-radius: 1px; }
-.qr-cell.clear { background: transparent; }
+.qc { background: var(--rule); }
+.qc.e { background: transparent; }
 
-.qr-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--pd-grey);
-}
+.qr-sub { font-size: 11.5px; font-weight: 400; color: var(--mid); }
 
-.qr-sub { font-size: 11px; color: var(--pd-border); }
-
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SLIDE 16 — CLOSE
-═══════════════════════════════════════ */
+════════════════════════════════════════════════ */
 #slide-16 { flex-direction: row; }
 
 .s16-left {
-  width: 236px;
-  min-width: 236px;
-  background: var(--pd-black);
+  width: 220px;
+  background: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px 28px 68px 32px;
+  padding: 36px 22px 62px 28px;
 }
 
 .s16-right {
   flex: 1;
-  background: var(--pd-blue-d);
+  background: var(--blue-d);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 56px 68px 76px 68px;
+  padding: 52px 72px 72px 72px;
 }
 
 .s16-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(44px, 7vw, 84px);
-  font-weight: 800;
-  line-height: 0.92;
+  font-size: clamp(48px, 7.5vw, 92px);
+  font-weight: 900;
+  line-height: 0.9;
   letter-spacing: -0.04em;
-  color: var(--pd-white);
-  margin-bottom: 44px;
+  color: var(--white);
+  margin-bottom: 48px;
 }
 
-.s16-rule { width: 44px; height: 3px; background: rgba(255,255,255,0.22); margin-bottom: 26px; }
+.s16-rule { width: 40px; height: 2px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
 
-.s16-contacts { display: flex; gap: 36px; }
+.s16-contacts { display: flex; gap: 40px; }
 
-.s16-c-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+.s16-c-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.32);
+  color: rgba(255,255,255,0.3);
   margin-bottom: 5px;
 }
 
-.s16-c-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--pd-white);
-}
+.s16-c-val { font-size: 15px; font-weight: 700; color: var(--white); }
 
 </style>
 </head>
@@ -1186,11 +1088,11 @@ body.notes-on .speaker-note { display: block; }
 
 <div class="deck">
 
-  <!-- SLIDE 1: TITLE -->
+  <!-- ── 01 TITLE ── -->
   <div class="slide active" id="slide-1">
     <div class="s1-left">
-      <div class="s1-brand"><span class="s1-brand-dot"></span>public digital</div>
-      <div class="s1-aside-label">LinkedIn Workshop</div>
+      <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
+      <div class="s1-aside">LinkedIn Workshop</div>
     </div>
     <div class="s1-right">
       <div class="s1-kicker">Public Digital — Member Workshop</div>
@@ -1198,438 +1100,342 @@ body.notes-on .speaker-note { display: block; }
       <div class="s1-rule"></div>
       <div class="s1-meta">
         <div>
-          <div class="s1-presenter-label">Presenter</div>
+          <div class="s1-presenter-tag">Presenter</div>
           <div class="s1-name">Kennedy Adamu</div>
         </div>
         <div class="s1-date">April 2026</div>
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Update the workshop title before the session. Set the tone early — this is practical and workshop-led, not a lecture.
+      Update the workshop title before the session. Set the tone early — practical and workshop-led, not a lecture.
     </div>
   </div>
 
-  <!-- SLIDE 2: AGENDA -->
+  <!-- ── 02 AGENDA ── -->
   <div class="slide" id="slide-2">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">02</div><div class="sidebar-section">Today's<br>Session</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">02</div><div class="sb-section">Today's<br>Session</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Workshop Overview</div>
-      <div class="slide-title">What to Expect</div>
-      <div class="agenda-grid">
-        <div class="agenda-card"><div class="agenda-num">01</div><div class="agenda-bar"></div><div class="agenda-label">LinkedIn Dos &amp; Don'ts</div></div>
-        <div class="agenda-card"><div class="agenda-num">02</div><div class="agenda-bar"></div><div class="agenda-label">Content Creation Best Practices</div></div>
-        <div class="agenda-card"><div class="agenda-num">03</div><div class="agenda-bar"></div><div class="agenda-label">What to Consider Before You Write</div></div>
-        <div class="agenda-card"><div class="agenda-num">04</div><div class="agenda-bar"></div><div class="agenda-label">Engage &amp; Grow Without Just Writing</div></div>
-        <div class="agenda-card"><div class="agenda-num">05</div><div class="agenda-bar"></div><div class="agenda-label">Profile Improvement Tips</div></div>
-        <div class="agenda-card"><div class="agenda-num">06</div><div class="agenda-bar"></div><div class="agenda-label">Why LinkedIn Engagement Matters</div></div>
-        <div class="agenda-card"><div class="agenda-num">07</div><div class="agenda-bar"></div><div class="agenda-label">Ask Me Anything</div></div>
-        <div class="agenda-card"><div class="agenda-num">08</div><div class="agenda-bar"></div><div class="agenda-label">Task + Resources</div></div>
+      <div class="h1" style="margin-bottom:24px">What to Expect</div>
+      <div class="agenda-list">
+        <div class="agenda-row"><span class="agenda-n">01</span><span class="agenda-item-label">LinkedIn Dos &amp; Don'ts</span></div>
+        <div class="agenda-row"><span class="agenda-n">05</span><span class="agenda-item-label">Profile Improvement Tips</span></div>
+        <div class="agenda-row"><span class="agenda-n">02</span><span class="agenda-item-label">Content Creation Best Practices</span></div>
+        <div class="agenda-row"><span class="agenda-n">06</span><span class="agenda-item-label">Why LinkedIn Engagement Matters</span></div>
+        <div class="agenda-row"><span class="agenda-n">03</span><span class="agenda-item-label">What to Consider Before You Write</span></div>
+        <div class="agenda-row"><span class="agenda-n">07</span><span class="agenda-item-label">Ask Me Anything</span></div>
+        <div class="agenda-row"><span class="agenda-n">04</span><span class="agenda-item-label">Engage &amp; Grow Without Just Writing</span></div>
+        <div class="agenda-row"><span class="agenda-n">08</span><span class="agenda-item-label">Task + Resources</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 3: QUIZ -->
+  <!-- ── 03 QUIZ ── -->
   <div class="slide" id="slide-3">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">03</div><div class="sidebar-section">Warm Up</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">03</div><div class="sb-section">Warm Up</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Interactive</div>
-      <div class="slide-title">True or False?</div>
+      <div class="h1" style="margin-bottom:20px">True or False?</div>
       <div class="quiz-badge">LinkedIn Stats Edition</div>
-      <div class="quiz-grid">
-        <div class="quiz-card"><div class="quiz-num">1</div><div class="quiz-text">Add your first LinkedIn stat-based question here for the audience to guess.</div></div>
-        <div class="quiz-card"><div class="quiz-num">2</div><div class="quiz-text">Add your second LinkedIn stat-based question here for the audience to guess.</div></div>
-        <div class="quiz-card"><div class="quiz-num">3</div><div class="quiz-text">Add your third LinkedIn stat-based question here for the audience to guess.</div></div>
-        <div class="quiz-card"><div class="quiz-num">4</div><div class="quiz-text">Add your fourth LinkedIn stat-based question here for the audience to guess.</div></div>
-        <div class="quiz-card"><div class="quiz-num">5</div><div class="quiz-text">Add your fifth LinkedIn stat-based question here for the audience to guess.</div></div>
+      <div class="quiz-list">
+        <div class="quiz-row"><div class="quiz-n">1</div><div class="quiz-q">Add your first LinkedIn stat-based question here for the audience to guess.</div></div>
+        <div class="quiz-row"><div class="quiz-n">2</div><div class="quiz-q">Add your second LinkedIn stat-based question here for the audience to guess.</div></div>
+        <div class="quiz-row"><div class="quiz-n">3</div><div class="quiz-q">Add your third LinkedIn stat-based question here for the audience to guess.</div></div>
+        <div class="quiz-row"><div class="quiz-n">4</div><div class="quiz-q">Add your fourth LinkedIn stat-based question here for the audience to guess.</div></div>
+        <div class="quiz-row"><div class="quiz-n">5</div><div class="quiz-q">Add your fifth LinkedIn stat-based question here for the audience to guess.</div></div>
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Replace each placeholder with a stats-based true/false question before the session. Read each one aloud, ask the room, then reveal the answer.
+      Replace each placeholder with a stats-based true/false question before the session. Read each one aloud, wait for the room, then reveal.
     </div>
   </div>
 
-  <!-- SLIDE 4: SURVEY -->
+  <!-- ── 04 SURVEY ── -->
   <div class="slide" id="slide-4">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">04</div><div class="sidebar-section">Survey<br>Results</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">04</div><div class="sb-section">Survey<br>Results</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">What You Told Us</div>
-      <div class="slide-title">Survey Results</div>
-      <div class="ph-box">
-        <div class="ph-bar"></div>
-        <div class="ph-title">Survey Results Graph</div>
+      <div class="h1" style="margin-bottom:24px">Survey Results</div>
+      <div class="ph-frame">
+        <div class="ph-bar-sm"></div>
+        <div class="ph-tit">Survey Results Graph</div>
         <div class="ph-sub">Insert data visualisation from the previous workshop survey here</div>
       </div>
-      <div class="presenter-note">
+      <div class="p-note">
         <strong>Presenter note:</strong> Add the survey results graph before the session. Lead with the key headline finding above the chart.
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Frame the results conversationally. Let the data lead into why you are covering today's topics.
+      Frame the results conversationally. Let the data lead into why you are covering today's agenda.
     </div>
   </div>
 
-  <!-- SLIDE 5: FUNNEL -->
+  <!-- ── 05 FUNNEL ── -->
   <div class="slide" id="slide-5">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">05</div><div class="sidebar-section">Content<br>Creation</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">05</div><div class="sb-section">Content<br>Creation</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Content Creation</div>
-      <div class="slide-title">The Content Funnel</div>
-      <div class="funnel-steps">
-        <div class="funnel-step">
-          <div class="f-num">1</div>
-          <div>
-            <div class="f-title">Pick a Niche + Theme</div>
-            <div class="f-desc">Something with multiple perspectives or data points — not a one-sided topic. Strong topics invite debate and discussion.</div>
+      <div class="h1" style="margin-bottom:18px">The Content Funnel</div>
+      <div class="funnel-list">
+        <div class="funnel-row">
+          <div class="fn">01</div>
+          <div class="f-right">
+            <div class="f-tit">Pick a Niche + Theme</div>
+            <div class="f-desc">Something with multiple perspectives or data points — not a one-sided topic.</div>
           </div>
         </div>
-        <div class="funnel-step">
-          <div class="f-num">2</div>
-          <div>
-            <div class="f-title">Check Against the 4 Bold Ideas</div>
-            <div class="f-desc">Does it align with a Public Digital core theme? If yes, PD can publish it. If not, post on your personal profile — personal posts typically reach further anyway.</div>
-            <div class="bold-chips">
-              <span class="chip">AI</span>
-              <span class="chip">Digital Sovereignty</span>
-              <span class="chip">State Capacity</span>
-              <span class="chip">Enshittification</span>
+        <div class="funnel-row">
+          <div class="fn">02</div>
+          <div class="f-right">
+            <div class="f-tit">Check Against the 4 Bold Ideas</div>
+            <div class="f-desc">If it aligns with AI, Digital Sovereignty, State Capacity, or Enshittification — PD publishes. If not, post on your personal profile.
+              <div class="bold-chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshittification</span></div>
             </div>
           </div>
         </div>
-        <div class="funnel-step">
-          <div class="f-num">3</div>
-          <div>
-            <div class="f-title">Validate</div>
-            <div class="f-desc">Is it in the news? On Google Trends? Are LinkedIn voices talking about it? People asking about it in community threads? If yes — it has traction.</div>
+        <div class="funnel-row">
+          <div class="fn">03</div>
+          <div class="f-right">
+            <div class="f-tit">Validate</div>
+            <div class="f-desc">In the news? On Google Trends? LinkedIn influencers discussing it? Community threads asking about it? If yes — it has traction.</div>
           </div>
         </div>
-        <div class="funnel-step">
-          <div class="f-num">4</div>
-          <div>
-            <div class="f-title">Structure Your Content</div>
+        <div class="funnel-row">
+          <div class="fn">04</div>
+          <div class="f-right">
+            <div class="f-tit">Structure</div>
             <div class="f-desc">Hook — Target audience — Key points — Call to action</div>
           </div>
         </div>
-        <div class="funnel-step">
-          <div class="f-num">5</div>
-          <div>
-            <div class="f-title">Create — Polish with AI — Review</div>
-            <div class="f-desc">Marketing team can assist with creation. Use Claude to refine and develop ideas. Send to Kennedy or Rosemary before publishing.</div>
+        <div class="funnel-row">
+          <div class="fn">05</div>
+          <div class="f-right">
+            <div class="f-tit">Create — Polish with AI — Review</div>
+            <div class="f-desc">Marketing team can assist. Use Claude to refine. Send to Kennedy or Rosemary before publishing.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 6: FUNNEL IN PRACTICE -->
+  <!-- ── 06 FUNNEL IN PRACTICE ── -->
   <div class="slide" id="slide-6">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">06</div><div class="sidebar-section">Worked<br>Example</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">06</div><div class="sb-section">Worked<br>Example</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Funnel in Practice</div>
-      <div class="slide-title">A Real Example</div>
-      <div class="practice-flow">
-        <div class="practice-step">
-          <div class="p-label">Niche</div>
-          <div class="p-bar"></div>
-          <div class="p-ph">Add real example here</div>
+      <div class="h1" style="margin-bottom:24px">A Real Example</div>
+      <div class="practice-cols">
+        <div class="practice-col">
+          <div class="p-col-label">Niche</div>
+          <div class="p-col-rule"></div>
+          <div class="p-col-ph">Add real example here</div>
         </div>
-        <div class="practice-step">
-          <div class="p-label">Bold Idea Alignment</div>
-          <div class="p-bar"></div>
-          <div class="p-ph">Which theme does it match?</div>
+        <div class="practice-col">
+          <div class="p-col-label">Bold Idea Alignment</div>
+          <div class="p-col-rule"></div>
+          <div class="p-col-ph">Which theme does it match?</div>
         </div>
-        <div class="practice-step">
-          <div class="p-label">Validation</div>
-          <div class="p-bar"></div>
-          <div class="p-ph">Evidence of traction</div>
+        <div class="practice-col">
+          <div class="p-col-label">Validation</div>
+          <div class="p-col-rule"></div>
+          <div class="p-col-ph">Evidence of traction</div>
         </div>
-        <div class="practice-step">
-          <div class="p-label">Output</div>
-          <div class="p-bar"></div>
-          <div class="p-ph">The actual content created</div>
+        <div class="practice-col">
+          <div class="p-col-label">Output</div>
+          <div class="p-col-rule"></div>
+          <div class="p-col-ph">The actual content created</div>
         </div>
       </div>
-      <div class="presenter-note">
+      <div class="p-note">
         <strong>Presenter note:</strong> Add a real worked example before the session. Walk through it step by step with the room.
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Use a real example from PD content or your own work. Show the funnel applied in practice, not just theory.
+      Use a real example from PD content or your own work. Show the funnel applied in practice, not just in theory.
     </div>
   </div>
 
-  <!-- SLIDE 7: METHODS -->
+  <!-- ── 07 METHODS ── -->
   <div class="slide" id="slide-7">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">07</div><div class="sidebar-section">Content<br>Methods</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">07</div><div class="sb-section">Content<br>Methods</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">You Don't Need Hours — You Need to Add Value</div>
-      <div class="slide-title">Content Methods</div>
-      <div class="methods-callout">Content doesn't have to be long. It has to be valuable.</div>
-      <div class="methods-grid">
-        <div class="method-card">
-          <div class="method-bar"></div>
-          <div class="method-name">Short Post</div>
-          <div class="method-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div>
-        </div>
-        <div class="method-card">
-          <div class="method-bar"></div>
-          <div class="method-name">Voice Recording</div>
-          <div class="method-desc">Write a brief script, record on your phone, transcribe, refine with AI. 30 minutes of speaking can generate thousands of words to work from.</div>
-        </div>
-        <div class="method-card">
-          <div class="method-bar"></div>
-          <div class="method-name">Short Video</div>
-          <div class="method-desc">30 seconds to 1 minute. Native video performs strongly on the platform. No studio required.</div>
-        </div>
-        <div class="method-card">
-          <div class="method-bar"></div>
-          <div class="method-name">Infographic</div>
-          <div class="method-desc">Use data you already have. Visualise an insight your audience does not have access to.</div>
-        </div>
-        <div class="method-card">
-          <div class="method-bar"></div>
-          <div class="method-name">Data Post</div>
-          <div class="method-desc">A single insight or stat with context. One number, well explained, is a complete post.</div>
-        </div>
+      <div class="h1" style="margin-bottom:16px">Content Methods</div>
+      <div class="callout-bar">Content doesn't have to be long. It has to be valuable.</div>
+      <div class="methods-list">
+        <div class="method-row"><div class="m-name">Short Post</div><div class="m-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div></div>
+        <div class="method-row"><div class="m-name">Voice Recording</div><div class="m-desc">Brief script, record on your phone, transcribe, refine with AI. 30 minutes speaking generates thousands of words to work from.</div></div>
+        <div class="method-row"><div class="m-name">Short Video</div><div class="m-desc">30 seconds to 1 minute. Native video performs strongly. No studio required.</div></div>
+        <div class="method-row"><div class="m-name">Infographic</div><div class="m-desc">Use data you already have. Visualise an insight your audience does not have access to.</div></div>
+        <div class="method-row"><div class="m-name">Data Post</div><div class="m-desc">A single insight or stat with context. One number, well explained, is a complete post.</div></div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 8: ENGAGEMENT -->
+  <!-- ── 08 ENGAGEMENT ── -->
   <div class="slide" id="slide-8">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">08</div><div class="sidebar-section">Growth<br>Strategy</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">08</div><div class="sb-section">Growth<br>Strategy</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">You Don't Have to Write to Grow</div>
-      <div class="slide-title">Growing Through Engagement</div>
-      <div class="engage-grid">
-        <div class="engage-step">
-          <div class="engage-num">STEP 01</div>
-          <div class="engage-title">Find Key Voices in Your Niche</div>
-          <div class="engage-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div>
-        </div>
-        <div class="engage-step">
-          <div class="engage-num">STEP 02</div>
-          <div class="engage-title">Identify the Best Communities</div>
-          <div class="engage-desc">Which organisations and communities are consistently putting out relevant content?</div>
-        </div>
-        <div class="engage-step">
-          <div class="engage-num">STEP 03</div>
-          <div class="engage-title">Study Your Algorithm Feed</div>
-          <div class="engage-desc">Your feed is already curated to you. Study what surfaces and why — it signals what performs.</div>
-        </div>
-        <div class="engage-step">
-          <div class="engage-num">STEP 04</div>
-          <div class="engage-title">Analyse Engagement Patterns</div>
-          <div class="engage-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div>
-        </div>
-        <div class="engage-step">
-          <div class="engage-num">STEP 05</div>
-          <div class="engage-title">Engage Thoughtfully</div>
-          <div class="engage-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div>
-        </div>
+      <div class="h1" style="margin-bottom:18px">Growing Through Engagement</div>
+      <div class="engage-list">
+        <div class="engage-row"><div class="e-step">Step 01</div><div class="e-tit">Find Key Voices in Your Niche</div><div class="e-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div></div>
+        <div class="engage-row"><div class="e-step">Step 02</div><div class="e-tit">Identify the Best Communities</div><div class="e-desc">Which organisations and communities are consistently putting out relevant content?</div></div>
+        <div class="engage-row"><div class="e-step">Step 03</div><div class="e-tit">Study Your Algorithm Feed</div><div class="e-desc">Your feed is already curated to you. Study what surfaces and why.</div></div>
+        <div class="engage-row"><div class="e-step">Step 04</div><div class="e-tit">Analyse Engagement Patterns</div><div class="e-desc">What hooks, topics, and formats generate the most meaningful responses in your niche?</div></div>
+        <div class="engage-row"><div class="e-step">Step 05</div><div class="e-tit">Engage Thoughtfully</div><div class="e-desc">Comment, like, repost. Add your perspective — don't just validate. Thoughtful comments build reputation.</div></div>
       </div>
-      <div class="engage-callout">The bare minimum on LinkedIn is to engage. That is your in.</div>
+      <div class="callout-bar" style="margin-top:16px;margin-bottom:0">The bare minimum on LinkedIn is to engage. That is your in.</div>
     </div>
   </div>
 
-  <!-- SLIDE 9: BEFORE YOU WRITE -->
+  <!-- ── 09 BEFORE YOU WRITE ── -->
   <div class="slide" id="slide-9">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">09</div><div class="sidebar-section">Pre-Writing<br>Checklist</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">09</div><div class="sb-section">Pre-Writing<br>Checklist</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Before You Write</div>
-      <div class="slide-title">Ask Yourself These</div>
-      <div class="q-grid">
-        <div class="q-card">
-          <div class="q-label">Question 01</div>
-          <div class="q-question">Who do I want to read this?</div>
-          <div class="q-hint">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div>
-        </div>
-        <div class="q-card">
-          <div class="q-label">Question 02</div>
-          <div class="q-question">What am I adding that is new?</div>
-          <div class="q-hint">A new perspective, stat, development, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div>
-        </div>
-        <div class="q-card">
-          <div class="q-label">Question 03</div>
-          <div class="q-question">Why should anyone care?</div>
-          <div class="q-hint">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div>
-        </div>
-        <div class="q-card">
-          <div class="q-label">Question 04</div>
-          <div class="q-question">Would I actually read this?</div>
-          <div class="q-hint">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div>
-        </div>
-        <div class="q-card wide">
-          <div>
-            <div class="q-label">Question 05</div>
-            <div class="q-question">How can I make this genuinely valuable?</div>
-          </div>
-          <div class="q-hint">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div>
-        </div>
+      <div class="h1" style="margin-bottom:18px">Ask Yourself These</div>
+      <div class="q-list">
+        <div class="q-row"><div class="q-n">01</div><div class="q-question">Who do I want to read this?</div><div class="q-hint">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div></div>
+        <div class="q-row"><div class="q-n">02</div><div class="q-question">What am I adding that is new?</div><div class="q-hint">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div></div>
+        <div class="q-row"><div class="q-n">03</div><div class="q-question">Why should anyone care?</div><div class="q-hint">Add context. Hook it to what is happening in the world right now. Make it timely and relevant.</div></div>
+        <div class="q-row"><div class="q-n">04</div><div class="q-question">Would I actually read this?</div><div class="q-hint">Be honest. If the answer is no — start again. Do not post for the sake of posting.</div></div>
+        <div class="q-row"><div class="q-n">05</div><div class="q-question">How can I make this genuinely valuable?</div><div class="q-hint">Think: insights, data points, opportunities, edge. Content that gets saved and shared gives readers something they can actually use.</div></div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 10: DOS & DON'TS -->
+  <!-- ── 10 DOS & DON'TS ── -->
   <div class="slide" id="slide-10">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">10</div><div class="sidebar-section">Interactive</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">10</div><div class="sb-section">Interactive</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Interactive — Group Activity</div>
-      <div class="slide-title">Dos &amp; Don'ts</div>
-      <div class="dnd-controls">
-        <div class="dnd-instructions">Read each statement aloud. Ask the room. Then click to reveal.</div>
-        <button class="reveal-all-btn" id="reveal-all-btn" onclick="revealAll()">Reveal all</button>
+      <div class="h1" style="margin-bottom:16px">Dos &amp; Don'ts</div>
+      <div class="dnd-header">
+        <div class="dnd-instr">Read each statement aloud. Ask the room. Then click to reveal.</div>
+        <button class="reveal-btn" id="reveal-all-btn" onclick="revealAll()">Reveal all</button>
       </div>
       <div class="dnd-grid">
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Post on Tuesday, Wednesday, or Thursday</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Post links directly in your content body</div>
-          <div class="dnd-verdict">DON'T</div>
-        </div>
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Post at 8–10am, around 1pm, or 4–6pm</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Use hashtags in your posts</div>
-          <div class="dnd-verdict">DON'T</div>
-        </div>
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Write in plain English</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Share your own perspective, even as a beginner</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Write LinkedIn articles over 1,000 words</div>
-          <div class="dnd-verdict">DON'T</div>
-        </div>
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Track your analytics and engagement stats</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
-        <div class="dnd-card dont" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Copy others' content directly for inspiration</div>
-          <div class="dnd-verdict">DON'T</div>
-        </div>
-        <div class="dnd-card do" onclick="toggleReveal(this)">
-          <div class="dnd-statement">Use AI to polish your content before publishing</div>
-          <div class="dnd-verdict">DO</div>
-        </div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post on Tuesday, Wednesday, or Thursday</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Post links directly in your content body</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post at 8–10am, around 1pm, or 4–6pm</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Use hashtags in your posts</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Write in plain English</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Share your own perspective, even as a beginner</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Write LinkedIn articles over 1,000 words</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Track your analytics and engagement stats</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-card dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Copy others' content directly for inspiration</div><div class="dnd-verd">DON'T</div></div>
+        <div class="dnd-card do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Run as a group guessing game — read each statement, ask for hands, then click. Key points: outbound links are penalised by LinkedIn's algorithm; hashtags offer minimal value; keep articles tight and under 1,000 words; get inspired by others but always create from scratch. Recommended tools: Claude for writing and refining, Perplexity AI for research (it cites sources).
+      Group guessing game — read each statement, ask for hands, then click to reveal. Key points: outbound links are penalised by LinkedIn's algorithm; hashtags offer minimal benefit now; articles should be tight and under 1,000 words; get inspired by others but always create from scratch. Recommended: Claude for writing and refining, Perplexity AI for research (cites sources).
     </div>
   </div>
 
-  <!-- SLIDE 11: PROFILE -->
+  <!-- ── 11 PROFILE ── -->
   <div class="slide" id="slide-11">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">11</div><div class="sidebar-section">Profile<br>Tips</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">11</div><div class="sb-section">Profile<br>Tips</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Profile Improvement</div>
-      <div class="slide-title">Quick Wins</div>
-      <div class="checklist">
-        <div class="check-item" onclick="this.classList.toggle('checked')">
+      <div class="h1" style="margin-bottom:22px">Quick Wins</div>
+      <div class="check-list">
+        <div class="check-row" onclick="this.classList.toggle('checked')">
           <div class="check-box">&#10003;</div>
-          <div class="check-text">Engage more frequently in your niche — be <strong>present at every touchpoint</strong>, not just when you post</div>
+          <div class="check-txt">Engage more frequently in your niche — be <em>present at every touchpoint</em>, not just when you post</div>
         </div>
-        <div class="check-item" onclick="this.classList.toggle('checked')">
+        <div class="check-row" onclick="this.classList.toggle('checked')">
           <div class="check-box">&#10003;</div>
-          <div class="check-text">Update your <strong>metadata</strong>: bio, header image, profile photo — make sure everything is filled in and current</div>
+          <div class="check-txt">Update your <em>metadata</em>: bio, header image, profile photo — make sure everything is filled in and current</div>
         </div>
-        <div class="check-item" onclick="this.classList.toggle('checked')">
+        <div class="check-row" onclick="this.classList.toggle('checked')">
           <div class="check-box">&#10003;</div>
-          <div class="check-text">Engage with <strong>Public Digital's content within the first hour</strong> of it being posted — PD has a large audience, this is free reach</div>
+          <div class="check-txt">Engage with <em>Public Digital's content within the first hour</em> of it being posted — PD has a large audience, this is free reach</div>
         </div>
-        <div class="check-item" onclick="this.classList.toggle('checked')">
+        <div class="check-row" onclick="this.classList.toggle('checked')">
           <div class="check-box">&#10003;</div>
-          <div class="check-text">Post or engage at least <strong>1–2 times per week</strong> — consistency beats volume every time</div>
+          <div class="check-txt">Post or engage at least <em>1–2 times per week</em> — consistency beats volume every time</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 12: EXAMPLES -->
+  <!-- ── 12 EXAMPLES ── -->
   <div class="slide" id="slide-12">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">12</div><div class="sidebar-section">Profile<br>Examples</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">12</div><div class="sb-section">Profile<br>Examples</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Profile Examples</div>
-      <div class="slide-title">Good LinkedIn Profiles</div>
-      <div class="examples-grid">
-        <div class="example-frame">
+      <div class="h1" style="margin-bottom:24px">Good LinkedIn Profiles</div>
+      <div class="examples-row">
+        <div class="ex-frame">
           <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-label">Profile Example 1</div>
+          <div class="ex-lbl">Profile Example 1</div>
           <div class="ex-sub">Add screenshot here</div>
         </div>
-        <div class="example-frame">
+        <div class="ex-frame">
           <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-label">Profile Example 2</div>
+          <div class="ex-lbl">Profile Example 2</div>
           <div class="ex-sub">Add screenshot here</div>
         </div>
-        <div class="example-frame">
+        <div class="ex-frame">
           <div class="ex-ring"><div class="ex-person"></div></div>
-          <div class="ex-label">Profile Example 3</div>
+          <div class="ex-lbl">Profile Example 3</div>
           <div class="ex-sub">Add screenshot here</div>
         </div>
       </div>
-      <div class="presenter-note">
-        <strong>Presenter note:</strong> Add 2–3 real LinkedIn profile screenshots before the session. Highlight what makes each one work: headline, featured section, post frequency, engagement style.
+      <div class="p-note">
+        <strong>Presenter note:</strong> Add 2–3 real LinkedIn profile screenshots before the session. Highlight what makes each one work — headline, featured section, post frequency, tone.
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
-      Walk through each profile and call out specific elements — headline clarity, featured section use, recent posts, and how they engage in comments.
+      Walk through each profile and call out specifics: headline clarity, featured section use, recent posts, and how they engage in comments.
     </div>
   </div>
 
-  <!-- SLIDE 13: AMA -->
+  <!-- ── 13 AMA ── -->
   <div class="slide" id="slide-13">
     <div class="ama-sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">13</div><div class="sidebar-section">Open<br>Floor</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">13</div><div class="sb-section">Open<br>Floor</div></div>
     </div>
     <div class="ama-main">
       <div class="ama-eyebrow">Open Floor</div>
@@ -1638,138 +1444,96 @@ body.notes-on .speaker-note { display: block; }
     </div>
   </div>
 
-  <!-- SLIDE 14: TASK -->
+  <!-- ── 14 TASK ── -->
   <div class="slide" id="slide-14">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">14</div><div class="sidebar-section">Your<br>Task</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">14</div><div class="sb-section">Your<br>Task</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Workshop Takeaway</div>
-      <div class="slide-title">Your Task</div>
-      <div class="task-steps">
-        <div class="task-step">
-          <div class="task-num">1</div>
-          <div>
-            <div class="task-title">Pick a Content Idea in Your Niche</div>
-            <div class="task-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div>
-          </div>
-        </div>
-        <div class="task-step">
-          <div class="task-num">2</div>
-          <div>
-            <div class="task-title">Run it Through the Bold Ideas Checklist</div>
-            <div class="task-desc">Does it align with <strong>AI, Digital Sovereignty, State Capacity, or Enshittification?</strong> If yes, PD publishes. If not, post it yourself.</div>
-          </div>
-        </div>
-        <div class="task-step">
-          <div class="task-num">3</div>
-          <div>
-            <div class="task-title">Validate the Idea</div>
-            <div class="task-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this? That is a good signal.</div>
-          </div>
-        </div>
-        <div class="task-step">
-          <div class="task-num">4</div>
-          <div>
-            <div class="task-title">Create the Content Within the Next Month</div>
-            <div class="task-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div>
-          </div>
-        </div>
-        <div class="task-step">
-          <div class="task-num">5</div>
-          <div>
-            <div class="task-title">Submit Your Idea to Kennedy Adamu</div>
-            <div class="task-desc">Share your content idea to receive feedback and help developing it further before publishing.</div>
-          </div>
-        </div>
+      <div class="h1" style="margin-bottom:18px">Your Task</div>
+      <div class="task-list">
+        <div class="task-row"><div class="t-n">1</div><div class="t-body"><div class="t-tit">Pick a Content Idea in Your Niche</div><div class="t-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div></div></div>
+        <div class="task-row"><div class="t-n">2</div><div class="t-body"><div class="t-tit">Run it Through the Bold Ideas Checklist</div><div class="t-desc">Does it align with <strong>AI, Digital Sovereignty, State Capacity, or Enshittification?</strong> If yes — PD publishes. If not — post it yourself.</div></div></div>
+        <div class="task-row"><div class="t-n">3</div><div class="t-body"><div class="t-tit">Validate the Idea</div><div class="t-desc">Check news sources, Google Trends, and community threads. Is anyone already talking about this?</div></div></div>
+        <div class="task-row"><div class="t-n">4</div><div class="t-body"><div class="t-tit">Create the Content Within the Next Month</div><div class="t-desc">Use the funnel. Use AI. Keep it tight and focused on delivering genuine value.</div></div></div>
+        <div class="task-row"><div class="t-n">5</div><div class="t-body"><div class="t-tit">Submit Your Idea to Kennedy Adamu</div><div class="t-desc">Share your content idea to receive feedback and help developing it further before publishing.</div></div></div>
       </div>
-      <div class="task-note">
-        Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop to help develop their ideas. The best content may be published on Public Digital's channels — or your own.
-      </div>
+      <div class="task-note">Kennedy will book <strong>30-minute 1:1 follow-up sessions</strong> with each attendee after the workshop to help develop their ideas. The best content may be published on Public Digital's channels — or your own.</div>
     </div>
   </div>
 
-  <!-- SLIDE 15: RESOURCES -->
+  <!-- ── 15 RESOURCES ── -->
   <div class="slide" id="slide-15">
     <div class="sidebar">
-      <div class="sidebar-brand"><span class="sidebar-dot"></span>public digital</div>
-      <div class="sidebar-meta"><div class="sidebar-num">15</div><div class="sidebar-section">Resource<br>Bank</div></div>
+      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
+      <div class="sb-meta"><div class="sb-num">15</div><div class="sb-section">Resource<br>Bank</div></div>
     </div>
     <div class="main">
       <div class="eyebrow">Take These With You</div>
-      <div class="slide-title">Resource Bank</div>
-      <div class="resources-layout">
-        <div class="resource-list">
-          <div class="resource-item"><div class="resource-mark"></div>AI Prompts for LinkedIn</div>
-          <div class="resource-item"><div class="resource-mark"></div>Content Guidelines</div>
-          <div class="resource-item"><div class="resource-mark"></div>Good LinkedIn Profile Examples</div>
-          <div class="resource-item"><div class="resource-mark"></div>Workshop Slides</div>
-          <div class="resource-item"><div class="resource-mark"></div>Bold Ideas Checklist</div>
+      <div class="h1" style="margin-bottom:24px">Resource Bank</div>
+      <div class="resources-split">
+        <div class="res-list">
+          <div class="res-row"><div class="res-mark"></div><div class="res-lbl">AI Prompts for LinkedIn</div></div>
+          <div class="res-row"><div class="res-mark"></div><div class="res-lbl">Content Guidelines</div></div>
+          <div class="res-row"><div class="res-mark"></div><div class="res-lbl">Good LinkedIn Profile Examples</div></div>
+          <div class="res-row"><div class="res-mark"></div><div class="res-lbl">Workshop Slides</div></div>
+          <div class="res-row"><div class="res-mark"></div><div class="res-lbl">Bold Ideas Checklist</div></div>
         </div>
-        <div class="qr-area">
-          <div class="qr-mock">
-            <div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div>
-            <div class="qr-cell"></div><div class="qr-cell clear"></div><div class="qr-cell"></div><div class="qr-cell clear"></div><div class="qr-cell"></div>
-            <div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell clear"></div><div class="qr-cell"></div><div class="qr-cell"></div>
-            <div class="qr-cell"></div><div class="qr-cell clear"></div><div class="qr-cell"></div><div class="qr-cell clear"></div><div class="qr-cell"></div>
-            <div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div><div class="qr-cell"></div>
+        <div class="qr-col">
+          <div class="qr-lbl">QR Code / Link</div>
+          <div class="qr-box">
+            <div class="qr-inner">
+              <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
+              <div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div>
+              <div class="qc"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc"></div>
+              <div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div>
+              <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
+            </div>
           </div>
-          <div class="qr-label">QR Code / Link</div>
-          <div class="qr-sub">Add before the session</div>
+          <div class="qr-sub">Add link or QR code before the session</div>
         </div>
       </div>
-      <div class="presenter-note">
+      <div class="p-note">
         <strong>Presenter note:</strong> Add the resource bank link or QR code before the session. All items on the left should be compiled and accessible at that link.
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
       Give the room time to scan the QR code before closing. Remind them the workshop slides are included in the resource bank.
     </div>
   </div>
 
-  <!-- SLIDE 16: CLOSE -->
+  <!-- ── 16 CLOSE ── -->
   <div class="slide" id="slide-16">
     <div class="s16-left">
-      <div class="s1-brand"><span class="s1-brand-dot"></span>public digital</div>
-      <div class="s1-aside-label">Thank you</div>
+      <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
+      <div class="s1-aside">Thank you</div>
     </div>
     <div class="s16-right">
       <div class="s16-title">Now go make<br>something<br>worth reading.</div>
       <div class="s16-rule"></div>
       <div class="s16-contacts">
-        <div>
-          <div class="s16-c-label">Presenter</div>
-          <div class="s16-c-val">Kennedy Adamu</div>
-        </div>
-        <div>
-          <div class="s16-c-label">LinkedIn</div>
-          <div class="s16-c-val">Add your handle</div>
-        </div>
-        <div>
-          <div class="s16-c-label">Email</div>
-          <div class="s16-c-val">Add your email</div>
-        </div>
+        <div><div class="s16-c-tag">Presenter</div><div class="s16-c-val">Kennedy Adamu</div></div>
+        <div><div class="s16-c-tag">LinkedIn</div><div class="s16-c-val">Add your handle</div></div>
+        <div><div class="s16-c-tag">Email</div><div class="s16-c-val">Add your email</div></div>
       </div>
     </div>
-    <div class="speaker-note">
+    <div class="snote">
       <strong>Speaker Note</strong>
       Keep this warm and personal. Thank the room. Remind them 1:1 follow-up sessions are bookable via the resource link. Leave on a high.
     </div>
   </div>
 
-</div>
+</div><!-- /deck -->
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-left">
-    <div class="nav-dot"></div>
-    <div class="nav-brand">public.digital</div>
-  </div>
-  <div class="nav-controls">
+  <div class="nav-brand"><div class="nav-dot"></div>public.digital</div>
+  <div class="nav-centre">
     <button class="nav-btn" onclick="prevSlide()">Previous</button>
-    <div class="nav-counter" id="slide-counter">1 / 16</div>
+    <div class="nav-count" id="nav-count">1 / 16</div>
     <button class="nav-btn" onclick="nextSlide()">Next</button>
   </div>
   <div class="nav-right">
@@ -1780,38 +1544,33 @@ body.notes-on .speaker-note { display: block; }
 
 <script>
   const TOTAL = 16;
-  let current = 1;
+  let cur = 1;
 
   function goTo(n) {
-    document.getElementById('slide-' + current).classList.remove('active');
-    current = Math.max(1, Math.min(n, TOTAL));
-    document.getElementById('slide-' + current).classList.add('active');
-    document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
-    document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+    document.getElementById('slide-' + cur).classList.remove('active');
+    cur = Math.max(1, Math.min(n, TOTAL));
+    document.getElementById('slide-' + cur).classList.add('active');
+    document.getElementById('nav-count').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('progress-bar').style.width = ((cur / TOTAL) * 100) + '%';
   }
 
-  function nextSlide() { goTo(current + 1); }
-  function prevSlide() { goTo(current - 1); }
+  function nextSlide() { goTo(cur + 1); }
+  function prevSlide() { goTo(cur - 1); }
 
   document.addEventListener('keydown', e => {
-    if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
-    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
   });
 
   function toggleNotes() { document.body.classList.toggle('notes-on'); }
 
   function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-      document.exitFullscreen();
-    }
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen();
   }
 
-  /* Dos & Don'ts — individual reveal */
   function toggleReveal(card) { card.classList.toggle('revealed'); }
 
-  /* Reveal all / Hide all */
   function revealAll() {
     const cards = document.querySelectorAll('.dnd-card');
     const anyHidden = [...cards].some(c => !c.classList.contains('revealed'));
