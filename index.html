@@ -6,368 +6,229 @@
 <title>LinkedIn Simplified — Public Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
 :root {
-  --black:  #1A1A1A;
-  --blue:   #3A5A8E;
-  --blue-d: #2A4472;
-  --cream:  #F4F3EF;
-  --white:  #FFFFFF;
-  --mid:    #8A93A0;
-  --rule:   #DEDAD3;
-  --green:  #1D7048;
-  --red:    #B33030;
-  --sb:     180px;
-  --nav:    48px;
-  --ph:     56px;
-  --pv:     40px;
+  --black:  #1A1A1A;--blue:#3A5A8E;--blue-d:#2A4472;--cream:#F4F3EF;--white:#FFFFFF;--mid:#8A93A0;--rule:#DEDAD3;--green:#1D7048;--red:#B33030;--sb:180px;--nav:48px;--ph:56px;--pv:40px;
 }
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
-
-body {
-  font-family: 'Lexend Deca', sans-serif;
-  background: var(--cream);
-  color: var(--black);
-  overflow: hidden;
-  -webkit-font-smoothing: antialiased;
-  user-select: none;
-}
-
-.deck { position: fixed; inset: 0; }
-.slide { position: absolute; inset: 0; display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-.slide.active { opacity: 1; pointer-events: all; }
-
-/* PROGRESS */
-.progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--blue); transition: width 0.4s ease; z-index: 500; }
-
-/* NAV */
-.nav { position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav); background: var(--black); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 500; }
-.nav-brand { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
-.nav-dot   { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-.nav-c     { display: flex; align-items: center; gap: 18px; }
-.nav-btn   { background: none; border: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.55); font-family: 'Lexend Deca', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; padding: 5px 18px; letter-spacing: 0.04em; transition: all 0.18s; }
-.nav-btn:hover { background: rgba(255,255,255,0.07); color: var(--white); border-color: rgba(255,255,255,0.3); }
-.nav-n     { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; min-width: 52px; text-align: center; }
-.nav-r     { display: flex; gap: 8px; }
-.util      { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.3); font-family: 'Lexend Deca', sans-serif; font-size: 11px; font-weight: 500; cursor: pointer; padding: 4px 12px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.18s; }
-.util:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
-
-/* SPEAKER NOTES */
-.snote { position: fixed; bottom: calc(var(--nav) + 10px); right: 20px; width: 264px; background: var(--black); border: 1px solid rgba(255,255,255,0.09); padding: 14px 16px; font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.48); line-height: 1.7; display: none; z-index: 490; }
-.snote strong { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
-body.notes-on .snote { display: block; }
-
-/* ── SIDEBAR ── */
-.sb { width: var(--sb); min-width: var(--sb); background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0; }
-.sb-brand { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 14px; font-weight: 600; letter-spacing: 0.06em; color: var(--white); display: flex; align-items: center; gap: 8px; }
-.sb-dot   { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.sb-meta  { display: flex; flex-direction: column; gap: 4px; }
-.sb-num   { font-size: 24px; font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.65; }
-.sb-sec   { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.22); line-height: 1.5; }
-
-/* ── MAIN PANE ── */
-.main { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: var(--pv) var(--ph) calc(var(--nav) + var(--pv)) var(--ph); background: var(--cream); overflow: hidden; }
-
-.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; flex-shrink: 0; }
-
-.h1 { font-size: clamp(35px, 4vw, 59px); font-weight: 600; line-height: 1.02; letter-spacing: -0.025em; color: var(--black); margin-bottom: 20px; flex-shrink: 0; }
-
-.callout { background: var(--blue); color: var(--white); font-size: clamp(17px, 1.65vw, 21px); font-weight: 500; padding: 16px 22px; flex-shrink: 0; line-height: 1.45; margin-top: 16px; }
-.callout strong { font-weight: 700; }
-
-.p-note { margin-top: 14px; border-left: 2px solid var(--blue); padding: 8px 14px; font-size: 14px; font-weight: 400; color: var(--black); line-height: 1.6; flex-shrink: 0; }
-.p-note strong { color: var(--black); font-weight: 600; }
-
-/* ── ROW LIST ── */
-.row-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.row-item { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 32px 28% 1fr; column-gap: 28px; align-items: center; border-top: 1px solid var(--rule); }
-.row-item:last-child { border-bottom: 1px solid var(--rule); }
-.ri-n    { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
-.ri-head { font-size: clamp(18px, 1.9vw, 25px); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--black); }
-.ri-desc { font-size: clamp(15px, 1.4vw, 19px); font-weight: 400; line-height: 1.65; color: var(--black); }
-
-.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-.chip  { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; padding: 2px 10px; border: 1px solid var(--rule); color: var(--mid); background: var(--cream); }
-
-/* ═══════════════════════════
-   SLIDE 1 / TITLE
-═══════════════════════════ */
-#slide-1 { flex-direction: row; }
-.s1-left  { width: 220px; min-width: 220px; background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0; }
-.s1-brand { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 14px; font-weight: 600; letter-spacing: 0.06em; color: var(--white); display: flex; align-items: center; gap: 8px; }
-.s1-dot   { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.s1-sub   { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.22); }
-.s1-right { flex: 1; min-width: 0; background: var(--blue); display: flex; flex-direction: column; justify-content: flex-end; padding: 52px 72px calc(var(--nav) + 52px) 72px; }
-.s1-kicker{ font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
-.s1-title { font-size: clamp(63px, 8.9vw, 115px); font-weight: 600; line-height: 0.9; letter-spacing: -0.04em; color: var(--white); margin-bottom: 52px; }
-.s1-rule  { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
-.s1-meta  { display: flex; align-items: flex-end; gap: 40px; }
-.s1-ptag  { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 5px; }
-.s1-name  { font-size: 22px; font-weight: 600; color: var(--white); }
-.s1-date  { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.36); padding-bottom: 2px; }
-
-/* ═══════════════════════════
-   AGENDA
-═══════════════════════════ */
-.agenda-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); column-gap: 48px; }
-.ag-row { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 20px; border-top: 1px solid var(--rule); }
-.ag-row:nth-child(7), .ag-row:nth-child(8) { border-bottom: 1px solid var(--rule); }
-.ag-n     { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
-.ag-label { font-size: clamp(16px, 1.78vw, 22px); font-weight: 500; color: var(--black); line-height: 1.3; }
-
-/* ═══════════════════════════
-   QUIZ
-═══════════════════════════ */
-.quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-shrink: 0; }
-.quiz-badge  { background: var(--blue); color: var(--white); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 14px; }
-.quiz-reveal-btn { background: none; border: 1px solid var(--rule); font-family: 'Lexend Deca', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); padding: 5px 14px; cursor: pointer; transition: all 0.18s; }
-.quiz-reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
-.quiz-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.quiz-row  { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 24px; border-top: 1px solid var(--rule); cursor: pointer; padding: 0 4px; transition: background 0.15s; }
-.quiz-row:last-child { border-bottom: 1px solid var(--rule); }
-.quiz-row:hover { background: rgba(58,90,142,0.03); }
-.quiz-n    { font-size: clamp(33px, 4.2vw, 53px); font-weight: 700; color: var(--blue); line-height: 1; opacity: 0.14; text-align: right; }
-.quiz-body { display: flex; flex-direction: column; gap: 4px; }
-.quiz-tag  { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
-.quiz-q    { font-size: clamp(15px, 1.65vw, 21px); font-weight: 500; color: var(--black); line-height: 1.45; }
-.quiz-ans  { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.22s; }
-.quiz-row.true-ans.revealed  { background: rgba(29,112,72,0.04); }
-.quiz-row.false-ans.revealed { background: rgba(179,48,48,0.04); }
-.quiz-row.true-ans.revealed  .quiz-ans { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.1); }
-.quiz-row.false-ans.revealed .quiz-ans { opacity: 1; visibility: visible; color: var(--red);   background: rgba(179,48,48,0.1); }
-.quiz-row.true-ans.revealed  .quiz-q   { color: var(--green); }
-.quiz-row.false-ans.revealed .quiz-q   { color: var(--red); }
-
-/* ═══════════════════════════
-   SURVEY
-═══════════════════════════ */
-.survey-headline { display: flex; align-items: center; gap: 36px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); flex-shrink: 0; margin-bottom: 20px; }
-.survey-stat-n   { font-size: clamp(31px, 3.66vw, 48px); font-weight: 700; color: var(--blue); line-height: 1; letter-spacing: -0.03em; }
-.survey-stat-l   { font-size: 14px; font-weight: 500; color: var(--black); margin-top: 2px; }
-.survey-div      { width: 1px; height: 44px; background: var(--rule); }
-.survey-body { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
-.chart-block { display: flex; flex-direction: column; min-height: 0; }
-.chart-lbl   { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; flex-shrink: 0; }
-.chart-rule  { height: 1px; background: var(--blue); opacity: 0.2; margin-bottom: 8px; flex-shrink: 0; }
-.bar-rows    { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; }
-.bar-row     { display: flex; flex-direction: column; gap: 5px; flex: 1 1 0; justify-content: center; }
-.bar-row-label { font-size: clamp(14px, 1.38vw, 18px); font-weight: 500; color: var(--black); line-height: 1.3; }
-.bar-track   { height: 7px; background: var(--rule); width: 100%; }
-.bar-fill    { height: 100%; background: var(--blue); }
-.bar-pct     { font-size: clamp(12px, 1.1vw, 14px); font-weight: 400; color: var(--mid); }
-
-/* ═══════════════════════════
-   FUNNEL IN PRACTICE (2×2)
-═══════════════════════════ */
-.practice-cols { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 28px; }
-.prac-col  { display: flex; flex-direction: column; min-height: 0; }
-.prac-lbl  { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; margin-bottom: 8px; }
-.prac-rule { height: 1px; background: var(--blue); opacity: 0.25; flex-shrink: 0; margin-bottom: 14px; }
-.prac-content { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
-.prac-head { font-size: clamp(17px, 1.65vw, 22px); font-weight: 600; color: var(--black); line-height: 1.3; letter-spacing: -0.01em; }
-.prac-body { font-size: clamp(14px, 1.27vw, 18px); font-weight: 400; color: var(--black); line-height: 1.65; }
-.prac-tag  { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border: 1px solid rgba(58,90,142,0.3); color: var(--blue); background: rgba(58,90,142,0.05); align-self: flex-start; }
-
-/* ═══════════════════════════
-   DOS & DON'TS
-═══════════════════════════ */
-.dnd-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-shrink: 0; }
-.dnd-instr  { font-size: 15px; font-weight: 400; color: var(--black); font-style: italic; }
-.reveal-btn { background: none; border: 1px solid var(--rule); font-family: 'Lexend Deca', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); padding: 5px 14px; cursor: pointer; transition: all 0.18s; }
-.reveal-btn:hover { border-color: var(--blue); color: var(--blue); }
-.dnd-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); column-gap: 40px; }
-.dnd-row  { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; border-top: 1px solid var(--rule); cursor: pointer; padding: 0 2px; transition: background 0.15s; }
-.dnd-grid .dnd-row:nth-child(5),
-.dnd-grid .dnd-row:nth-child(10) { border-bottom: 1px solid var(--rule); }
-.dnd-row:hover { background: rgba(58,90,142,0.03); }
-.dnd-stmt { font-size: clamp(14px, 1.5vw, 19px); font-weight: 400; line-height: 1.5; color: var(--black); }
-.dnd-verd { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 5px 12px; opacity: 0; visibility: hidden; white-space: nowrap; transition: opacity 0.2s; }
-.dnd-row.do.revealed   .dnd-verd { opacity: 1; visibility: visible; color: var(--green); background: rgba(29,112,72,0.08); }
-.dnd-row.do.revealed   .dnd-stmt { color: var(--green); }
-.dnd-row.dont.revealed .dnd-verd { opacity: 1; visibility: visible; color: var(--red); background: rgba(179,48,48,0.08); }
-.dnd-row.dont.revealed .dnd-stmt { color: var(--red); }
-
-/* ═══════════════════════════
-   PROFILE CHECKLIST
-═══════════════════════════ */
-.check-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.check-row  { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 26px 1fr; align-items: center; gap: 22px; border-top: 1px solid var(--rule); cursor: pointer; }
-.check-row:last-child { border-bottom: 1px solid var(--rule); }
-.check-box  { width: 22px; height: 22px; border: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: transparent; transition: all 0.18s; flex-shrink: 0; }
-.check-row.checked .check-box { background: var(--blue); border-color: var(--blue); color: var(--white); }
-.check-txt  { font-size: clamp(17px, 1.7vw, 22px); font-weight: 400; line-height: 1.45; color: var(--black); }
-.check-txt em { font-style: normal; color: var(--blue); font-weight: 500; }
-.check-row.checked .check-txt { color: var(--mid); }
-
-/* ═══════════════════════════
-   AMA
-═══════════════════════════ */
-.ama-sb   { width: var(--sb); min-width: var(--sb); background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 24px; flex-shrink: 0; }
-.ama-main { flex: 1; min-width: 0; background: var(--blue); display: flex; flex-direction: column; justify-content: center; padding: 56px 80px calc(var(--nav) + 56px); }
-.ama-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 16px; }
-.ama-title   { font-size: clamp(71px, 10.45vw, 127px); font-weight: 600; line-height: 0.88; letter-spacing: -0.05em; color: var(--white); margin-bottom: 28px; }
-.ama-sub     { font-size: clamp(18px, 1.87vw, 24px); font-weight: 300; color: rgba(255,255,255,0.7); }
-
-/* ═══════════════════════════
-   RESOURCES
-═══════════════════════════ */
-.res-split { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-.res-list  { display: flex; flex-direction: column; }
-.res-row   { display: grid; grid-template-columns: 10px 1fr; align-items: center; gap: 18px; padding: 18px 0; border-top: 1px solid var(--rule); }
-.res-row:last-child { border-bottom: 1px solid var(--rule); }
-.res-mark  { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-.res-lbl   { font-size: clamp(17px, 1.65vw, 22px); font-weight: 400; color: var(--black); }
-.qr-col  { display: flex; flex-direction: column; gap: 20px; padding-top: 16px; }
-.qr-col-inner { display: flex; gap: 32px; }
-.qr-item { display: flex; flex-direction: column; gap: 10px; }
-.qr-lbl  { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
-.qr-box  { width: 100px; height: 100px; border: 1px dashed var(--rule); background: var(--white); display: flex; align-items: center; justify-content: center; }
-.qr-inner{ width: 60px; height: 60px; display: grid; grid-template-columns: repeat(5,1fr); grid-template-rows: repeat(5,1fr); gap: 2px; }
-.qc { background: var(--rule); } .qc.e { background: transparent; }
-.qr-note { font-size: 12px; font-weight: 600; color: var(--blue); line-height: 1.4; max-width: 120px; }
-.qr-url  { font-size: 12px; font-weight: 400; color: var(--black); line-height: 1.5; max-width: 200px; word-break: break-all; }
-
-/* ═══════════════════════════
-   CLOSE
-═══════════════════════════ */
-.s16-left  { width: 220px; min-width: 220px; background: var(--black); display: flex; flex-direction: column; justify-content: space-between; padding: var(--pv) 20px calc(var(--nav) + var(--pv)) 28px; flex-shrink: 0; }
-.s16-right { flex: 1; min-width: 0; background: var(--blue-d); display: flex; flex-direction: column; justify-content: flex-end; padding: 52px 72px calc(var(--nav) + 52px); }
-.s16-title { font-size: clamp(50px, 7.3vw, 94px); font-weight: 600; line-height: 0.92; letter-spacing: -0.04em; color: var(--white); margin-bottom: 40px; }
-.s16-rule  { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 24px; }
-.s16-ptag  { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 6px; }
-.s16-pname { font-size: 22px; font-weight: 600; color: var(--white); }
-
-/* ═══════════════════════════
-   NEW — QUESTION SLIDES
-═══════════════════════════ */
-.q-main { flex: 1; min-width: 0; background: var(--blue); display: flex; flex-direction: column; justify-content: center; padding: 56px 80px calc(var(--nav) + 56px); }
-.q-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 22px; }
-.q-text { font-size: clamp(34px, 4.6vw, 62px); font-weight: 600; line-height: 1.1; letter-spacing: -0.03em; color: var(--white); max-width: 820px; }
-
-/* ═══════════════════════════
-   NEW — STATEMENT SLIDES
-═══════════════════════════ */
-.stmt-main { flex: 1; min-width: 0; background: var(--black); display: flex; flex-direction: column; justify-content: center; padding: 56px 80px calc(var(--nav) + 56px); }
-.stmt-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 22px; }
-.stmt-text { font-size: clamp(32px, 4.4vw, 60px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; color: var(--white); max-width: 820px; }
-
-/* ═══════════════════════════
-   NEW — PLACEHOLDER SLIDES
-═══════════════════════════ */
-.ph-wrap { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
-.ph-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); flex-shrink: 0; }
-.ph-box { flex: 1; border: 2px dashed var(--rule); background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-.ph-icon { font-size: 32px; opacity: 0.18; }
-.ph-txt { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
-
-/* ═══════════════════════════
-   NEW — CURIOSITY GAP TITLE
-═══════════════════════════ */
-.cg-right { flex: 1; min-width: 0; background: var(--blue-d); display: flex; flex-direction: column; justify-content: flex-end; padding: 52px 72px calc(var(--nav) + 52px) 72px; }
-.cg-kicker { font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
-.cg-title { font-size: clamp(40px, 5.8vw, 76px); font-weight: 600; line-height: 0.95; letter-spacing: -0.04em; color: var(--white); margin-bottom: 40px; }
-.cg-rule  { width: 36px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 20px; }
-.cg-sub   { font-size: clamp(16px, 1.65vw, 21px); font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 520px; }
-
-/* ═══════════════════════════
-   NEW — HOOK SLIDE
-═══════════════════════════ */
-.hook-steps { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; margin-top: 4px; }
-.hook-step { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 52px 1fr; align-items: center; border-top: 1px solid var(--rule); gap: 20px; }
-.hook-step:last-child { border-bottom: 1px solid var(--rule); }
-.hook-arrow { font-size: clamp(20px, 2.2vw, 28px); font-weight: 700; color: var(--blue); opacity: 0.45; text-align: center; }
-.hook-body { display: flex; flex-direction: column; gap: 4px; }
-.hook-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-.hook-desc { font-size: clamp(15px, 1.55vw, 20px); font-weight: 500; color: var(--black); line-height: 1.45; }
-.hook-sub { font-size: clamp(13px, 1.2vw, 16px); font-weight: 400; color: var(--mid); line-height: 1.55; margin-top: 2px; }
-
-/* ═══════════════════════════
-   NEW — CONTENT FORM SLIDE
-═══════════════════════════ */
-.form-rows { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-.form-row { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 170px 1fr; align-items: center; border-top: 1px solid var(--rule); gap: 28px; padding: 0 4px; }
-.form-row:last-child { border-bottom: 1px solid var(--rule); }
-.form-lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-.form-hint { font-size: clamp(14px, 1.35vw, 18px); font-weight: 400; color: var(--mid); font-style: italic; line-height: 1.5; }
-.form-line { height: 1.5px; background: rgba(58,90,142,0.18); margin-top: 8px; }
-
-/* ═══════════════════════════
-   NEW — EXECUTE / METHODS (28–29)
-═══════════════════════════ */
-.seq-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); border: 1px solid rgba(58,90,142,0.28); padding: 4px 12px; margin-bottom: 12px; flex-shrink: 0; }
-.seq-arrow { opacity: 0.5; }
-
-/* ═══════════════════════════
-   NEW — AI POLISH / PROMPTS SLIDE
-═══════════════════════════ */
-.prompt-list { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
-.prompt-card { background: var(--white); border: 1px solid var(--rule); border-left: 3px solid var(--blue); padding: 16px 20px; }
-.prompt-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 7px; }
-.prompt-text { font-size: clamp(13px, 1.28vw, 17px); font-weight: 400; color: var(--black); line-height: 1.75; }
-
-/* ═══════════════════════════
-   NEW — AI TOOLS SLIDE
-═══════════════════════════ */
-.tools-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.tool-card { border: 1px solid var(--rule); background: var(--white); padding: 24px 22px 20px; display: flex; flex-direction: column; gap: 10px; }
-.tool-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); padding: 4px 10px; border: 1px solid rgba(58,90,142,0.25); align-self: flex-start; background: rgba(58,90,142,0.04); }
-.tool-name { font-size: clamp(20px, 2.1vw, 28px); font-weight: 600; color: var(--black); letter-spacing: -0.02em; line-height: 1.1; }
-.tool-rule { height: 1px; background: var(--rule); margin: 2px 0; }
-.tool-for-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
-.tool-for { font-size: clamp(14px, 1.35vw, 18px); font-weight: 600; color: var(--black); line-height: 1.4; }
-.tool-desc { font-size: clamp(13px, 1.2vw, 16px); font-weight: 400; color: var(--black); line-height: 1.65; }
-
-/* ═══════════════════════════
-   NEW — SHARE / FINAL STEP SLIDE
-═══════════════════════════ */
-.share-wrap { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 24px; }
-.share-step { display: grid; grid-template-columns: 32px 1fr; gap: 20px; align-items: start; padding: 20px 0; border-top: 1px solid var(--rule); }
-.share-step:last-child { border-bottom: 1px solid var(--rule); }
-.share-n { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; opacity: 0.55; }
-.share-head { font-size: clamp(16px, 1.7vw, 22px); font-weight: 600; color: var(--black); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 4px; }
-.share-desc { font-size: clamp(14px, 1.3vw, 17px); font-weight: 400; color: var(--black); line-height: 1.65; }
-
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html,body{height:100%;}
+body{font-family:'Lexend Deca',sans-serif;background:var(--cream);color:var(--black);overflow:hidden;-webkit-font-smoothing:antialiased;user-select:none;}
+.deck{position:fixed;inset:0;}.slide{position:absolute;inset:0;display:flex;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}.slide.active{opacity:1;pointer-events:all;}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--blue);transition:width 0.4s ease;z-index:500;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:var(--nav);background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:500;}
+.nav-brand{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:0.06em;color:rgba(255,255,255,0.28);}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+.nav-c{display:flex;align-items:center;gap:18px;}
+.nav-btn{background:none;border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.55);font-family:'Lexend Deca',sans-serif;font-size:12px;font-weight:500;cursor:pointer;padding:5px 18px;letter-spacing:0.04em;transition:all 0.18s;}
+.nav-btn:hover{background:rgba(255,255,255,0.07);color:var(--white);border-color:rgba(255,255,255,0.3);}
+.nav-n{font-size:12px;font-weight:400;color:rgba(255,255,255,0.28);letter-spacing:0.08em;min-width:52px;text-align:center;}
+.nav-r{display:flex;gap:8px;}
+.util{background:none;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.3);font-family:'Lexend Deca',sans-serif;font-size:11px;font-weight:500;cursor:pointer;padding:4px 12px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.18s;}
+.util:hover{color:var(--white);border-color:rgba(255,255,255,0.28);}
+.snote{position:fixed;bottom:calc(var(--nav) + 10px);right:20px;width:264px;background:var(--black);border:1px solid rgba(255,255,255,0.09);padding:14px 16px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.48);line-height:1.7;display:none;z-index:490;}
+.snote strong{display:block;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+body.notes-on .snote{display:block;}
+.sb{width:var(--sb);min-width:var(--sb);background:var(--black);display:flex;flex-direction:column;justify-content:space-between;padding:var(--pv) 20px calc(var(--nav) + var(--pv)) 24px;flex-shrink:0;}
+.sb-brand{writing-mode:vertical-rl;transform:rotate(180deg);font-size:14px;font-weight:600;letter-spacing:0.06em;color:var(--white);display:flex;align-items:center;gap:8px;}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.sb-meta{display:flex;flex-direction:column;gap:4px;}
+.sb-num{font-size:24px;font-weight:700;color:var(--blue);line-height:1;opacity:0.65;}
+.sb-sec{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);line-height:1.5;}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;padding:var(--pv) var(--ph) calc(var(--nav) + var(--pv)) var(--ph);background:var(--cream);overflow:hidden;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;flex-shrink:0;}
+.h1{font-size:clamp(35px,4vw,59px);font-weight:600;line-height:1.02;letter-spacing:-0.025em;color:var(--black);margin-bottom:20px;flex-shrink:0;}
+.callout{background:var(--blue);color:var(--white);font-size:clamp(17px,1.65vw,21px);font-weight:500;padding:16px 22px;flex-shrink:0;line-height:1.45;margin-top:16px;}
+.callout strong{font-weight:700;}
+.row-list{flex:1 1 0;min-height:0;display:flex;flex-direction:column;}
+.row-item{flex:1 1 0;min-height:0;display:grid;grid-template-columns:32px 28% 1fr;column-gap:28px;align-items:center;border-top:1px solid var(--rule);}
+.row-item:last-child{border-bottom:1px solid var(--rule);}
+.ri-n{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:0.06em;opacity:0.55;}
+.ri-head{font-size:clamp(18px,1.9vw,25px);font-weight:600;line-height:1.25;letter-spacing:-0.02em;color:var(--black);}
+.ri-desc{font-size:clamp(15px,1.4vw,19px);font-weight:400;line-height:1.65;color:var(--black);}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+.chip{font-size:11px;font-weight:500;letter-spacing:0.04em;padding:2px 10px;border:1px solid var(--rule);color:var(--mid);background:var(--cream);}
+#slide-1{flex-direction:row;}
+.s1-left{width:220px;min-width:220px;background:var(--black);display:flex;flex-direction:column;justify-content:space-between;padding:var(--pv) 20px calc(var(--nav) + var(--pv)) 28px;flex-shrink:0;}
+.s1-brand{writing-mode:vertical-rl;transform:rotate(180deg);font-size:14px;font-weight:600;letter-spacing:0.06em;color:var(--white);display:flex;align-items:center;gap:8px;}
+.s1-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.s1-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,0.22);}
+.s1-right{flex:1;min-width:0;background:var(--blue);display:flex;flex-direction:column;justify-content:flex-end;padding:52px 72px calc(var(--nav) + 52px) 72px;}
+.s1-kicker{font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:16px;}
+.s1-title{font-size:clamp(63px,8.9vw,115px);font-weight:600;line-height:0.9;letter-spacing:-0.04em;color:var(--white);margin-bottom:52px;}
+.s1-rule{width:36px;height:1px;background:rgba(255,255,255,0.2);margin-bottom:24px;}
+.s1-meta{display:flex;align-items:flex-end;gap:40px;}
+.s1-ptag{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:5px;}
+.s1-name{font-size:22px;font-weight:600;color:var(--white);}
+.s1-date{font-size:15px;font-weight:300;color:rgba(255,255,255,0.36);padding-bottom:2px;}
+.agenda-grid{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);column-gap:48px;}
+.ag-row{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:20px;border-top:1px solid var(--rule);}
+.ag-row:nth-child(7),.ag-row:nth-child(8){border-bottom:1px solid var(--rule);}
+.ag-n{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:0.06em;opacity:0.55;}
+.ag-label{font-size:clamp(16px,1.78vw,22px);font-weight:500;color:var(--black);line-height:1.3;}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-shrink:0;}
+.quiz-badge{background:var(--blue);color:var(--white);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px;}
+.quiz-reveal-btn{background:none;border:1px solid var(--rule);font-family:'Lexend Deca',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);padding:5px 14px;cursor:pointer;transition:all 0.18s;}
+.quiz-reveal-btn:hover{border-color:var(--blue);color:var(--blue);}
+.quiz-list{flex:1 1 0;min-height:0;display:flex;flex-direction:column;}
+.quiz-row{flex:1 1 0;min-height:0;display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:24px;border-top:1px solid var(--rule);cursor:pointer;padding:0 4px;transition:background 0.15s;}
+.quiz-row:last-child{border-bottom:1px solid var(--rule);}
+.quiz-row:hover{background:rgba(58,90,142,0.03);}
+.quiz-n{font-size:clamp(33px,4.2vw,53px);font-weight:700;color:var(--blue);line-height:1;opacity:0.14;text-align:right;}
+.quiz-body{display:flex;flex-direction:column;gap:4px;}
+.quiz-tag{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);}
+.quiz-q{font-size:clamp(15px,1.65vw,21px);font-weight:500;color:var(--black);line-height:1.45;}
+.quiz-ans{font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 16px;white-space:nowrap;opacity:0;visibility:hidden;transition:opacity 0.22s;}
+.quiz-row.true-ans.revealed{background:rgba(29,112,72,0.04);}
+.quiz-row.false-ans.revealed{background:rgba(179,48,48,0.04);}
+.quiz-row.true-ans.revealed .quiz-ans{opacity:1;visibility:visible;color:var(--green);background:rgba(29,112,72,0.1);}
+.quiz-row.false-ans.revealed .quiz-ans{opacity:1;visibility:visible;color:var(--red);background:rgba(179,48,48,0.1);}
+.quiz-row.true-ans.revealed .quiz-q{color:var(--green);}
+.quiz-row.false-ans.revealed .quiz-q{color:var(--red);}
+.survey-headline{display:flex;align-items:center;gap:36px;padding-bottom:18px;border-bottom:1px solid var(--rule);flex-shrink:0;margin-bottom:20px;}
+.survey-stat-n{font-size:clamp(31px,3.66vw,48px);font-weight:700;color:var(--blue);line-height:1;letter-spacing:-0.03em;}
+.survey-stat-l{font-size:14px;font-weight:500;color:var(--black);margin-top:2px;}
+.survey-div{width:1px;height:44px;background:var(--rule);}
+.survey-body{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+.chart-block{display:flex;flex-direction:column;min-height:0;}
+.chart-lbl{font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;flex-shrink:0;}
+.chart-rule{height:1px;background:var(--blue);opacity:0.2;margin-bottom:8px;flex-shrink:0;}
+.bar-rows{flex:1 1 0;min-height:0;display:flex;flex-direction:column;justify-content:space-between;}
+.bar-row{display:flex;flex-direction:column;gap:5px;flex:1 1 0;justify-content:center;}
+.bar-row-label{font-size:clamp(14px,1.38vw,18px);font-weight:500;color:var(--black);line-height:1.3;}
+.bar-track{height:7px;background:var(--rule);width:100%;}
+.bar-fill{height:100%;background:var(--blue);}
+.bar-pct{font-size:clamp(12px,1.1vw,14px);font-weight:400;color:var(--mid);}
+.practice-cols{flex:1 1 0;min-height:0;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:28px;}
+.prac-col{display:flex;flex-direction:column;min-height:0;}
+.prac-lbl{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);flex-shrink:0;margin-bottom:8px;}
+.prac-rule{height:1px;background:var(--blue);opacity:0.25;flex-shrink:0;margin-bottom:14px;}
+.prac-content{flex:1 1 0;min-height:0;display:flex;flex-direction:column;gap:10px;}
+.prac-head{font-size:clamp(17px,1.65vw,22px);font-weight:600;color:var(--black);line-height:1.3;letter-spacing:-0.01em;}
+.prac-body{font-size:clamp(14px,1.27vw,18px);font-weight:400;color:var(--black);line-height:1.65;}
+.prac-tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border:1px solid rgba(58,90,142,0.3);color:var(--blue);background:rgba(58,90,142,0.05);align-self:flex-start;}
+.dnd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-shrink:0;}
+.dnd-instr{font-size:15px;font-weight:400;color:var(--black);font-style:italic;}
+.reveal-btn{background:none;border:1px solid var(--rule);font-family:'Lexend Deca',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);padding:5px 14px;cursor:pointer;transition:all 0.18s;}
+.reveal-btn:hover{border-color:var(--blue);color:var(--blue);}
+.dnd-grid{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,1fr);column-gap:40px;}
+.dnd-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;border-top:1px solid var(--rule);cursor:pointer;padding:0 2px;transition:background 0.15s;}
+.dnd-grid .dnd-row:nth-child(5),.dnd-grid .dnd-row:nth-child(10){border-bottom:1px solid var(--rule);}
+.dnd-row:hover{background:rgba(58,90,142,0.03);}
+.dnd-stmt{font-size:clamp(14px,1.5vw,19px);font-weight:400;line-height:1.5;color:var(--black);}
+.dnd-verd{font-size:11px;font-weight:700;letter-spacing:0.1em;padding:5px 12px;opacity:0;visibility:hidden;white-space:nowrap;transition:opacity 0.2s;}
+.dnd-row.do.revealed .dnd-verd{opacity:1;visibility:visible;color:var(--green);background:rgba(29,112,72,0.08);}
+.dnd-row.do.revealed .dnd-stmt{color:var(--green);}
+.dnd-row.dont.revealed .dnd-verd{opacity:1;visibility:visible;color:var(--red);background:rgba(179,48,48,0.08);}
+.dnd-row.dont.revealed .dnd-stmt{color:var(--red);}
+.check-list{flex:1 1 0;min-height:0;display:flex;flex-direction:column;}
+.check-row{flex:1 1 0;min-height:0;display:grid;grid-template-columns:26px 1fr;align-items:center;gap:22px;border-top:1px solid var(--rule);cursor:pointer;}
+.check-row:last-child{border-bottom:1px solid var(--rule);}
+.check-box{width:22px;height:22px;border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:transparent;transition:all 0.18s;flex-shrink:0;}
+.check-row.checked .check-box{background:var(--blue);border-color:var(--blue);color:var(--white);}
+.check-txt{font-size:clamp(17px,1.7vw,22px);font-weight:400;line-height:1.45;color:var(--black);}
+.check-txt em{font-style:normal;color:var(--blue);font-weight:500;}
+.check-row.checked .check-txt{color:var(--mid);}
+.ama-sb{width:var(--sb);min-width:var(--sb);background:var(--black);display:flex;flex-direction:column;justify-content:space-between;padding:var(--pv) 20px calc(var(--nav) + var(--pv)) 24px;flex-shrink:0;}
+.ama-main{flex:1;min-width:0;background:var(--blue);display:flex;flex-direction:column;justify-content:center;padding:56px 80px calc(var(--nav) + 56px);}
+.ama-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:16px;}
+.ama-title{font-size:clamp(71px,10.45vw,127px);font-weight:600;line-height:0.88;letter-spacing:-0.05em;color:var(--white);margin-bottom:28px;}
+.ama-sub{font-size:clamp(18px,1.87vw,24px);font-weight:300;color:rgba(255,255,255,0.7);}
+/* RESOURCES */
+.res-split{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.res-list{display:flex;flex-direction:column;}
+.res-row{display:grid;grid-template-columns:10px 1fr;align-items:center;gap:18px;padding:18px 0;border-top:1px solid var(--rule);}
+.res-row:last-child{border-bottom:1px solid var(--rule);}
+.res-mark{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+.res-lbl{font-size:clamp(17px,1.65vw,22px);font-weight:400;color:var(--black);}
+.qr-col{display:flex;flex-direction:column;gap:20px;padding-top:16px;}
+.qr-col-inner{display:flex;gap:40px;align-items:flex-start;}
+.qr-item{display:flex;flex-direction:column;gap:12px;}
+.qr-lbl{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);}
+.qr-img-wrap{width:180px;height:180px;border:1px solid var(--rule);background:var(--white);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.qr-img-wrap img{width:100%;height:100%;object-fit:contain;display:block;}
+.qr-note{font-size:13px;font-weight:600;color:var(--blue);line-height:1.4;max-width:180px;}
+/* CLOSE */
+.s16-left{width:220px;min-width:220px;background:var(--black);display:flex;flex-direction:column;justify-content:space-between;padding:var(--pv) 20px calc(var(--nav) + var(--pv)) 28px;flex-shrink:0;}
+.s16-right{flex:1;min-width:0;background:var(--blue-d);display:flex;flex-direction:column;justify-content:flex-end;padding:52px 72px calc(var(--nav) + 52px);}
+.s16-title{font-size:clamp(50px,7.3vw,94px);font-weight:600;line-height:0.92;letter-spacing:-0.04em;color:var(--white);margin-bottom:40px;}
+.s16-rule{width:36px;height:1px;background:rgba(255,255,255,0.2);margin-bottom:24px;}
+.s16-ptag{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:6px;}
+.s16-pname{font-size:22px;font-weight:600;color:var(--white);}
+/* QUESTION SLIDES */
+.q-main{flex:1;min-width:0;background:var(--blue);display:flex;flex-direction:column;justify-content:center;padding:56px 80px calc(var(--nav) + 56px);}
+.q-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:22px;}
+.q-text{font-size:clamp(34px,4.6vw,62px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;color:var(--white);max-width:820px;}
+/* STATEMENT SLIDES */
+.stmt-main{flex:1;min-width:0;background:var(--black);display:flex;flex-direction:column;justify-content:center;padding:56px 80px calc(var(--nav) + 56px);}
+.stmt-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:22px;}
+.stmt-text{font-size:clamp(32px,4.4vw,60px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;color:var(--white);max-width:820px;}
+/* SCREENSHOT SLIDES */
+.ss-wrap{flex:1 1 0;min-height:0;overflow:hidden;display:flex;align-items:flex-start;}
+.ss-wrap img{width:100%;height:100%;object-fit:contain;object-position:top center;display:block;}
+/* CURIOSITY GAP */
+.cg-right{flex:1;min-width:0;background:var(--blue-d);display:flex;flex-direction:column;justify-content:flex-end;padding:52px 72px calc(var(--nav) + 52px) 72px;}
+.cg-kicker{font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:16px;}
+.cg-title{font-size:clamp(40px,5.8vw,76px);font-weight:600;line-height:0.95;letter-spacing:-0.04em;color:var(--white);margin-bottom:40px;}
+.cg-rule{width:36px;height:1px;background:rgba(255,255,255,0.2);margin-bottom:20px;}
+.cg-sub{font-size:clamp(16px,1.65vw,21px);font-weight:300;color:rgba(255,255,255,0.6);line-height:1.6;max-width:520px;}
+/* HOOK SLIDE */
+.hook-steps{flex:1 1 0;min-height:0;display:flex;flex-direction:column;margin-top:4px;}
+.hook-step{flex:1 1 0;min-height:0;display:grid;grid-template-columns:52px 1fr;align-items:center;border-top:1px solid var(--rule);gap:20px;}
+.hook-step:last-child{border-bottom:1px solid var(--rule);}
+.hook-arrow{font-size:clamp(20px,2.2vw,28px);font-weight:700;color:var(--blue);opacity:0.45;text-align:center;}
+.hook-body{display:flex;flex-direction:column;gap:4px;}
+.hook-lbl{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);}
+.hook-desc{font-size:clamp(15px,1.55vw,20px);font-weight:500;color:var(--black);line-height:1.45;}
+.hook-sub{font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--mid);line-height:1.55;margin-top:2px;}
+/* FORM SLIDE */
+.form-rows{flex:1 1 0;min-height:0;display:flex;flex-direction:column;}
+.form-row{flex:1 1 0;min-height:0;display:grid;grid-template-columns:170px 1fr;align-items:center;border-top:1px solid var(--rule);gap:28px;padding:0 4px;}
+.form-row:last-child{border-bottom:1px solid var(--rule);}
+.form-lbl{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);}
+.form-hint{font-size:clamp(14px,1.35vw,18px);font-weight:400;color:var(--mid);font-style:italic;line-height:1.5;}
+.form-line{height:1.5px;background:rgba(58,90,142,0.18);margin-top:8px;}
+.seq-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(58,90,142,0.28);padding:4px 12px;margin-bottom:12px;flex-shrink:0;}
+.seq-arrow{opacity:0.5;}
+/* PROMPTS */
+.prompt-list{flex:1 1 0;min-height:0;display:flex;flex-direction:column;gap:16px;justify-content:center;}
+.prompt-card{background:var(--white);border:1px solid var(--rule);border-left:3px solid var(--blue);padding:16px 20px;}
+.prompt-tag{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;}
+.prompt-text{font-size:clamp(13px,1.28vw,17px);font-weight:400;color:var(--black);line-height:1.75;}
+/* TOOLS */
+.tools-grid{flex:1 1 0;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.tool-card{border:1px solid var(--rule);background:var(--white);padding:24px 22px 20px;display:flex;flex-direction:column;gap:10px;}
+.tool-badge{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);padding:4px 10px;border:1px solid rgba(58,90,142,0.25);align-self:flex-start;background:rgba(58,90,142,0.04);}
+.tool-name{font-size:clamp(20px,2.1vw,28px);font-weight:600;color:var(--black);letter-spacing:-0.02em;line-height:1.1;}
+.tool-rule{height:1px;background:var(--rule);margin:2px 0;}
+.tool-for-lbl{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);}
+.tool-for{font-size:clamp(14px,1.35vw,18px);font-weight:600;color:var(--black);line-height:1.4;}
+.tool-desc{font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--black);line-height:1.65;}
+/* SHARE */
+.share-wrap{flex:1 1 0;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:24px;}
+.share-step{display:grid;grid-template-columns:32px 1fr;gap:20px;align-items:start;padding:20px 0;border-top:1px solid var(--rule);}
+.share-step:last-child{border-bottom:1px solid var(--rule);}
+.share-n{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:0.06em;opacity:0.55;}
+.share-head{font-size:clamp(16px,1.7vw,22px);font-weight:600;color:var(--black);line-height:1.25;letter-spacing:-0.01em;margin-bottom:4px;}
+.share-desc{font-size:clamp(14px,1.3vw,17px);font-weight:400;color:var(--black);line-height:1.65;}
 </style>
 </head>
 <body>
-
 <div class="progress" id="progress-bar" style="width:2.70%"></div>
-
 <div class="deck">
 
-  <!-- ═══════════════════════════════════
-       01 — TITLE
-  ═══════════════════════════════════ -->
   <div class="slide active" id="slide-1">
-    <div class="s1-left">
-      <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
-      <div class="s1-sub">LinkedIn Workshop</div>
-    </div>
+    <div class="s1-left"><div class="s1-brand"><span class="s1-dot"></span>public digital</div><div class="s1-sub">LinkedIn Workshop</div></div>
     <div class="s1-right">
       <div class="s1-kicker">Public Digital — Member Workshop</div>
       <div class="s1-title">LinkedIn<br>Simplified</div>
       <div class="s1-rule"></div>
-      <div class="s1-meta">
-        <div><div class="s1-ptag">Presenter</div><div class="s1-name">Kennedy Adamu</div></div>
-        <div class="s1-date">April 2026</div>
-      </div>
+      <div class="s1-meta"><div><div class="s1-ptag">Presenter</div><div class="s1-name">Kennedy Adamu</div></div><div class="s1-date">April 2026</div></div>
     </div>
     <div class="snote"><strong>Speaker Note</strong>Set the tone early — practical and workshop-led, not a lecture.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       02 — AGENDA
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-2">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">02</div><div class="sb-sec">Today's<br>Session</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">02</div><div class="sb-sec">Today's<br>Session</div></div></div>
     <div class="main">
-      <div class="eyebrow">Workshop Overview</div>
-      <div class="h1">What to Expect</div>
+      <div class="eyebrow">Workshop Overview</div><div class="h1">What to Expect</div>
       <div class="agenda-grid">
         <div class="ag-row"><span class="ag-n">01</span><span class="ag-label">LinkedIn Dos &amp; Don'ts</span></div>
         <div class="ag-row"><span class="ag-n">05</span><span class="ag-label">Profile Improvement Tips</span></div>
@@ -381,89 +242,40 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       03 — TRUE OR FALSE QUIZ
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-3">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">03</div><div class="sb-sec">Warm Up</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">03</div><div class="sb-sec">Warm Up</div></div></div>
     <div class="main">
-      <div class="eyebrow">Interactive</div>
-      <div class="h1">True or False?</div>
-      <div class="quiz-header">
-        <div class="quiz-badge">LinkedIn Stats Edition</div>
-        <button class="quiz-reveal-btn" id="quiz-reveal-btn" onclick="revealAllQuiz()">Reveal all</button>
-      </div>
+      <div class="eyebrow">Interactive</div><div class="h1">True or False?</div>
+      <div class="quiz-header"><div class="quiz-badge">LinkedIn Stats Edition</div><button class="quiz-reveal-btn" id="quiz-reveal-btn" onclick="revealAllQuiz()">Reveal all</button></div>
       <div class="quiz-list">
-        <div class="quiz-row false-ans" onclick="toggleQuiz(this)">
-          <div class="quiz-n">1</div>
-          <div class="quiz-body"><div class="quiz-tag">Profile Optimisation</div><div class="quiz-q">Optimised LinkedIn profiles are 10 times more likely to receive opportunities.</div></div>
-          <div class="quiz-ans">FALSE — it's 40x</div>
-        </div>
-        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
-          <div class="quiz-n">2</div>
-          <div class="quiz-body"><div class="quiz-tag">Buying Influence</div><div class="quiz-q">About 82% of B2B buyers will review your LinkedIn profile before accepting a meeting or connecting with you.</div></div>
-          <div class="quiz-ans">TRUE</div>
-        </div>
-        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
-          <div class="quiz-n">3</div>
-          <div class="quiz-body"><div class="quiz-tag">Profile Completeness</div><div class="quiz-q">A complete LinkedIn profile will get you 21x more profile views and 36x more messages.</div></div>
-          <div class="quiz-ans">TRUE</div>
-        </div>
-        <div class="quiz-row false-ans" onclick="toggleQuiz(this)">
-          <div class="quiz-n">4</div>
-          <div class="quiz-body"><div class="quiz-tag">Carousel Posts</div><div class="quiz-q">Carousel posts get about 50% more engagement than video posts, 303% more than image posts, and 60% more than text-only posts.</div></div>
-          <div class="quiz-ans">FALSE — 278%, 303%, 596%</div>
-        </div>
-        <div class="quiz-row true-ans" onclick="toggleQuiz(this)">
-          <div class="quiz-n">5</div>
-          <div class="quiz-body"><div class="quiz-tag">Total User Base</div><div class="quiz-q">LinkedIn has over 1.1 billion members worldwide as of January 2025.</div></div>
-          <div class="quiz-ans">TRUE</div>
-        </div>
+        <div class="quiz-row false-ans" onclick="toggleQuiz(this)"><div class="quiz-n">1</div><div class="quiz-body"><div class="quiz-tag">Profile Optimisation</div><div class="quiz-q">Optimised LinkedIn profiles are 10 times more likely to receive opportunities.</div></div><div class="quiz-ans">FALSE — it's 40x</div></div>
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)"><div class="quiz-n">2</div><div class="quiz-body"><div class="quiz-tag">Buying Influence</div><div class="quiz-q">About 82% of B2B buyers will review your LinkedIn profile before accepting a meeting or connecting with you.</div></div><div class="quiz-ans">TRUE</div></div>
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)"><div class="quiz-n">3</div><div class="quiz-body"><div class="quiz-tag">Profile Completeness</div><div class="quiz-q">A complete LinkedIn profile will get you 21x more profile views and 36x more messages.</div></div><div class="quiz-ans">TRUE</div></div>
+        <div class="quiz-row false-ans" onclick="toggleQuiz(this)"><div class="quiz-n">4</div><div class="quiz-body"><div class="quiz-tag">Carousel Posts</div><div class="quiz-q">Carousel posts get about 50% more engagement than video posts, 30% more than image posts, and 60% more than text-only posts.</div></div><div class="quiz-ans">FALSE — 278%, 303%, 596%</div></div>
+        <div class="quiz-row true-ans" onclick="toggleQuiz(this)"><div class="quiz-n">5</div><div class="quiz-body"><div class="quiz-tag">Total User Base</div><div class="quiz-q">LinkedIn has over 1.1 billion members worldwide as of January 2025.</div></div><div class="quiz-ans">TRUE</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Read each statement, ask for hands, then click to reveal. Answers: 1=FALSE (40x not 10x), 2=TRUE, 3=TRUE, 4=FALSE (278% not 50%; 596% not 60%), 5=TRUE.</div>
+    <div class="snote"><strong>Speaker Note</strong>Answers: 1=FALSE (40x not 10x), 2=TRUE, 3=TRUE, 4=FALSE (278% not 50%; 596% not 60%), 5=TRUE.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       04 — QUESTION: What stops you?
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-4">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">04</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Open Question</div>
-      <div class="q-text">What stops you from creating content on LinkedIn?</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Open the floor — get a few responses before moving to the survey results on the next slide. Common answers: time, confidence, not knowing what to say, fear of judgment.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">04</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Open Question</div><div class="q-text">What stops you from creating content on LinkedIn?</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Open the floor. Common answers: time, confidence, not knowing what to say, fear of judgment.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       05 — SURVEY RESULTS
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-5">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">05</div><div class="sb-sec">Survey<br>Results</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">05</div><div class="sb-sec">Survey<br>Results</div></div></div>
     <div class="main">
-      <div class="eyebrow">What You Told Us</div>
-      <div class="h1">Survey Results</div>
+      <div class="eyebrow">What You Told Us</div><div class="h1">Survey Results</div>
       <div class="survey-headline">
-        <div><div class="survey-stat-n">17</div><div class="survey-stat-l">Members responded</div></div>
-        <div class="survey-div"></div>
-        <div><div class="survey-stat-n">100%</div><div class="survey-stat-l">Want this workshop</div></div>
-        <div class="survey-div"></div>
+        <div><div class="survey-stat-n">17</div><div class="survey-stat-l">Members responded</div></div><div class="survey-div"></div>
+        <div><div class="survey-stat-n">100%</div><div class="survey-stat-l">Want this workshop</div></div><div class="survey-div"></div>
         <div><div class="survey-stat-n">82%</div><div class="survey-stat-l">Rated confidence 1–2 out of 5</div></div>
       </div>
       <div class="survey-body">
         <div class="chart-block">
-          <div class="chart-lbl">What's holding you back?</div>
-          <div class="chart-rule"></div>
+          <div class="chart-lbl">What's holding you back?</div><div class="chart-rule"></div>
           <div class="bar-rows">
             <div class="bar-row"><div class="bar-row-label">Not sure what to do</div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><div class="bar-pct">82% — 14 of 17</div></div>
             <div class="bar-row"><div class="bar-row-label">Don't have the time</div><div class="bar-track"><div class="bar-fill" style="width:47%"></div></div><div class="bar-pct">47% — 8 of 17</div></div>
@@ -473,8 +285,7 @@ body.notes-on .snote { display: block; }
           </div>
         </div>
         <div class="chart-block">
-          <div class="chart-lbl">What do you want from today?</div>
-          <div class="chart-rule"></div>
+          <div class="chart-lbl">What do you want from today?</div><div class="chart-rule"></div>
           <div class="bar-rows">
             <div class="bar-row"><div class="bar-row-label">Building confidence to create content</div><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><div class="bar-pct">88% — 15 of 17</div></div>
             <div class="bar-row"><div class="bar-row-label">Coming up with ideas for content</div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><div class="bar-pct">82% — 14 of 17</div></div>
@@ -485,67 +296,32 @@ body.notes-on .snote { display: block; }
         </div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>The biggest barrier is simply not knowing what to do — that's exactly what today addresses. Lead with that framing.</div>
+    <div class="snote"><strong>Speaker Note</strong>The biggest barrier is simply not knowing what to do — that's exactly what today addresses.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       06 — QUESTION: How can you improve your profile?
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-6">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">06</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Open Question</div>
-      <div class="q-text">How can you improve your profile?</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Get the room thinking before you show the quick wins. Listen for what they already know vs what they're missing.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">06</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Open Question</div><div class="q-text">How can you improve your profile?</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Get the room thinking before you show the quick wins.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       07 — QUICK WINS (was slide 11)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-7">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">07</div><div class="sb-sec">Profile<br>Tips</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">07</div><div class="sb-sec">Profile<br>Tips</div></div></div>
     <div class="main">
-      <div class="eyebrow">Profile Improvement</div>
-      <div class="h1">Quick Wins</div>
+      <div class="eyebrow">Profile Improvement</div><div class="h1">Quick Wins</div>
       <div class="check-list">
-        <div class="check-row" onclick="this.classList.toggle('checked')">
-          <div class="check-box">&#10003;</div>
-          <div class="check-txt">Engage more frequently in your niche — be <em>present at every touchpoint</em>, not just when you post</div>
-        </div>
-        <div class="check-row" onclick="this.classList.toggle('checked')">
-          <div class="check-box">&#10003;</div>
-          <div class="check-txt">Update your <em>metadata</em>: bio, header image, profile photo — make sure everything is filled in and current</div>
-        </div>
-        <div class="check-row" onclick="this.classList.toggle('checked')">
-          <div class="check-box">&#10003;</div>
-          <div class="check-txt">Engage with <em>Public Digital's content within the first hour</em> of it being posted — PD has a large audience, this is free reach</div>
-        </div>
-        <div class="check-row" onclick="this.classList.toggle('checked')">
-          <div class="check-box">&#10003;</div>
-          <div class="check-txt">Post or engage at least <em>1–2 times per week</em> — consistency beats volume every time</div>
-        </div>
+        <div class="check-row" onclick="this.classList.toggle('checked')"><div class="check-box">&#10003;</div><div class="check-txt">Engage more frequently in your niche — be <em>present at every touchpoint</em>, not just when you post</div></div>
+        <div class="check-row" onclick="this.classList.toggle('checked')"><div class="check-box">&#10003;</div><div class="check-txt">Update your <em>metadata</em>: bio, header image, profile photo — make sure everything is filled in and current</div></div>
+        <div class="check-row" onclick="this.classList.toggle('checked')"><div class="check-box">&#10003;</div><div class="check-txt">Engage with <em>Public Digital's content within the first hour</em> of it being posted — PD has a large audience, this is free reach</div></div>
+        <div class="check-row" onclick="this.classList.toggle('checked')"><div class="check-box">&#10003;</div><div class="check-txt">Post or engage at least <em>1–2 times per week</em> — consistency beats volume every time</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       08 — GROWING THROUGH ENGAGEMENT (was slide 8)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-8">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">08</div><div class="sb-sec">Growth<br>Strategy</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">08</div><div class="sb-sec">Growth<br>Strategy</div></div></div>
     <div class="main">
-      <div class="eyebrow">You Don't Have to Write to Grow</div>
-      <div class="h1">Growing Through Engagement</div>
+      <div class="eyebrow">You Don't Have to Write to Grow</div><div class="h1">Growing Through Engagement</div>
       <div class="row-list">
         <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Find Key Voices in Your Niche</div><div class="ri-desc">Who are the LinkedIn voices your audience already follows? Find them and study their approach.</div></div>
         <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Identify the Best Communities</div><div class="ri-desc">Which organisations and communities consistently put out relevant content?</div></div>
@@ -557,352 +333,150 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       09 — QUESTION: Who has a good LinkedIn profile?
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-9">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">09</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Open Question</div>
-      <div class="q-text">Who do you think has a good LinkedIn profile?</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Get the room nominating profiles they admire — colleagues, thought leaders, public figures. Ask them what makes the profile work for them.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">09</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Open Question</div><div class="q-text">Who do you think has a good LinkedIn profile?</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Get the room nominating profiles they admire. Ask them what makes the profile work.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       10 — EXAMPLE: Good LinkedIn Profile (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-10">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">10</div><div class="sb-sec">Profile<br>Example</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">10</div><div class="sb-sec">Profile<br>Example</div></div></div>
     <div class="main">
-      <div class="eyebrow">Profile Example</div>
-      <div class="h1">A Good LinkedIn Profile</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">👤</div>
-          <div class="ph-txt">LinkedIn profile screenshot</div>
-        </div>
+      <div class="eyebrow">Profile Example</div><div class="h1">A Good LinkedIn Profile</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/2d1db671-bf6e-4937-ae81-9c9a0a5b5b2d/Screenshot+2026-05-07+at+19.34.45.png?content-type=image%2Fpng" alt="Good LinkedIn profile example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Add the profile screenshot here before the session. Walk through what makes it work — photo, headline, about section, featured posts, activity.</div>
+    <div class="snote"><strong>Speaker Note</strong>Walk through what makes it work — photo, headline, about section, featured posts, activity.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       11 — QUESTION: What mediums do you like?
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-11">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">11</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Open Question</div>
-      <div class="q-text">What mediums do you like or think look good?</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Get the room thinking about format preferences before you show the examples. Do they prefer video? Written posts? Carousels? This primes their engagement with the next few slides.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">11</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Open Question</div><div class="q-text">What mediums do you like or think look good?</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Primes their engagement with the next few slides.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       12 — STATEMENT: Here's what you can do
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-12">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">12</div><div class="sb-sec">Content<br>Creation</div></div>
-    </div>
-    <div class="stmt-main">
-      <div class="stmt-eyebrow">On LinkedIn</div>
-      <div class="stmt-text">Here's what you can do on the platform.</div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">12</div><div class="sb-sec">Content<br>Creation</div></div></div>
+    <div class="stmt-main"><div class="stmt-eyebrow">On LinkedIn</div><div class="stmt-text">Here's what you can do on the platform.</div></div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       13 — EXAMPLE: Short Post (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-13">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">13</div><div class="sb-sec">Short<br>Post</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">13</div><div class="sb-sec">Short<br>Post</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">Short Post</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">✏️</div>
-          <div class="ph-txt">Short post screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">Short Post</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/1bb7d99e-6bc8-44f6-a3a1-917cf85b892c/Screenshot+2026-05-07+at+19.42.10.png?content-type=image%2Fpng" alt="Short post example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Even 100 words counts. Show an example of a punchy, well-structured short post. Point to the hook, the body, and the CTA.</div>
+    <div class="snote"><strong>Speaker Note</strong>Even 100 words counts. Point to the hook, the body, and the CTA.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       14 — EXAMPLE: LinkedIn Article (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-14">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">14</div><div class="sb-sec">LinkedIn<br>Article</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">14</div><div class="sb-sec">LinkedIn<br>Article</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">LinkedIn Article</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">📄</div>
-          <div class="ph-txt">LinkedIn article screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">LinkedIn Article</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/4fd7fffc-feb7-4781-9efb-0cea8f6db52c/Screenshot+2026-05-07+at+19.44.05.png?content-type=image%2Fpng" alt="LinkedIn article example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Keep LinkedIn articles under 1,000 words. Show an example with a strong headline, clear structure, and a compelling opener.</div>
+    <div class="snote"><strong>Speaker Note</strong>Keep LinkedIn articles under 1,000 words.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       15 — EXAMPLE: Short Video (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-15">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">15</div><div class="sb-sec">Short<br>Video</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">15</div><div class="sb-sec">Short<br>Video</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">Short Video</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">🎬</div>
-          <div class="ph-txt">Short video screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">Short Video</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/8dce49ed-cec2-41ef-991f-d2fce82c21c6/Screenshot+2026-05-07+at+19.39.55.png?content-type=image%2Fpng" alt="Short video example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>30 seconds to 1 minute. Native video performs strongly on LinkedIn. No studio required — a phone works fine.</div>
+    <div class="snote"><strong>Speaker Note</strong>30 seconds to 1 minute. Native video performs strongly. No studio required.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       16 — EXAMPLE: Carousels (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-16">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">16</div><div class="sb-sec">Carousels</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">16</div><div class="sb-sec">Carousels</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">Carousel</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">📊</div>
-          <div class="ph-txt">Carousel screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">Carousel</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/eadc5294-1283-42ce-8e90-1841799dd1bd/Screenshot+2026-05-07+at+19.45.42.png?content-type=image%2Fpng" alt="Carousel example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Carousels get 278% more engagement than video and 596% more than text-only posts. Great for step-by-step breakdowns or data stories.</div>
+    <div class="snote"><strong>Speaker Note</strong>Carousels get 278% more engagement than video and 596% more than text-only posts.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       17 — EXAMPLE: Infographic (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-17">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">17</div><div class="sb-sec">Infographic</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">17</div><div class="sb-sec">Infographic</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">Infographic</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">📈</div>
-          <div class="ph-txt">Infographic screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">Infographic</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/29a7a199-0d39-412e-8112-1408926c7a99/Screenshot+2026-05-07+at+19.47.12.png?content-type=image%2Fpng" alt="Infographic example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Use data you already have. Visualise an insight your audience doesn't have easy access to. One strong stat with context is a complete piece of content.</div>
+    <div class="snote"><strong>Speaker Note</strong>Use data you already have. One strong stat with context is a complete piece of content.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       18 — EXAMPLE: LinkedIn Poll (placeholder)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-18">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">18</div><div class="sb-sec">Poll</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">18</div><div class="sb-sec">Poll</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Example</div>
-      <div class="h1">LinkedIn Poll</div>
-      <div class="ph-wrap">
-        <div class="ph-label">Example screenshot — to be added</div>
-        <div class="ph-box">
-          <div class="ph-icon">🗳️</div>
-          <div class="ph-txt">LinkedIn poll screenshot</div>
-        </div>
+      <div class="eyebrow">Content Example</div><div class="h1">LinkedIn Poll</div>
+      <div class="ss-wrap">
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/cd79d45b-828b-450c-9c72-0d502e2e53d4/Screenshot+2026-05-07+at+19.48.31.png?content-type=image%2Fpng" alt="LinkedIn poll example" />
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Polls drive high engagement with low effort. They also generate data you can reference in follow-up posts — a two-for-one content strategy.</div>
+    <div class="snote"><strong>Speaker Note</strong>Polls drive high engagement with low effort. Results become data for a follow-up post.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       19 — QUESTION: How would you come up with these ideas?
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-19">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">19</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Open Question</div>
-      <div class="q-text">How would you come up with these ideas?</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Let the room suggest approaches before revealing the content funnel. This primes them to see the framework as a solution to a problem they've just articulated.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">19</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Open Question</div><div class="q-text">How would you come up with these ideas?</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Let the room suggest approaches before revealing the content funnel.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       20 — CONTENT FUNNEL (was slide 5)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-20">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">20</div><div class="sb-sec">Content<br>Creation</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">20</div><div class="sb-sec">Content<br>Creation</div></div></div>
     <div class="main">
-      <div class="eyebrow">Content Creation</div>
-      <div class="h1">The Content Funnel</div>
+      <div class="eyebrow">Content Creation</div><div class="h1">The Content Funnel</div>
       <div class="row-list">
-        <div class="row-item">
-          <div class="ri-n">01</div>
-          <div class="ri-head">Pick a Niche + Theme</div>
-          <div class="ri-desc">Something with multiple perspectives or data points — not a one-sided topic. Strong themes invite debate.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">02</div>
-          <div class="ri-head">Check the 4 Bold Ideas</div>
-          <div class="ri-desc">If it aligns — PD publishes. If not — post on your own profile. Personal posts typically reach further anyway.
-            <div class="chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshitification</span></div>
-          </div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">03</div>
-          <div class="ri-head">Validate</div>
-          <div class="ri-desc">In the news? On Google Trends? LinkedIn voices discussing it? People asking about it in community threads? If yes — it has traction.</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">04</div>
-          <div class="ri-head">Structure</div>
-          <div class="ri-desc">Hook — Target audience — Key points — Call to action</div>
-        </div>
-        <div class="row-item">
-          <div class="ri-n">05</div>
-          <div class="ri-head">Create — Polish — Review</div>
-          <div class="ri-desc">Marketing team can assist. Use Claude to refine. Send to Kennedy or Rosemary before publishing.</div>
-        </div>
+        <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Pick a Niche + Theme</div><div class="ri-desc">Something with multiple perspectives or data points — not a one-sided topic. Strong themes invite debate.</div></div>
+        <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Check the 4 Bold Ideas</div><div class="ri-desc">If it aligns — PD publishes. If not — post on your own profile. Personal posts typically reach further anyway.<div class="chips"><span class="chip">AI</span><span class="chip">Digital Sovereignty</span><span class="chip">State Capacity</span><span class="chip">Enshitification</span></div></div></div>
+        <div class="row-item"><div class="ri-n">03</div><div class="ri-head">Validate</div><div class="ri-desc">In the news? On Google Trends? LinkedIn voices discussing it? If yes — it has traction.</div></div>
+        <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Structure</div><div class="ri-desc">Hook — Target audience — Key points — Call to action</div></div>
+        <div class="row-item"><div class="ri-n">05</div><div class="ri-head">Create — Polish — Review</div><div class="ri-desc">Marketing team can assist. Use Claude to refine. Send to Kennedy or Rosemary before publishing.</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       21 — QUESTION: Give me some ideas
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-21">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">21</div><div class="sb-sec">Discussion</div></div>
-    </div>
-    <div class="q-main">
-      <div class="q-eyebrow">Group Activity</div>
-      <div class="q-text">Give me some ideas.</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Ask the room to apply the content funnel live — what niche, what angle, does it map to a Bold Idea? Go around the room and collect ideas. This is the most important interactive moment in the workshop.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">21</div><div class="sb-sec">Discussion</div></div></div>
+    <div class="q-main"><div class="q-eyebrow">Group Activity</div><div class="q-text">Give me some ideas.</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Ask the room to apply the content funnel live. This is the most important interactive moment in the workshop.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       22 — FUNNEL IN PRACTICE (was slide 6)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-22">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">22</div><div class="sb-sec">Worked<br>Example</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">22</div><div class="sb-sec">Worked<br>Example</div></div></div>
     <div class="main">
-      <div class="eyebrow">Funnel in Practice</div>
-      <div class="h1">A Real Example</div>
+      <div class="eyebrow">Funnel in Practice</div><div class="h1">A Real Example</div>
       <div class="practice-cols">
-        <div class="prac-col">
-          <div class="prac-lbl">Niche</div>
-          <div class="prac-rule"></div>
-          <div class="prac-content">
-            <div class="prac-head">What happens to social media if the AI bubble bursts?</div>
-            <div class="prac-body">A multi-perspective topic with real stakes for social media marketers, brands, and technology leaders.</div>
-          </div>
-        </div>
-        <div class="prac-col">
-          <div class="prac-lbl">Bold Idea Alignment</div>
-          <div class="prac-rule"></div>
-          <div class="prac-content">
-            <div class="prac-tag">AI</div>
-            <div class="prac-body">Directly maps to Public Digital's AI theme. The collapse of AI investment cycles has direct implications for digital infrastructure and state capacity.</div>
-          </div>
-        </div>
-        <div class="prac-col">
-          <div class="prac-lbl">Validation</div>
-          <div class="prac-rule"></div>
-          <div class="prac-content">
-            <div class="prac-head">Constantly relevant</div>
-            <div class="prac-body">AI scepticism appears regularly in tech news, Google Trends, and LinkedIn discussions. The topic resurfaces with every model release, funding round, or market dip.</div>
-          </div>
-        </div>
-        <div class="prac-col">
-          <div class="prac-lbl">Output</div>
-          <div class="prac-rule"></div>
-          <div class="prac-content">
-            <div class="prac-head">Long-form article</div>
-            <div class="prac-body">Hook → context → the problem → 3 ways social media marketers can protect themselves → CTA. Produced via voice recording on Google Meet, transcribed, developed with Claude and Perplexity, then manually reviewed before publishing.</div>
-          </div>
-        </div>
+        <div class="prac-col"><div class="prac-lbl">Niche</div><div class="prac-rule"></div><div class="prac-content"><div class="prac-head">What happens to social media if the AI bubble bursts?</div><div class="prac-body">A multi-perspective topic with real stakes for social media marketers, brands, and technology leaders.</div></div></div>
+        <div class="prac-col"><div class="prac-lbl">Bold Idea Alignment</div><div class="prac-rule"></div><div class="prac-content"><div class="prac-tag">AI</div><div class="prac-body">Directly maps to Public Digital's AI theme. The collapse of AI investment cycles has direct implications for digital infrastructure and state capacity.</div></div></div>
+        <div class="prac-col"><div class="prac-lbl">Validation</div><div class="prac-rule"></div><div class="prac-content"><div class="prac-head">Constantly relevant</div><div class="prac-body">AI scepticism appears regularly in tech news, Google Trends, and LinkedIn discussions. The topic resurfaces with every model release, funding round, or market dip.</div></div></div>
+        <div class="prac-col"><div class="prac-lbl">Output</div><div class="prac-rule"></div><div class="prac-content"><div class="prac-head">Long-form article</div><div class="prac-body">Hook → context → the problem → 3 ways social media marketers can protect themselves → CTA. Produced via voice recording on Google Meet, transcribed, developed with Claude and Perplexity, then manually reviewed before publishing.</div></div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Walk through each quadrant. Emphasise that the output used the voice recording method — a real end-to-end demonstration of the funnel working.</div>
+    <div class="snote"><strong>Speaker Note</strong>Walk through each quadrant. Emphasise that the output used the voice recording method.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       23 — STATEMENT: Write for your audience
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-23">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">23</div><div class="sb-sec">Golden<br>Rule</div></div>
-    </div>
-    <div class="stmt-main">
-      <div class="stmt-eyebrow">The Golden Rule</div>
-      <div class="stmt-text">Write for your audience — not for yourself.</div>
-    </div>
-    <div class="snote"><strong>Speaker Note</strong>Let this land. It's the most important mindset shift in the whole workshop. Pause after the slide appears before moving on.</div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">23</div><div class="sb-sec">Golden<br>Rule</div></div></div>
+    <div class="stmt-main"><div class="stmt-eyebrow">The Golden Rule</div><div class="stmt-text">Write for your audience — not for yourself.</div></div>
+    <div class="snote"><strong>Speaker Note</strong>Let this land. Pause after the slide appears before moving on.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       24 — BEFORE YOU WRITE (was slide 9)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-24">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">24</div><div class="sb-sec">Pre-Writing<br>Checklist</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">24</div><div class="sb-sec">Pre-Writing<br>Checklist</div></div></div>
     <div class="main">
-      <div class="eyebrow">Before You Write</div>
-      <div class="h1">Ask Yourself These</div>
+      <div class="eyebrow">Before You Write</div><div class="h1">Ask Yourself These</div>
       <div class="row-list">
         <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Who do I want to read this?</div><div class="ri-desc">Think of 2–3 specific people. What do they do? What do they care about? What are their pain points?</div></div>
         <div class="row-item"><div class="ri-n">02</div><div class="ri-head">What am I adding that is new?</div><div class="ri-desc">A new perspective, stat, or challenge to a common assumption. If you cannot add something new, it is not worth writing.</div></div>
@@ -913,123 +487,51 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       25 — TITLE: The Curiosity Gap
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-25">
-    <div class="s1-left">
-      <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
-      <div class="s1-sub">Hook Framework</div>
-    </div>
+    <div class="s1-left"><div class="s1-brand"><span class="s1-dot"></span>public digital</div><div class="s1-sub">Hook Framework</div></div>
     <div class="cg-right">
       <div class="cg-kicker">Content Hook Framework</div>
       <div class="cg-title">The Curiosity<br>Gap — and<br>why it works.</div>
       <div class="cg-rule"></div>
       <div class="cg-sub">The space between what your reader knows and what they want to know. Master this and your hook writes itself.</div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Introduce the concept before the how-to. The curiosity gap is the psychological engine behind every high-performing LinkedIn post. Set the context, then move to the framework.</div>
+    <div class="snote"><strong>Speaker Note</strong>The curiosity gap is the psychological engine behind every high-performing LinkedIn post.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       26 — HOW TO CREATE A HOOK
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-26">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">26</div><div class="sb-sec">Hook<br>Framework</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">26</div><div class="sb-sec">Hook<br>Framework</div></div></div>
     <div class="main">
-      <div class="eyebrow">Creating a Hook</div>
-      <div class="h1">Work Backwards</div>
-      <div class="callout" style="margin-bottom:16px; margin-top:0">Start at the end. Solution → Problem → Person.</div>
+      <div class="eyebrow">Creating a Hook</div><div class="h1">Work Backwards</div>
+      <div class="callout" style="margin-bottom:16px;margin-top:0">Start at the end. Solution → Problem → Person.</div>
       <div class="hook-steps">
-        <div class="hook-step">
-          <div class="hook-arrow">①</div>
-          <div class="hook-body">
-            <div class="hook-lbl">Solution — Start here</div>
-            <div class="hook-desc">What value, insight, or outcome are you offering?</div>
-            <div class="hook-sub">Be specific. "How to write better" is vague. "How I cut my editing time in half using one prompt" is a solution.</div>
-          </div>
-        </div>
-        <div class="hook-step">
-          <div class="hook-arrow">②</div>
-          <div class="hook-body">
-            <div class="hook-lbl">Problem — Then this</div>
-            <div class="hook-desc">What challenge does your solution directly address?</div>
-            <div class="hook-sub">The problem your reader recognises as their own. Name it clearly and they'll feel seen.</div>
-          </div>
-        </div>
-        <div class="hook-step">
-          <div class="hook-arrow">③</div>
-          <div class="hook-body">
-            <div class="hook-lbl">Person — Finally, who</div>
-            <div class="hook-desc">Who has this problem? The more specific, the better.</div>
-            <div class="hook-sub">Your hook teases the solution just enough to create a gap. The reader needs to keep reading to close it.</div>
-          </div>
-        </div>
+        <div class="hook-step"><div class="hook-arrow">①</div><div class="hook-body"><div class="hook-lbl">Solution — Start here</div><div class="hook-desc">What value, insight, or outcome are you offering?</div><div class="hook-sub">Be specific. "How to write better" is vague. "How I cut my editing time in half using one prompt" is a solution.</div></div></div>
+        <div class="hook-step"><div class="hook-arrow">②</div><div class="hook-body"><div class="hook-lbl">Problem — Then this</div><div class="hook-desc">What challenge does your solution directly address?</div><div class="hook-sub">The problem your reader recognises as their own. Name it clearly and they'll feel seen.</div></div></div>
+        <div class="hook-step"><div class="hook-arrow">③</div><div class="hook-body"><div class="hook-lbl">Person — Finally, who</div><div class="hook-desc">Who has this problem? The more specific, the better.</div><div class="hook-sub">Your hook teases the solution just enough to create a gap. The reader needs to keep reading to close it.</div></div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Walk through an example using the worked example from slide 22. Show how "What happens to social media if the AI bubble bursts?" follows this structure exactly.</div>
+    <div class="snote"><strong>Speaker Note</strong>Walk through an example using the worked example from slide 22.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       27 — CONTENT STRUCTURE FORM
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-27">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">27</div><div class="sb-sec">Structure<br>Form</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">27</div><div class="sb-sec">Structure<br>Form</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 2 — Before You Write</div>
-      <div class="h1">Fill Out a Content Structure Form</div>
+      <div class="eyebrow">Step 2 — Before You Write</div><div class="h1">Fill Out a Content Structure Form</div>
       <div class="form-rows">
-        <div class="form-row">
-          <div class="form-lbl">Hook</div>
-          <div>
-            <div class="form-hint">What's the curiosity gap? What will make them stop scrolling?</div>
-            <div class="form-line"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-lbl">Target Audience</div>
-          <div>
-            <div class="form-hint">Who are the 2–3 specific people you're writing for?</div>
-            <div class="form-line"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-lbl">Key Points</div>
-          <div>
-            <div class="form-hint">The 3–5 core things you want to say. Keep them distinct.</div>
-            <div class="form-line"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-lbl">Call to Action</div>
-          <div>
-            <div class="form-hint">What should they do next? Comment, share, book, follow?</div>
-            <div class="form-line"></div>
-          </div>
-        </div>
+        <div class="form-row"><div class="form-lbl">Hook</div><div><div class="form-hint">What's the curiosity gap? What will make them stop scrolling?</div><div class="form-line"></div></div></div>
+        <div class="form-row"><div class="form-lbl">Target Audience</div><div><div class="form-hint">Who are the 2–3 specific people you're writing for?</div><div class="form-line"></div></div></div>
+        <div class="form-row"><div class="form-lbl">Key Points</div><div><div class="form-hint">The 3–5 core things you want to say. Keep them distinct.</div><div class="form-line"></div></div></div>
+        <div class="form-row"><div class="form-lbl">Call to Action</div><div><div class="form-hint">What should they do next? Comment, share, book, follow?</div><div class="form-line"></div></div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>A writing template version of this form is in the Google Drive resource bank. Encourage attendees to use it before every post — even for short ones.</div>
+    <div class="snote"><strong>Speaker Note</strong>A writing template version of this form is in the Google Drive resource bank.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       28 — EXECUTE CONTENT CREATION
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-28">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">28</div><div class="sb-sec">Execute</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">28</div><div class="sb-sec">Execute</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 3 — Create</div>
-      <div class="h1">Execute as You Wish</div>
+      <div class="eyebrow">Step 3 — Create</div><div class="h1">Execute as You Wish</div>
       <div class="seq-badge">Part 1 of 2 <span class="seq-arrow">→</span> continued on next slide</div>
-      <div class="callout" style="margin-top:0; margin-bottom:20px">Content doesn't have to be long. It has to be valuable. Choose the method that fits how you think and how you work.</div>
+      <div class="callout" style="margin-top:0;margin-bottom:20px">Content doesn't have to be long. It has to be valuable. Choose the method that fits how you think and how you work.</div>
       <div class="row-list">
         <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Short Written Post</div><div class="ri-desc">Even 100 words counts. Keep your profile active and your perspective visible.</div></div>
         <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Voice Recording → Transcribe</div><div class="ri-desc">Brief script, record on your phone, transcribe with AI. 30 minutes speaking generates thousands of words to work from.</div></div>
@@ -1038,17 +540,10 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       29 — WRITE (linked to 28)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-29">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">29</div><div class="sb-sec">Execute</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">29</div><div class="sb-sec">Execute</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 3 — Create</div>
-      <div class="h1">More Ways to Create</div>
+      <div class="eyebrow">Step 3 — Create</div><div class="h1">More Ways to Create</div>
       <div class="seq-badge"><span class="seq-arrow">→</span> Part 2 of 2</div>
       <div class="row-list">
         <div class="row-item"><div class="ri-n">04</div><div class="ri-head">Infographic</div><div class="ri-desc">Use data you already have. Visualise an insight your audience does not have access to.</div></div>
@@ -1057,175 +552,79 @@ body.notes-on .snote { display: block; }
         <div class="row-item"><div class="ri-n">07</div><div class="ri-head">Carousel</div><div class="ri-desc">Step-by-step breakdowns, lists, or frameworks. Carousels get 596% more reach than text-only posts.</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Slides 28 and 29 together cover all the main content formats. Remind the room that the format should follow the idea — not the other way around.</div>
+    <div class="snote"><strong>Speaker Note</strong>The format should follow the idea — not the other way around.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       30 — POLISH WITH AI
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-30">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">30</div><div class="sb-sec">AI Polish</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">30</div><div class="sb-sec">AI Polish</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 4 — Refine</div>
-      <div class="h1">Polish Your Content with AI</div>
+      <div class="eyebrow">Step 4 — Refine</div><div class="h1">Polish Your Content with AI</div>
       <div class="prompt-list">
-        <div class="prompt-card">
-          <div class="prompt-tag">Editing Prompt</div>
-          <div class="prompt-text">"Edit this LinkedIn post for clarity and impact. Keep the voice authentic, tighten the language, and make sure the hook grabs attention in the first line. Don't make it sound like AI wrote it."</div>
-        </div>
-        <div class="prompt-card">
-          <div class="prompt-tag">Hook Prompt</div>
-          <div class="prompt-text">"Suggest 3 stronger opening lines for this post. I want options that create a curiosity gap without being clickbait. Keep the tone professional but direct."</div>
-        </div>
-        <div class="prompt-card">
-          <div class="prompt-tag">Sense-Check Prompt</div>
-          <div class="prompt-text">"Review this for LinkedIn best practices — length, readability, call to action, and engagement potential. Flag anything that would cause a reader to stop or disengage."</div>
-        </div>
+        <div class="prompt-card"><div class="prompt-tag">Editing Prompt</div><div class="prompt-text">"Edit this LinkedIn post for clarity and impact. Keep the voice authentic, tighten the language, and make sure the hook grabs attention in the first line. Don't make it sound like AI wrote it."</div></div>
+        <div class="prompt-card"><div class="prompt-tag">Hook Prompt</div><div class="prompt-text">"Suggest 3 stronger opening lines for this post. I want options that create a curiosity gap without being clickbait. Keep the tone professional but direct."</div></div>
+        <div class="prompt-card"><div class="prompt-tag">Sense-Check Prompt</div><div class="prompt-text">"Review this for LinkedIn best practices — length, readability, call to action, and engagement potential. Flag anything that would cause a reader to stop or disengage."</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Use Claude for writing and editing. Use Perplexity AI for research. These prompts are in the Google Drive resource bank as a copy-paste template. Encourage the room to try them before the next post they write.</div>
+    <div class="snote"><strong>Speaker Note</strong>Use Claude for writing and editing. Use Perplexity AI for research. Prompts are in the Google Drive resource bank.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       31 — AI TOOLS
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-31">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">31</div><div class="sb-sec">AI Tools</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">31</div><div class="sb-sec">AI Tools</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 4 — Refine</div>
-      <div class="h1">AI Tools You Can Use</div>
+      <div class="eyebrow">Step 4 — Refine</div><div class="h1">AI Tools You Can Use</div>
       <div class="tools-grid">
-        <div class="tool-card">
-          <div class="tool-badge">Research</div>
-          <div class="tool-name">Perplexity AI</div>
-          <div class="tool-rule"></div>
-          <div class="tool-for-lbl">Use it for</div>
-          <div class="tool-for">Finding sources, stats, and current data</div>
-          <div class="tool-desc">Ask it to find recent articles, validate a claim, or pull together background on a topic before you write. It cites its sources — always verify before publishing.</div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-badge">Writing</div>
-          <div class="tool-name">Claude</div>
-          <div class="tool-rule"></div>
-          <div class="tool-for-lbl">Use it for</div>
-          <div class="tool-for">Drafting, editing, and refining content</div>
-          <div class="tool-desc">Use Claude to polish your drafts, rewrite for clarity, improve the hook, or check tone. Always start from your own ideas — Claude refines, it doesn't replace your thinking.</div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-badge">Image Generation</div>
-          <div class="tool-name">Gemini</div>
-          <div class="tool-rule"></div>
-          <div class="tool-for-lbl">Use it for</div>
-          <div class="tool-for">Creating visuals and cover images</div>
-          <div class="tool-desc">Generate supporting imagery for posts, infographic backgrounds, or carousel covers. Describe what you need and iterate. Always review for accuracy and brand fit before using.</div>
-        </div>
+        <div class="tool-card"><div class="tool-badge">Research</div><div class="tool-name">Perplexity AI</div><div class="tool-rule"></div><div class="tool-for-lbl">Use it for</div><div class="tool-for">Finding sources, stats, and current data</div><div class="tool-desc">Ask it to find recent articles, validate a claim, or pull together background on a topic before you write. It cites its sources — always verify before publishing.</div></div>
+        <div class="tool-card"><div class="tool-badge">Writing</div><div class="tool-name">Claude</div><div class="tool-rule"></div><div class="tool-for-lbl">Use it for</div><div class="tool-for">Drafting, editing, and refining content</div><div class="tool-desc">Use Claude to polish your drafts, rewrite for clarity, improve the hook, or check tone. Always start from your own ideas — Claude refines, it doesn't replace your thinking.</div></div>
+        <div class="tool-card"><div class="tool-badge">Image Generation</div><div class="tool-name">Gemini</div><div class="tool-rule"></div><div class="tool-for-lbl">Use it for</div><div class="tool-for">Creating visuals and cover images</div><div class="tool-desc">Generate supporting imagery for posts, infographic backgrounds, or carousel covers. Always review for accuracy and brand fit before using.</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>These three tools cover the full content workflow: research → write → visualise. You don't need all three for every post — match the tool to the task.</div>
+    <div class="snote"><strong>Speaker Note</strong>Research → write → visualise. Match the tool to the task.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       32 — SHARE WITH MARKETING TEAM
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-32">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">32</div><div class="sb-sec">Final<br>Step</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">32</div><div class="sb-sec">Final<br>Step</div></div></div>
     <div class="main">
-      <div class="eyebrow">Step 5 — Publish</div>
-      <div class="h1">Share with the Marketing Team</div>
+      <div class="eyebrow">Step 5 — Publish</div><div class="h1">Share with the Marketing Team</div>
       <div class="share-wrap">
-        <div class="share-step">
-          <div class="share-n">01</div>
-          <div>
-            <div class="share-head">Submit your draft to Kennedy or Rosemary</div>
-            <div class="share-desc">Send your content before it goes live. Even a quick message with the draft attached is enough.</div>
-          </div>
-        </div>
-        <div class="share-step">
-          <div class="share-n">02</div>
-          <div>
-            <div class="share-head">Receive feedback and development support</div>
-            <div class="share-desc">The marketing team can help sharpen the angle, improve the structure, and align it with PD's broader content calendar.</div>
-          </div>
-        </div>
-        <div class="share-step">
-          <div class="share-n">03</div>
-          <div>
-            <div class="share-head">Nothing goes live without a final review</div>
-            <div class="share-desc">This ensures quality, consistency with the PD brand voice, and avoids anything that could land badly.</div>
-          </div>
-        </div>
+        <div class="share-step"><div class="share-n">01</div><div><div class="share-head">Submit your draft to Kennedy or Rosemary</div><div class="share-desc">Send your content before it goes live. Even a quick message with the draft attached is enough.</div></div></div>
+        <div class="share-step"><div class="share-n">02</div><div><div class="share-head">Receive feedback and development support</div><div class="share-desc">The marketing team can help sharpen the angle, improve the structure, and align it with PD's broader content calendar.</div></div></div>
+        <div class="share-step"><div class="share-n">03</div><div><div class="share-head">Nothing goes live without a final review</div><div class="share-desc">This ensures quality, consistency with the PD brand voice, and avoids anything that could land badly.</div></div></div>
       </div>
       <div class="callout">The best content is a team effort. Your expertise + marketing support = content that performs.</div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Make it easy. Remind them this isn't a gatekeeping step — it's a quality step. The marketing team is a resource, not a hurdle.</div>
+    <div class="snote"><strong>Speaker Note</strong>The marketing team is a resource, not a hurdle.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       33 — DOS & DON'TS (was slide 10)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-33">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">33</div><div class="sb-sec">Interactive</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">33</div><div class="sb-sec">Interactive</div></div></div>
     <div class="main">
-      <div class="eyebrow">Interactive — Group Activity</div>
-      <div class="h1">Dos &amp; Don'ts</div>
-      <div class="dnd-header">
-        <div class="dnd-instr">Read each statement aloud. Ask the room. Then click to reveal.</div>
-        <button class="reveal-btn" id="reveal-all-btn" onclick="revealAll()">Reveal all</button>
-      </div>
+      <div class="eyebrow">Interactive — Group Activity</div><div class="h1">Dos &amp; Don'ts</div>
+      <div class="dnd-header"><div class="dnd-instr">Read each statement aloud. Ask the room. Then click to reveal.</div><button class="reveal-btn" id="reveal-all-btn" onclick="revealAll()">Reveal all</button></div>
       <div class="dnd-grid">
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post on Tuesday, Wednesday, or Thursday</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Post on Tuesday, Wednesday, or Thursday</div><div class="dnd-verd">DO</div></div>
         <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Post links directly in your content body</div><div class="dnd-verd">DON'T</div></div>
         <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Use hashtags in your posts</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Write in plain English</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Track your analytics and engagement stats</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Share your own perspective, even as a beginner</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Write in plain English</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Track your analytics and engagement stats</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Share your own perspective, even as a beginner</div><div class="dnd-verd">DO</div></div>
         <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Write LinkedIn articles over 1,000 words</div><div class="dnd-verd">DON'T</div></div>
         <div class="dnd-row dont" onclick="toggleReveal(this)"><div class="dnd-stmt">Copy others' content directly for inspiration</div><div class="dnd-verd">DON'T</div></div>
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Post at 8–10am, around 1pm, or 4–6pm</div><div class="dnd-verd">DO</div></div>
-        <div class="dnd-row do"   onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Post at 8–10am, around 1pm, or 4–6pm</div><div class="dnd-verd">DO</div></div>
+        <div class="dnd-row do" onclick="toggleReveal(this)"><div class="dnd-stmt">Use AI to polish your content before publishing</div><div class="dnd-verd">DO</div></div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each, ask for hands, click to reveal. Key: outbound links penalised by algorithm; hashtags minimal benefit; keep articles under 1,000 words; always create from scratch.</div>
+    <div class="snote"><strong>Speaker Note</strong>Group guessing game — read each, ask for hands, click to reveal.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       34 — AMA (was slide 13)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-34">
-    <div class="ama-sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">34</div><div class="sb-sec">Open<br>Floor</div></div>
-    </div>
-    <div class="ama-main">
-      <div class="ama-eyebrow">Open Floor</div>
-      <div class="ama-title">Ask Me<br>Anything</div>
-      <div class="ama-sub">What do you want to know?</div>
-    </div>
+    <div class="ama-sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">34</div><div class="sb-sec">Open<br>Floor</div></div></div>
+    <div class="ama-main"><div class="ama-eyebrow">Open Floor</div><div class="ama-title">Ask Me<br>Anything</div><div class="ama-sub">What do you want to know?</div></div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       35 — YOUR TASK (was slide 14)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-35">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">35</div><div class="sb-sec">Your<br>Task</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">35</div><div class="sb-sec">Your<br>Task</div></div></div>
     <div class="main">
-      <div class="eyebrow">Workshop Takeaway</div>
-      <div class="h1">Your Task</div>
+      <div class="eyebrow">Workshop Takeaway</div><div class="h1">Your Task</div>
       <div class="row-list">
         <div class="row-item"><div class="ri-n">01</div><div class="ri-head">Pick a Content Idea in Your Niche</div><div class="ri-desc">Using today's frameworks, identify a specific content idea. Be as concrete as possible.</div></div>
         <div class="row-item"><div class="ri-n">02</div><div class="ri-head">Run it Through the Bold Ideas Checklist</div><div class="ri-desc">AI, Digital Sovereignty, State Capacity, or Enshitification — if it aligns, PD publishes. If not, post it yourself.</div></div>
@@ -1237,17 +636,10 @@ body.notes-on .snote { display: block; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       36 — RESOURCE BANK (was slide 15, updated)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-36">
-    <div class="sb">
-      <div class="sb-brand"><span class="sb-dot"></span>public digital</div>
-      <div class="sb-meta"><div class="sb-num">36</div><div class="sb-sec">Resource<br>Bank</div></div>
-    </div>
+    <div class="sb"><div class="sb-brand"><span class="sb-dot"></span>public digital</div><div class="sb-meta"><div class="sb-num">36</div><div class="sb-sec">Resource<br>Bank</div></div></div>
     <div class="main">
-      <div class="eyebrow">Take These With You</div>
-      <div class="h1">Resource Bank</div>
+      <div class="eyebrow">Take These With You</div><div class="h1">Resource Bank</div>
       <div class="res-split">
         <div class="res-list">
           <div class="res-row"><div class="res-mark"></div><div class="res-lbl">AI Prompts for LinkedIn</div></div>
@@ -1260,56 +652,36 @@ body.notes-on .snote { display: block; }
           <div class="qr-lbl">Scan to access</div>
           <div class="qr-col-inner">
             <div class="qr-item">
-              <div class="qr-box">
-                <div class="qr-inner">
-                  <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
-                </div>
+              <div class="qr-img-wrap">
+                <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/902fda87-56dc-4f49-aa6e-97222cbe8f97/Templates.png?content-type=image%2Fpng" alt="QR code — Writing Templates" />
               </div>
               <div class="qr-note">Writing Templates</div>
-              <div class="qr-url">Placeholder — link to be added</div>
             </div>
             <div class="qr-item">
-              <div class="qr-box">
-                <div class="qr-inner">
-                  <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc e"></div><div class="qc e"></div><div class="qc e"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc e"></div><div class="qc"></div><div class="qc e"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc e"></div><div class="qc e"></div><div class="qc e"></div><div class="qc"></div>
-                  <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qc"></div>
-                </div>
+              <div class="qr-img-wrap">
+                <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/8513c654-816d-4cc7-84cd-ba96d445d0da/Survey.png?content-type=image%2Fpng" alt="QR code — Workshop Survey" />
               </div>
               <div class="qr-note">Workshop Survey</div>
-              <div class="qr-url">Placeholder — link to be added</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Give the room time to scan the QR codes before closing. Remind them the workshop slides and writing templates are in the resource bank. Add the real QR code URLs before the session.</div>
+    <div class="snote"><strong>Speaker Note</strong>Give the room time to scan the QR codes before closing.</div>
   </div>
 
-  <!-- ═══════════════════════════════════
-       37 — CLOSE (was slide 16)
-  ═══════════════════════════════════ -->
   <div class="slide" id="slide-37">
-    <div class="s16-left">
-      <div class="s1-brand"><span class="s1-dot"></span>public digital</div>
-      <div class="s1-sub">Thank you</div>
-    </div>
+    <div class="s16-left"><div class="s1-brand"><span class="s1-dot"></span>public digital</div><div class="s1-sub">Thank you</div></div>
     <div class="s16-right">
       <div class="s16-title">Now go make<br>something<br>worth reading.</div>
       <div class="s16-rule"></div>
       <div class="s16-ptag">Workshop facilitated by</div>
       <div class="s16-pname">Kennedy Adamu</div>
     </div>
-    <div class="snote"><strong>Speaker Note</strong>Warm and personal. Thank the room. Remind them 1:1 follow-up sessions are bookable and the resource bank is live. Leave on a high.</div>
+    <div class="snote"><strong>Speaker Note</strong>Warm and personal. Remind them 1:1 follow-up sessions are bookable. Leave on a high.</div>
   </div>
 
-</div><!-- /deck -->
+</div>
 
 <div class="nav">
   <div class="nav-brand"><div class="nav-dot"></div>public.digital</div>
@@ -1325,47 +697,16 @@ body.notes-on .snote { display: block; }
 </div>
 
 <script>
-  const TOTAL = 37;
-  let cur = 1;
-
-  function goTo(n) {
-    document.getElementById('slide-' + cur).classList.remove('active');
-    cur = Math.max(1, Math.min(n, TOTAL));
-    document.getElementById('slide-' + cur).classList.add('active');
-    document.getElementById('nav-count').textContent = cur + ' / ' + TOTAL;
-    document.getElementById('progress-bar').style.width = ((cur / TOTAL) * 100) + '%';
-  }
-
-  function nextSlide() { goTo(cur + 1); }
-  function prevSlide() { goTo(cur - 1); }
-
-  document.addEventListener('keydown', e => {
-    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); nextSlide(); }
-    if (['ArrowLeft','ArrowUp'].includes(e.key))        { e.preventDefault(); prevSlide(); }
-  });
-
-  function toggleNotes()      { document.body.classList.toggle('notes-on'); }
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
-    else document.exitFullscreen();
-  }
-
-  function toggleQuiz(row)   { row.classList.toggle('revealed'); }
-  function toggleReveal(row) { row.classList.toggle('revealed'); }
-
-  function revealAllQuiz() {
-    const rows = document.querySelectorAll('.quiz-row');
-    const anyHidden = [...rows].some(r => !r.classList.contains('revealed'));
-    rows.forEach(r => anyHidden ? r.classList.add('revealed') : r.classList.remove('revealed'));
-    document.getElementById('quiz-reveal-btn').textContent = anyHidden ? 'Hide all' : 'Reveal all';
-  }
-
-  function revealAll() {
-    const rows = document.querySelectorAll('.dnd-row');
-    const anyHidden = [...rows].some(r => !r.classList.contains('revealed'));
-    rows.forEach(r => anyHidden ? r.classList.add('revealed') : r.classList.remove('revealed'));
-    document.getElementById('reveal-all-btn').textContent = anyHidden ? 'Hide all' : 'Reveal all';
-  }
+const TOTAL=37;let cur=1;
+function goTo(n){document.getElementById('slide-'+cur).classList.remove('active');cur=Math.max(1,Math.min(n,TOTAL));document.getElementById('slide-'+cur).classList.add('active');document.getElementById('nav-count').textContent=cur+' / '+TOTAL;document.getElementById('progress-bar').style.width=((cur/TOTAL)*100)+'%';}
+function nextSlide(){goTo(cur+1);}function prevSlide(){goTo(cur-1);}
+document.addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();nextSlide();}if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();prevSlide();}});
+function toggleNotes(){document.body.classList.toggle('notes-on');}
+function toggleFullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen();}
+function toggleQuiz(row){row.classList.toggle('revealed');}
+function toggleReveal(row){row.classList.toggle('revealed');}
+function revealAllQuiz(){const rows=document.querySelectorAll('.quiz-row');const anyHidden=[...rows].some(r=>!r.classList.contains('revealed'));rows.forEach(r=>anyHidden?r.classList.add('revealed'):r.classList.remove('revealed'));document.getElementById('quiz-reveal-btn').textContent=anyHidden?'Hide all':'Reveal all';}
+function revealAll(){const rows=document.querySelectorAll('.dnd-row');const anyHidden=[...rows].some(r=>!r.classList.contains('revealed'));rows.forEach(r=>anyHidden?r.classList.add('revealed'):r.classList.remove('revealed'));document.getElementById('reveal-all-btn').textContent=anyHidden?'Hide all':'Reveal all';}
 </script>
 </body>
 </html>
