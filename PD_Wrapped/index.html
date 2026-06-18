@@ -51,6 +51,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 #s5 {background:var(--green)}
 #s6 {background:var(--grey)}
 #s8 {background:var(--grey)}
+#sev{background:var(--blue)}
 #s10{background:var(--dark)}
 #s11{background:var(--pink)}
 #s12{background:var(--dark)}
@@ -86,7 +87,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 .slide.active .tsub{animation:fdin .7s ease 1.1s both}
 .slide.active .ttap{animation:blink 2.2s ease-in-out 2s infinite,fdin .5s ease 2s forwards}
 
-/* QUESTION TYPOGRAPHY — 25% larger */
+/* QUESTION TYPOGRAPHY */
 .qpre{font-family:var(--f);font-size:clamp(17.5px,2.5vh,25px);font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(247,244,244,.42);margin-bottom:clamp(8px,1.2vh,14px)}
 .qpre.L{color:rgba(45,45,44,.36)}
 .qmain{font-family:var(--f);font-size:clamp(30px,4.6vh,48.9px);font-weight:600;color:#ffffff;line-height:1.4;max-width:840px;margin-bottom:clamp(10px,1.4vh,18px)}
@@ -99,7 +100,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 .tname{font-family:var(--f);font-size:clamp(18.75px,2.625vh,25px);font-weight:600;color:var(--white);text-align:center}
 .trole{font-family:var(--f);font-size:clamp(15px,2vh,20px);font-weight:300;color:rgba(247,244,244,.55);text-align:center;max-width:160px;line-height:1.3}
 
-/* QUIZ OPTIONS — 25% larger, Lexend Deca enforced */
+/* QUIZ OPTIONS */
 .quiz-wrap{width:100%;max-width:min(96vw,880px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,18px);margin:clamp(10px,1.5vh,20px) 0}
 .opt{display:flex;align-items:center;gap:14px;padding:clamp(17.5px,2.375vh,27.5px) clamp(22.5px,2.75vw,35px);border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);cursor:pointer;transition:border-color .2s,background .2s,transform .15s;text-align:left;opacity:0;pointer-events:none;border-radius:3px;font-family:var(--f)}
 .opt.visible{opacity:1;pointer-events:all;animation:optIn .45s cubic-bezier(.22,1,.36,1) both}
@@ -139,8 +140,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 
 /* QR SLIDE */
 #sqr .qr-big-wrap{display:flex;flex-direction:column;align-items:center;gap:clamp(22px,3vh,36px)}
-#sqr .qr-big-box{width:clamp(220px,32vh,360px);height:clamp(220px,32vh,360px);background:#f7f4f4;display:grid;place-items:center;border-radius:10px;box-shadow:0 12px 60px rgba(0,0,0,.55);animation:qrPulse 3s ease-in-out infinite}
-#sqr .qr-big-box svg{width:82%;height:82%;color:#2d2d2c}
+#sqr .qr-big-box{width:clamp(220px,32vh,360px);height:clamp(220px,32vh,360px);background:#f7f4f4;display:grid;place-items:center;border-radius:10px;box-shadow:0 12px 60px rgba(0,0,0,.55);animation:qrPulse 3s ease-in-out infinite;overflow:hidden;padding:14px}
 #sqr .qr-title{font-family:var(--f);font-weight:600;font-size:clamp(22.5px,3.375vh,33.75px);color:var(--white);letter-spacing:2px;text-transform:uppercase}
 #sqr .qr-url{font-family:var(--f);font-weight:300;font-size:clamp(17.5px,2.5vh,25px);color:rgba(247,244,244,.4);letter-spacing:1px;margin-top:-10px}
 #sqr .qr-cta{font-family:var(--f);font-size:16.25px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(247,244,244,.22);margin-top:8px}
@@ -176,7 +176,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 .media-strip{display:flex;align-items:center;justify-content:center;gap:clamp(20px,3vw,42px);flex-wrap:wrap;margin-top:clamp(20px,3vh,34px);max-width:900px}
 .media-logo{height:clamp(27.5px,4.25vh,42.5px);max-width:clamp(87.5px,11.25vw,150px);object-fit:contain;filter:grayscale(1) opacity(0.62)}
 
-/* ARTICLE SIDE PANEL (slide 8) — images 40% larger, all equal size */
+/* ARTICLE SIDE PANEL (slide 8) */
 .art-side{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.2vh,16px);padding:clamp(12px,1.8vh,24px) clamp(12px,1.6vw,22px)}
 .art-main{width:clamp(140px,22vh,240px);height:clamp(140px,22vh,240px);object-fit:contain;border-radius:6px;box-shadow:0 14px 46px rgba(0,0,0,.5)}
 .art-mini-row{display:flex;gap:clamp(6px,1vw,12px);justify-content:center}
@@ -199,12 +199,18 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 /* SLIDES s4 and s6 (dark/grey backgrounds) — force white text */
 #s4 .qpre,#s4 .qmain,#s4 .explain,#s4 .explain em,#s4 .opt-text,#s4 .opt-letter,#s4 .timer-label,#s4 .timer-num,#s4 .presenter-name,
 #s6 .qpre,#s6 .qmain,#s6 .explain,#s6 .explain em,#s6 .opt-text,#s6 .opt-letter,#s6 .timer-label,#s6 .timer-num,#s6 .presenter-name{color:#ffffff !important}
+
+/* SLIDE sev (blue background) — force white text */
+#sev .qpre,#sev .qmain,#sev .explain,#sev .explain em,#sev .opt-text,#sev .opt-letter,#sev .timer-label,#sev .timer-num,#sev .presenter-name{color:#ffffff !important}
+#sev .timer-bg{stroke:rgba(255,255,255,.15)}
+#sev .timer-fg{stroke:#ffffff}
+#sev .timer-num{color:#ffffff !important}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- PROGRESS BAR: 14 slides total (added QR slide) -->
+<!-- PROGRESS BAR: 15 slides total -->
 <div id="prog">
   <div class="ps"><div class="pf" id="p0"></div></div>
   <div class="ps"><div class="pf" id="p1"></div></div>
@@ -220,9 +226,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="ps"><div class="pf" id="p11"></div></div>
   <div class="ps"><div class="pf" id="p12"></div></div>
   <div class="ps"><div class="pf" id="p13"></div></div>
+  <div class="ps"><div class="pf" id="p14"></div></div>
 </div>
 <div id="mark">p<span class="dot">.</span>d</div>
-<div id="ctr">1 / 14</div>
+<div id="ctr">1 / 15</div>
 <button class="nb" id="bp" aria-label="Previous"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
 <button class="nb" id="bn" aria-label="Next"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
 
@@ -242,7 +249,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 1 · TEAM (no QR, Niall removed) ═══ -->
+<!-- ═══ SLIDE 1 · TEAM ═══ -->
 <div class="slide" id="s1">
   <div class="sh" style="width:50vh;height:50vh;right:-12vh;top:50%;transform:translateY(-50%)"></div>
   <div class="cc">
@@ -270,44 +277,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
       <div class="qr-title" style="animation:up .5s ease .1s both">Scan to join</div>
       <div class="qr-url" style="animation:up .5s ease .25s both">publicdigital.com</div>
       <div class="qr-big-box" style="animation:up .65s cubic-bezier(.22,1,.36,1) .4s both">
-        <!-- Large QR code SVG -->
-        <svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-          <rect x="0" y="0" width="11" height="11"/>
-          <rect x="2" y="2" width="7" height="7" fill="#f7f4f4"/>
-          <rect x="4" y="4" width="3" height="3"/>
-          <rect x="26" y="0" width="11" height="11"/>
-          <rect x="28" y="2" width="7" height="7" fill="#f7f4f4"/>
-          <rect x="30" y="4" width="3" height="3"/>
-          <rect x="0" y="26" width="11" height="11"/>
-          <rect x="2" y="28" width="7" height="7" fill="#f7f4f4"/>
-          <rect x="4" y="30" width="3" height="3"/>
-          <rect x="13" y="0" width="3" height="3"/>
-          <rect x="17" y="0" width="3" height="3"/>
-          <rect x="21" y="0" width="3" height="3"/>
-          <rect x="13" y="4" width="7" height="3"/>
-          <rect x="13" y="9" width="3" height="3"/>
-          <rect x="19" y="9" width="3" height="3"/>
-          <rect x="13" y="13" width="3" height="11"/>
-          <rect x="17" y="13" width="7" height="3"/>
-          <rect x="17" y="17" width="3" height="3"/>
-          <rect x="21" y="13" width="3" height="7"/>
-          <rect x="0" y="13" width="3" height="3"/>
-          <rect x="4" y="13" width="7" height="3"/>
-          <rect x="4" y="17" width="3" height="9"/>
-          <rect x="8" y="21" width="3" height="5"/>
-          <rect x="0" y="21" width="3" height="5"/>
-          <rect x="26" y="13" width="11" height="3"/>
-          <rect x="26" y="17" width="3" height="3"/>
-          <rect x="30" y="17" width="7" height="7"/>
-          <rect x="26" y="21" width="3" height="3"/>
-          <rect x="17" y="26" width="3" height="11"/>
-          <rect x="21" y="26" width="3" height="3"/>
-          <rect x="21" y="30" width="7" height="3"/>
-          <rect x="26" y="26" width="3" height="3"/>
-          <rect x="30" y="26" width="3" height="3"/>
-          <rect x="34" y="26" width="3" height="11"/>
-          <rect x="30" y="30" width="3" height="7"/>
-        </svg>
+        <img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/def922ed-34f1-4562-a3c6-0afebaf98ef0/QR+Code+for+Marketing+Team+Summer+G.png?content-type=image%2Fpng" alt="QR Code" style="width:100%;height:100%;object-fit:contain;display:block">
       </div>
       <div class="qr-cta" style="animation:fdin .5s ease 1.2s both">Point your camera here</div>
     </div>
@@ -329,7 +299,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 3 · Q2 — Follower growth (Kennedy) — ALL TEXT BLACK ═══ -->
+<!-- ═══ SLIDE 3 · Q2 — Follower growth (Kennedy) ═══ -->
 <div class="slide" id="s3">
   <div class="sh" style="width:44vh;height:44vh;left:-8vh;bottom:-8vh;opacity:.6"></div>
   <div style="position:absolute;left:-20%;right:-20%;top:40%;height:2px;background:rgba(0,0,0,.07);transform:rotate(10deg)"></div>
@@ -398,7 +368,23 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 8 · Q7 — Books (Rosemary) ═══ -->
+<!-- ═══ SLIDE 8 · Q7 — Events (Christine) ═══ -->
+<div class="slide" id="sev">
+  <div class="sh" style="width:54vh;height:54vh;right:-14vh;top:50%;transform:translateY(-50%);opacity:.08;border-width:3px"></div>
+  <div class="sh" style="width:30vh;height:30vh;left:-8vh;top:15%;opacity:.05"></div>
+  <div style="position:absolute;left:-20%;right:-20%;top:25%;height:2px;background:rgba(255,255,255,.06);transform:rotate(-6deg)"></div>
+  <div style="position:absolute;left:-20%;right:-20%;top:75%;height:2px;background:rgba(255,255,255,.06);transform:rotate(-6deg)"></div>
+  <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/41bc5ca9-e28e-470a-b21e-eaa27edcb59f/Christine+Draper+-+Marketing+and+Events+Manager.webp?content-type=image%2Fwebp" alt="Christine"><div class="presenter-name">Christine</div></div>
+  <div class="cc" style="padding-bottom:100px">
+    <div class="qpre" id="sev-pre" style="opacity:0">PD didn't just show up online.</div>
+    <div class="qmain" id="sev-q" style="opacity:0">The team was out in the world too — attending, speaking, and sponsoring. How many external events did PD take part in this year?</div>
+    <div class="timer-wrap" id="sev-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="sev-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="sev-tnum">10</div></div><div class="timer-label">seconds</div></div>
+    <div class="quiz-wrap" id="sev-opts"></div>
+    <div class="explain" id="sev-exp"><em>85+ events</em> across attending, speaking, and sponsoring. That's nearly two every single week — PD was in the room all year.</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 9 · Q8 — Books (Rosemary) ═══ -->
 <div class="slide" id="s10">
   <div style="width:100%;height:100%;display:grid;grid-template-columns:62% 38%;position:relative">
     <div class="sh" style="width:36vh;height:36vh;right:-5vh;top:50%;transform:translateY(-50%);opacity:.07;border-width:3px"></div>
@@ -416,7 +402,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 9 · Q8 — National media mentions (Christine) ═══ -->
+<!-- ═══ SLIDE 10 · Q9 — National media mentions (Christine) ═══ -->
 <div class="slide" id="s11">
   <div style="position:absolute;left:-20%;right:-20%;top:26%;height:2px;background:rgba(45,45,44,.06);transform:rotate(-10deg)"></div>
   <div style="position:absolute;left:-20%;right:-20%;top:55%;height:2px;background:rgba(45,45,44,.06);transform:rotate(-10deg)"></div>
@@ -439,14 +425,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 10 · Q9 — Forbes reach (Christine) ═══ -->
+<!-- ═══ SLIDE 11 · Q10 — Forbes reach (Christine) ═══ -->
 <div class="slide" id="s12">
   <div style="width:100%;height:100%;display:grid;grid-template-columns:62% 38%;position:relative">
     <div class="sh" style="width:40vh;height:40vh;right:-7vh;top:50%;transform:translateY(-50%);opacity:.06;border-width:3px"></div>
     <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/41bc5ca9-e28e-470a-b21e-eaa27edcb59f/Christine+Draper+-+Marketing+and+Events+Manager.webp?content-type=image%2Fwebp" alt="Christine"><div class="presenter-name">Christine</div></div>
     <div style="padding:clamp(48px,6vh,72px) clamp(24px,2.8vw,42px) clamp(20px,3vh,40px) clamp(56px,4.5vw,76px);overflow-y:auto;display:flex;flex-direction:column;justify-content:center;border-right:1.5px solid rgba(255,255,255,.12)">
       <div class="qpre" id="s12-pre" style="opacity:0">This is the big one.</div>
-      <div class="qmain" id="s12-q" style="opacity:0;font-size:clamp(22px,3.2vh,36px)">PD's most impactful press moment: Adina's article went global via Forbes. How many people could have read it?</div>
+      <div class="qmain" id="s12-q" style="opacity:0;font-size:clamp(22px,3.2vh,36px)">PD's most impactful press moment: Adina's rejection letter went global via Forbes. How many people could have read it?</div>
       <div class="timer-wrap" id="s12-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="s12-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="s12-tnum">10</div></div><div class="timer-label">seconds</div></div>
       <div class="quiz-wrap" id="s12-opts" style="grid-template-columns:1fr;max-width:100%"></div>
       <div class="explain" id="s12-exp">That's <em>150M+ estimated Forbes readers</em> — twice the population of the UK. One article. World reach.</div>
@@ -457,7 +443,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 11 · Q10 — Client story views (Rosemary) ═══ -->
+<!-- ═══ SLIDE 12 · Q11 — Client story views (Rosemary) ═══ -->
 <div class="slide" id="s15">
   <div class="sh" style="width:48vh;height:48vh;right:-12vh;top:50%;transform:translateY(-50%)"></div>
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/1981bdeb-3d78-4797-991a-6ea93f91e1cf/Rosemary+Evans+-+Content+Manager.webp?content-type=image%2Fwebp" alt="Rosemary"><div class="presenter-name">Rosemary</div></div>
@@ -470,7 +456,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   </div>
 </div>
 
-<!-- ═══ SLIDE 12 · OUTRO (Christine) ═══ -->
+<!-- ═══ SLIDE 13 · OUTRO (Christine) ═══ -->
 <div class="slide" id="s17">
   <canvas id="cv" style="position:absolute;inset:0;pointer-events:none;z-index:8;width:100%;height:100%"></canvas>
   <div class="cbar">
@@ -488,15 +474,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 </div><!-- end #app -->
 
 <script>
-/* ─── SLIDE ORDER (14 total — QR slide added after team slide) ─── */
-const SLIDE_IDS = ['s0','s1','sqr','s2','s3','s4','s5','s6','s8','s10','s11','s12','s15','s17'];
+/* ─── SLIDE ORDER (15 total) ─── */
+const SLIDE_IDS = ['s0','s1','sqr','s2','s3','s4','s5','s6','s8','sev','s10','s11','s12','s15','s17'];
 const N = SLIDE_IDS.length;
 
-/* Light-theme slides: s11 (pink) = index 10 */
-const LIGHT = new Set([10]);
+/* Light-theme slides: s11 (pink) = index 11 */
+const LIGHT = new Set([11]);
 
 /* Quiz slides by index in SLIDE_IDS */
-const QUIZ_INDICES = new Set([3,4,5,6,7,8,9,10,11,12]);
+const QUIZ_INDICES = new Set([3,4,5,6,7,8,9,10,11,12,13]);
 
 let cur = 0;
 
@@ -516,7 +502,7 @@ function shuffle(arr){
   return a;
 }
 
-/* ─── QUIZ DATA (keyed by slide DOM id) ─── */
+/* ─── QUIZ DATA ─── */
 const QUESTIONS = {
   's2':{isLight:true, options:shuffle([
     {label:'279', correct:true},
@@ -553,6 +539,12 @@ const QUESTIONS = {
     {label:'What does broken government IT from 2010 have to do with the UK\'s water crisis?', correct:false},
     {label:'The hidden value of service design: the case of Nigerian ATMs', correct:false},
     {label:'Why digital government needs to think like a product company', correct:false},
+  ])},
+  'sev':{isLight:false, options:shuffle([
+    {label:'85', correct:true},
+    {label:'42',  correct:false},
+    {label:'120', correct:false},
+    {label:'60',  correct:false},
   ])},
   's10':{isLight:false, options:shuffle([
     {label:'3,000 copies', correct:true},
@@ -698,7 +690,7 @@ function revealAnswers(idx, sid){
 const TIMER_SECS = {
   's2': 10, 's3': 10, 's4': 10, 's5': 10,
   's6': 10,
-  's8': 10, 's10': 10,
+  's8': 10, 'sev': 10, 's10': 10,
   's11': 10,
   's12': 10, 's15': 10,
 };
