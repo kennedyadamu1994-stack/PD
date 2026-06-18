@@ -102,7 +102,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
 
 /* QUIZ OPTIONS */
 .quiz-wrap{width:100%;max-width:min(96vw,880px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,18px);margin:clamp(10px,1.5vh,20px) 0}
-.opt{display:flex;align-items:center;gap:14px;padding:clamp(17.5px,2.375vh,27.5px) clamp(22.5px,2.75vw,35px);border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);cursor:pointer;transition:border-color .2s,background .2s,transform .15s;text-align:left;border-radius:3px;font-family:var(--f);animation:optIn .4s cubic-bezier(.22,1,.36,1) both}
+.opt{display:flex;align-items:center;gap:14px;padding:clamp(17.5px,2.375vh,27.5px) clamp(22.5px,2.75vw,35px);border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);cursor:pointer;transition:border-color .2s,background .2s,transform .15s,opacity .3s;text-align:left;border-radius:3px;font-family:var(--f);opacity:0}
 
 .opt:hover:not(.correct):not(.wrong){border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.14);transform:translateY(-2px)}
 .opt.L{border-color:rgba(45,45,44,.22);background:rgba(45,45,44,.06)}
@@ -296,7 +296,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/b1e9071d-e6b2-4c82-a650-5b7d1a7ee00b/Kennedy+Adamu+-+Social+Media+Manager.webp?content-type=image%2Fwebp" alt="Kennedy"><div class="presenter-name">Kennedy</div></div>
   <div class="cc" style="padding-bottom:100px">
     <div class="qpre" id="s2-pre">Let's start with the basics.</div>
-    <div class="qmain" id="s2-q">How many social media posts did we publish this year?</div>
+    <div class="qmain" id="s2-q">The marketing team was posting on behalf of Public Digital all year. How many social media posts did they publish this year?</div>
     <div class="timer-wrap" id="s2-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="s2-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="s2-tnum">10</div></div><div class="timer-label">seconds</div></div>
     <div class="quiz-wrap" id="s2-opts"></div>
     <div class="explain" id="s2-exp">That's <em>one post for every single working day of the year.</em> The team never stopped.</div>
@@ -310,7 +310,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/b1e9071d-e6b2-4c82-a650-5b7d1a7ee00b/Kennedy+Adamu+-+Social+Media+Manager.webp?content-type=image%2Fwebp" alt="Kennedy"><div class="presenter-name">Kennedy</div></div>
   <div class="cc" style="padding-bottom:100px">
     <div class="qpre L" id="s3-pre">Speaking of landing…</div>
-    <div class="qmain L" id="s3-q">How much did PD's social media following grow over the last 12 months?</div>
+    <div class="qmain L" id="s3-q">All those posts had to be doing something. How much did PD's social media following grow over the last 12 months?</div>
     <div class="timer-wrap" id="s3-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" stroke-dasharray="138.2" fill="none" stroke-width="4" stroke="rgba(0,0,0,.12)"/><circle class="timer-fg" id="s3-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0" fill="none" stroke-width="4" style="stroke:#000000"/></svg><div class="timer-num" id="s3-tnum">10</div></div><div class="timer-label">seconds</div></div>
     <div class="quiz-wrap" id="s3-opts"></div>
     <div class="explain L" id="s3-exp">Nearly a third more people are now following Public Digital. <em>The audience is growing.</em></div>
@@ -338,7 +338,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/b1e9071d-e6b2-4c82-a650-5b7d1a7ee00b/Kennedy+Adamu+-+Social+Media+Manager.webp?content-type=image%2Fwebp" alt="Kennedy"><div class="presenter-name">Kennedy</div></div>
   <div class="cc" style="padding-bottom:100px">
     <div class="qpre" id="s5-pre">And the audience kept growing…</div>
-    <div class="qmain" id="s5-q">How many people now subscribe to the PD monthly newsletter?</div>
+    <div class="qmain" id="s5-q">The newsletter landed every month. How many people now subscribe to the PD monthly newsletter?</div>
     <div class="timer-wrap" id="s5-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="s5-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="s5-tnum">10</div></div><div class="timer-label">seconds</div></div>
     <div class="quiz-wrap" id="s5-opts"></div>
     <div class="explain" id="s5-exp">Up <em>40% in a year.</em> People aren't just following PD — they're actively asking for content delivered to their inbox.</div>
@@ -352,7 +352,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/1981bdeb-3d78-4797-991a-6ea93f91e1cf/Rosemary+Evans+-+Content+Manager.webp?content-type=image%2Fwebp" alt="Rosemary"><div class="presenter-name">Rosemary</div></div>
   <div class="cc" style="padding-bottom:100px">
     <div class="qpre" id="s6-pre">Those 13,000 subscribers were getting emails.</div>
-    <div class="qmain" id="s6-q">What was PD's email open rate this year?</div>
+    <div class="qmain" id="s6-q">But were people actually reading them? What was PD's email open rate this year?</div>
     <div class="timer-wrap" id="s6-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="s6-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="s6-tnum">10</div></div><div class="timer-label">seconds</div></div>
     <div class="quiz-wrap" id="s6-opts"></div>
     <div class="explain" id="s6-exp"><em>34.6%</em> — well above industry average. People weren't just subscribed. They were engaged.</div>
@@ -381,7 +381,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
   <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/41bc5ca9-e28e-470a-b21e-eaa27edcb59f/Christine+Draper+-+Marketing+and+Events+Manager.webp?content-type=image%2Fwebp" alt="Christine"><div class="presenter-name">Christine</div></div>
   <div class="cc" style="padding-bottom:100px">
     <div class="qpre" id="sev-pre">PD didn't just show up online.</div>
-    <div class="qmain" id="sev-q">How many external events did PD take part in this year?</div>
+    <div class="qmain" id="sev-q">The team was out in the world too — attending, speaking, and sponsoring. How many external events did PD take part in this year?</div>
     <div class="timer-wrap" id="sev-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="sev-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="sev-tnum">10</div></div><div class="timer-label">seconds</div></div>
     <div class="quiz-wrap" id="sev-opts"></div>
     <div class="explain" id="sev-exp"><em>85+ events</em> across attending, speaking, and sponsoring. That's nearly two every single week — PD was in the room all year.</div>
@@ -436,7 +436,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var
     <div class="presenter" style="bottom:62px;left:52px"><img src="https://images.squarespace-cdn.com/content/6718416feaa24175e29324d4/41bc5ca9-e28e-470a-b21e-eaa27edcb59f/Christine+Draper+-+Marketing+and+Events+Manager.webp?content-type=image%2Fwebp" alt="Christine"><div class="presenter-name">Christine</div></div>
     <div style="padding:clamp(48px,6vh,72px) clamp(24px,2.8vw,42px) clamp(20px,3vh,40px) clamp(56px,4.5vw,76px);overflow-y:auto;display:flex;flex-direction:column;justify-content:center;border-right:1.5px solid rgba(255,255,255,.12)">
       <div class="qpre" id="s12-pre">This is the big one.</div>
-      <div class="qmain" id="s12-q" style="font-size:clamp(22px,3.2vh,36px)">PD's most impactful press moment: Adina's rejection letter via Forbes. How many people could have read it?</div>
+      <div class="qmain" id="s12-q" style="font-size:clamp(22px,3.2vh,36px)">PD's most impactful press moment: Adina's article went global via Forbes. How many people could have read it?</div>
       <div class="timer-wrap" id="s12-timer"><div class="timer-ring"><svg width="52" height="52" viewBox="0 0 52 52"><circle class="timer-bg" cx="26" cy="26" r="22" stroke-dasharray="138.2"/><circle class="timer-fg" id="s12-ring" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="0"/></svg><div class="timer-num" id="s12-tnum">10</div></div><div class="timer-label">seconds</div></div>
       <div class="quiz-wrap" id="s12-opts" style="grid-template-columns:1fr;max-width:100%"></div>
       <div class="explain" id="s12-exp">That's <em>150M+ estimated Forbes readers</em> — twice the population of the UK. One article. World reach.</div>
@@ -521,9 +521,9 @@ const QUESTIONS = {
     {label:'24%', correct:false},
   ])},
   's4':{isLight:false, options:shuffle([
-    {label:'Ben's CBE annoucement', correct:true},
+    {label:'Our CEO Ben Terrett appointed CBE', correct:true},
     {label:'Gurpreet Sehmi new Head of Central Government', correct:false},
-    {label:'Welcoming Gonzalo Loayza', correct:false},
+    {label:'Welcoming Gonzalo Loayza as Principal Consultant', correct:false},
     {label:"The Launch of our Podcast", correct:false},
   ])},
   's5':{isLight:false, options:shuffle([
@@ -545,7 +545,7 @@ const QUESTIONS = {
     {label:'Why digital government needs to think like a product company', correct:false},
   ])},
   'sev':{isLight:false, options:shuffle([
-    {label:'85', correct:true},
+    {label:'85+', correct:true},
     {label:'42',  correct:false},
     {label:'120', correct:false},
     {label:'60',  correct:false},
@@ -648,8 +648,10 @@ function buildOptions(idx, sid){
   wrap.innerHTML='';
   q.options.forEach((opt,i)=>{
     const btn=document.createElement('button');
+    btn.type='button';
     btn.className='opt'+(q.isLight?' L':'');
     btn.style.animationDelay=(i*0.07)+'s';
+    btn.style.pointerEvents='all';
     btn.dataset.correct=opt.correct?'1':'0';
     btn.innerHTML=`<span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt.label}</span>`;
     btn.addEventListener('click',e=>{
@@ -659,6 +661,7 @@ function buildOptions(idx, sid){
       revealAnswers(idx, sid);
     });
     wrap.appendChild(btn);
+    setTimeout(()=>{ btn.style.opacity='1'; }, 20 + i*70);
   });
 }
 
@@ -666,6 +669,7 @@ function revealAnswers(idx, sid){
   const wrap=document.getElementById(sid+'-opts'); if(!wrap) return;
   wrap.querySelectorAll('.opt').forEach(b=>{
     b.style.pointerEvents='none';
+    b.style.cursor='default';
     b.classList.add(b.dataset.correct==='1'?'correct':'wrong');
   });
   setTimeout(()=>{
